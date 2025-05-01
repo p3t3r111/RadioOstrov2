@@ -1,4 +1,4 @@
-<footer class="footer p-6 bottom-0 bg-[#cccccc57]">
+<footer class="footer p-6 bottom-0 bg-[#cccccc57] flex items-center justify-center">
   <div class="container">
     <div class="border-b-[1px] border-[#dee2e6]">
       <div class="column is-3 mb-5 flex justify-between">
