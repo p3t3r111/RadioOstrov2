@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use SpotifyWebAPI\SpotifyWebAPI; //https://github.com/jwilsson/spotify-web-api-php
 use SpotifyWebAPI\Session;
 
-class cronJOBaddSONGS extends Controller
+class CronJobAddSongsController extends Controller
 {
     public function index()
     {
@@ -42,6 +42,7 @@ class cronJOBaddSONGS extends Controller
                 $track_uris[] = ["uri" => $item->track->uri];
             }
         }
+        dump($track_uris);
         if (count($track_uris) > 0) {
 
             $request_body = [

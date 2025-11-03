@@ -7,7 +7,7 @@ Rádio ostrov
 @section('content')
 
 {{-- Welcome --}}
-<section class="pt-12 hero hero-img max-h-[80vh] lg:min-h-[60vh] flex flex-col justify-center items-center flex-grow flex-shrink-0 p-12 gap-2 " style="background-image: url('{{ asset('assets/bg/default/bg.png') }}')">
+<section class="pt-12 hero hero-img max-h-[80vh] lg:min-h-[60vh] flex flex-col justify-center items-center  p-12 gap-2 " style="background-image: url('{{ asset('assets/bg/default/bg.png') }}')">
   <div class="hero-body">
     <div class="flex flex-col items-center gap-2 mt-6"> {{--  mt-28 --}}
       <img src="{{ asset('assets/logo-white.png') }}" alt="Logo školy : Stredná odborná škola informačných technológií, Ostrovského 1, Košice"id="logoHero" class="mb-2 lg:mb-5 max-w-20 lg:max-w-32">

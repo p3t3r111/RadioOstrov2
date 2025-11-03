@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class cronJOBcreateVoteResultImg extends Controller
+class CronJobCreateVoteResultImg extends Controller
 {
     public function index()
     {

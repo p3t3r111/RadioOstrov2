@@ -160,6 +160,10 @@ class VoteController extends Controller
                         array_push($songsArray, $songArray);
                     }
 
+                    if (count($songsArray) < 5) {
+                        return view("vote.noActiveVote");
+                    }
+
                     return view(
                         "vote.activeVote",
                         [

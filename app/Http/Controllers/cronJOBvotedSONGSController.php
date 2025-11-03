@@ -10,7 +10,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class cronJOBvotedSONGSController extends Controller
+class CronJobVotedSongsController extends Controller
 {
     public function index()
     {
@@ -36,12 +36,6 @@ class cronJOBvotedSONGSController extends Controller
             }
         }
         foreach ($song_query as $song) {
-
-            $exists = Vote::where('songs_id', $song->songId)->where('datum', $votingDateNEW)->exists();
-            if ($exists) {
-                continue;
-            }
-
             $userid = -3;
             $username = "bot";
             $songid = $song->songId;

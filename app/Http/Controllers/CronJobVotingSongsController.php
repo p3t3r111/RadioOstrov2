@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spotify;
 
-class cronJOBvotesSONGSController extends Controller
+class CronJobVotingSongsController extends Controller
 {
     public function index()
     {
@@ -21,7 +21,7 @@ class cronJOBvotesSONGSController extends Controller
         $songs = 0;
         $songs = Song::where('confirmed', 1)->get();
         $songsCount = count($songs);
-        dump(count($songs));
+        dump($songsCount);
         if ($songsCount >= 0) {
             // user songs
             dump('if');
@@ -31,7 +31,6 @@ class cronJOBvotesSONGSController extends Controller
             foreach ($songsIds as $song) {
                 array_push($songsIdsArray, $song->id);
             }
-            dump($songsIdsArray);
             for ($i = 0; count($songVotesList) < 10; $i++) {
                 $randomNumber = rand(1, count($songsIdsArray)) - 1;
                 $randomId = $songsIdsArray[$randomNumber];
@@ -40,7 +39,6 @@ class cronJOBvotesSONGSController extends Controller
                     array_push($songVotesList, $randomSong);
                 }
             }
-            dump($songVotesList);
 
             active_voting_song::truncate();
 
@@ -62,7 +60,6 @@ class cronJOBvotesSONGSController extends Controller
             }
         } else {
             //backup songs
-            dd('else');
             active_voting_song::truncate();
             foreach ($songs as $song) {
                 dump($songs);
@@ -91,7 +88,6 @@ class cronJOBvotesSONGSController extends Controller
             }
         }
 
-        echo "done";
         dd('done');
     }
 }

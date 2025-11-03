@@ -11,16 +11,19 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
 
-    public function authCheck()
+    public function index()
     {
         $dayOfWeek = null;
-        $dateNow = Carbon::now()->format('Y-m-d');
+        $dateNow = Carbon::now()->format('Y-m-d H:i:s');
         $dateNowUNIX = strtotime($dateNow);
         $dateIntervals = VotingDates::all("from", "to")->toArray();
         foreach ($dateIntervals as $dateInterval) {
+            $dateInterval["from"] = Carbon::createFromFormat('Y-m-d', $dateInterval["from"])->setTime(config('app.voting_hours'), 0, 0);
+            $dateInterval["to"] = Carbon::createFromFormat('Y-m-d', $dateInterval["to"])->setTime(config('app.voting_hours'), 0, 0);
+            
             $fromUNIX = strtotime($dateInterval["from"]);
             $toUNIX = strtotime($dateInterval["to"]);
-
+            
             if ($dateNowUNIX >= $fromUNIX && $dateNowUNIX <= $toUNIX) {
                 $votingDateUNIX = $toUNIX + 86400;
                 $dayOfWeek = date("w", $votingDateUNIX);
@@ -48,9 +51,7 @@ class HomeController extends Controller
         $fridayFROM = Carbon::createFromFormat('Y-m-d', $fridayFROM)->format('d.m.Y');
         $fridayTO = $dateIntervals[4]["to"];
         $fridayTO = Carbon::createFromFormat('Y-m-d', $fridayTO)->format('d.m.Y');
-
-        // dd($dayOfWeek);
-
+        
         return View('index', ['activeVotingDay' => $dayOfWeek, 'mondayFrom' => $mondayFROM, 'tuesdayFrom' => $tuesdayFROM, 'wednesdayFrom' => $wednesdayFROM, 'thursdayFrom' => $thursdayFROM, 'fridayFrom' => $fridayFROM, 'mondayTo' => $mondayTO, 'tuesdayTo' => $tuesdayTO, 'wednesdayTo' => $wednesdayTO, 'thursdayTo' => $thursdayTO, 'fridayTo' => $fridayTO]);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\VotingDates;
 use Carbon\Carbon;
 
-class cronJOBvotesDATESController extends Controller
+class CronJobVotingDatesController extends Controller
 {
     public function index()
     {

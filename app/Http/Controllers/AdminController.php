@@ -198,7 +198,6 @@ class AdminController extends Controller
         } else {
             return redirect()->back();
         }
-        // dd($songInfo);
 
         // item['songId'] = songId
         // item['imgPath'] = thumbnail_url
