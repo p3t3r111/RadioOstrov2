@@ -13,6 +13,7 @@ use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 Route::view('/ochrana-udajov', 'ochrana_udajov')->name('ochranaUdajov');
 
@@ -69,7 +70,7 @@ Route::get('cronIMAGE', [ImageGeneratorController::class, 'index'])->name('cronI
 Route::get('cronAddSONGS', [CronJobAddSongsController::class, 'index'])->name('cronJOBaddSONGS.index');
 Route::get('cronCreateImage', [CronJobCreateVoteResultImg::class, 'index'])->name('cronJOBcreateImage.index');
 
-Route::middleware(['auth','isAdmin'])->get('/spotify/search', function () {
+Route::middleware(['auth'])->get('/spotify/search', function () {
     $token = cache()->remember('spotify_token', 3600, function () {
         $response = Http::asForm()->post('https://accounts.spotify.com/api/token', [
             'grant_type' => 'client_credentials',
@@ -82,7 +83,6 @@ Route::middleware(['auth','isAdmin'])->get('/spotify/search', function () {
 
     $query = request('q');
     if (!$query) return response()->json(['tracks' => []]);
-
     $response = Http::withToken($token)->get('https://api.spotify.com/v1/search', [
         'q' => $query,
         'type' => 'track',
