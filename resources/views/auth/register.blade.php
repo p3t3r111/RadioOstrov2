@@ -66,7 +66,7 @@
             </div>
         </form>--}}
         {{-- Back to login --}}
-        <div class="field text-[#305582] text-sm md:text-base">
+        <div class="field text-[#305582] text-sm md:text-base self-center">
             <p class="register"><a href="login" class="register">Späť na prihlásenie</a></p>
         </div>
     </div>
