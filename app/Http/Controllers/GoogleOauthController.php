@@ -17,18 +17,24 @@ class GoogleOauthController extends Controller
     public function callback()
     {
         $googleUser = Socialite::driver('google')->user();
-        $user = User::updateOrCreate([
-            'email' => $googleUser->email,
-        ], [
-            'name' => $googleUser->name,
-            'email' => $googleUser->email,
-            'google_token' => $googleUser->token,
-            'google_refresh_token' => $googleUser->refreshToken,
-            'google_id' => $googleUser->id,
-            'email_verified_at' => now()->timestamp,
-        ]);
+        $user = User::where('email', $googleUser->getEmail())->first();
+        if ($user and $user->google_id) {
+            // Používateľ existuje → prihlásiť
+            Auth::login($user);
+        } else {
+            $user = User::updateOrCreate([
+                'email' => $googleUser->email,
+            ], [
+                'name' => $googleUser->name,
+                'email' => $googleUser->email,
+                'google_token' => $googleUser->token,
+                'google_refresh_token' => $googleUser->refreshToken,
+                'google_id' => $googleUser->id,
+                'email_verified_at' => now()->timestamp,
+            ]);
 
-        Auth::login($user);
+            Auth::login($user);
+        }
 
         return redirect('/');
     }
