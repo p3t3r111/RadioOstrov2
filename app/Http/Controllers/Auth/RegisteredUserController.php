@@ -28,7 +28,8 @@ class RegisteredUserController extends Controller
                 'second_name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class, 'regex:/^[a-zA-Z0-9._%+-]+@ostrovskeho\.com$/'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'ochrana-osobnych-udajov' => ['required']
+                'ochrana-osobnych-udajov' => ['required'],
+                'off' => ["required"] //disable basic register
             ],
             // Vlastné chybové hlášky
             [
