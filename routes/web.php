@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CronJobAddSongsController;
-use App\Http\Controllers\cronJOBcreateVoteResultImg;
+use App\Http\Controllers\CronJobCreateVoteResultImg;
 use App\Http\Controllers\CronJobVotedSongsController;
 use App\Http\Controllers\CronJobVotingDatesController;
 use App\Http\Controllers\CronJobVotingSongsController;
