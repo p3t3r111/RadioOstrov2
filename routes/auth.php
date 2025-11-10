@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\GoogleOauthController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -36,6 +37,14 @@ Route::middleware('guest')->group(function () {
 
 
     Route::view('/ochrana-osobnych-udajov', 'ochrana_udajov');
+
+    Route::controller(GoogleOauthController::class)
+        ->prefix('auth/google')
+        ->name('google.')
+        ->group(function () {
+            Route::get('redirect', 'redirect')->name('redirect');
+            Route::get('callback', 'callback')->name('callback');
+        });
 });
 
 Route::middleware('auth')->group(function () {

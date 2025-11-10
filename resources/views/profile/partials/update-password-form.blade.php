@@ -1,7 +1,11 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-black">
-            {{ __('Aktualizovať heslo') }}
+            @if (Auth::user()->password == null)
+                {{ __('Nastaviť heslo') }}
+            @else
+                {{ __('Aktualizovať heslo') }}
+            @endif
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
@@ -13,13 +17,16 @@
         @csrf
         @method('put')
 
-        <div class="text-black">
-            <label class="block font-medium text-sm text-black" for="update_password_current_password">
-                Aktuálne heslo
-            </label>
-            <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" id="update_password_current_password" name="current_password" type="password" autocomplete="current-password">
-            <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
-        </div>
+        @if (Auth::user()->password)
+            <div class="text-black">
+                <label class="block font-medium text-sm text-black" for="update_password_current_password">
+                    Aktuálne heslo
+                </label>
+                <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                    id="update_password_current_password" name="current_password" type="password" autocomplete="current-password">
+                <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
+            </div>
+        @endif
 
         <div>
             <label class="block font-medium text-sm text-black" for="update_password_password">
