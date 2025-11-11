@@ -26,10 +26,12 @@
                 class="button is-login bg-[#305582] hover:bg-[#305582b8] text-white w-full border-transparent rounded-lg cursor-pointer text-center px-4 py-2"
                 type="submit" value="Prihlásiť sa"></input>
         </div>
-        <div class="field flex justify-between text-[#305582]">
-            <div class="register  text-sm md:text-base"><a href="register" class="register">Registrácia</a></div>
-            <div class="lostPassword  text-sm md:text-base"><a href="forgot-password"
-                    class="is-pulled-right lost-password">Zabudnuté heslo</a>
+        <div class="field flex justify-between text-[#305582] items-end {{ Route::has('register') ? 'flex-row' : 'flex-col' }}">
+            @if (Route::has('register'))
+            <div class="register  text-sm md:text-base"><a href="{{ route('register') }}" class="register">Registrácia</a></div>
+            @endif
+            <div class="lostPassword  text-sm md:text-base"><a href="{{ route('password.request') }}"
+                class="is-pulled-right lost-password">Zabudnuté heslo</a>
             </div>
         </div>
     </form>
