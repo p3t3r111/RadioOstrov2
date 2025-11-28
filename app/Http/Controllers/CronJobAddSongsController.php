@@ -29,7 +29,6 @@ class CronJobAddSongsController extends Controller
 
         $session->refreshAccessToken($refresh_token);
         $accessToken = $session->getAccessToken();
-
         $api = new SpotifyWebAPI();
         $api->setAccessToken($accessToken);
 

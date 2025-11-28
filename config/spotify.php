@@ -6,6 +6,7 @@ return [
     'client_secret' => env('SPOTIFY_CLIENT_SECRET'),
     'refresh_token' => env('SPOTIFY_REFRESH_TOKEN'),
     'playlist_id' => env('SPOTIFY_PLAYLIST_ID'),
+    'device_id' => env('SPOTIFY_DEVICE_ID'),
 
 
     /*

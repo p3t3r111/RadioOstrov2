@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\active_voting_song;
 use App\Models\Song;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spotify;
 
@@ -21,10 +20,8 @@ class CronJobVotingSongsController extends Controller
         $songs = 0;
         $songs = Song::where('confirmed', 1)->get();
         $songsCount = count($songs);
-        dump($songsCount);
         if ($songsCount >= 0) {
             // user songs
-            dump('if');
             $songVotesList = [];
             $songsIds = Song::where('confirmed', 1)->get('id');
             $songsIdsArray = [];
@@ -45,7 +42,6 @@ class CronJobVotingSongsController extends Controller
             $i = 0;
             foreach ($songVotesList as $item) {
                 if (trim($item)) {
-                    dump($item->title);
                     $song = active_voting_song::where('songId', trim($item->songId))->first();
                     if (!$song) {
                         $song = new active_voting_song();
@@ -59,10 +55,8 @@ class CronJobVotingSongsController extends Controller
                 }
             }
         } else {
-            //backup songs
             active_voting_song::truncate();
             foreach ($songs as $song) {
-                dump($songs);
                 $json = Spotify::searchTracks($song)->limit(1)->get('tracks');
                 $songArray2 = [
                     'songId' => $json['items'][0]['id'],
@@ -70,7 +64,7 @@ class CronJobVotingSongsController extends Controller
                     'author' => $json['items'][0]['artists'][0]['name'],
                     'title' => $json['items'][0]['name'],
                 ];
-                dump($songArray2);
+
                 // $songArray2['songId'] = songId
                 // $songArray2['imgPath'] = thumbnail_url
                 // $songArray2['author'] = author
@@ -84,7 +78,6 @@ class CronJobVotingSongsController extends Controller
                     $songDB->title = trim($songArray2['title']);
                     $songDB->save();
                 }
-                dump($songDB);
             }
         }
 

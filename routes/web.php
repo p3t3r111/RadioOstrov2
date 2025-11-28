@@ -1,19 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CronJobAddSongsController;
-use App\Http\Controllers\CronJobCreateVoteResultImg;
-use App\Http\Controllers\CronJobVotedSongsController;
-use App\Http\Controllers\CronJobVotingDatesController;
-use App\Http\Controllers\CronJobVotingSongsController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ImageGeneratorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 Route::view('/ochrana-udajov', 'ochrana_udajov')->name('ochranaUdajov');
 
@@ -56,20 +48,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('vote', [VoteController::class, 'vote'])->name('vote.vote');
 });
 
-Route::get('cronSONGS', [CronJobVotingSongsController::class, 'index'])->name('cronJOBvotesSONGS.index');
-Route::middleware('cron')->group(function () {
-    Route::get('/queue-start', function () {
-        Artisan::call('queue:restart');
-        Artisan::call('queue:work');
-    });
-});
-Route::get('cronDATES', [CronJobVotingDatesController::class, 'index'])->name('cronJOBvotesDATES.index');
-Route::get('cronVOTED', [CronJobVotedSongsController::class, 'index'])->name('cronJOBvotedSONGS.index');
-Route::get('cronIMAGE', [ImageGeneratorController::class, 'index'])->name('cronImage.index');
-
-Route::get('cronAddSONGS', [CronJobAddSongsController::class, 'index'])->name('cronJOBaddSONGS.index');
-Route::get('cronCreateImage', [CronJobCreateVoteResultImg::class, 'index'])->name('cronJOBcreateImage.index');
-
 Route::middleware(['auth'])->get('/spotify/search', function () {
     $token = cache()->remember('spotify_token', 3600, function () {
         $response = Http::asForm()->post('https://accounts.spotify.com/api/token', [
@@ -105,3 +83,4 @@ Route::get('test', function () {
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/cron.php';
