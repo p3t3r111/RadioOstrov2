@@ -29,11 +29,11 @@
   <form action="{{ route('profile.songs') }}" method="post" class="flex flex-col items-center gap-10">
     @csrf
     @method("PATCH")
-    <div class="max-w-full flex flex-col lg:flex-row lg:whitespace-nowrap gap-2">
+    <div class="w-full flex flex-col lg:flex-row lg:whitespace-nowrap gap-2">
       @for ($i=1; $i <= 5; $i++)
         @php $song = 'song'.$i @endphp
 
-        <div class="song flex flex-col flex-1 relative w-full lg:max-w-[20%] gap-2 min-h-48">
+        <div class="song flex flex-col flex-1 relative w-full lg:max-w-[20%] gap-2">
           <div class="flex-1 w-full" >
             <label class="flex justify-between px-2 font-medium text-sm text-black" for="name">
               {{ $i }}. pesnička
@@ -62,7 +62,7 @@
 
           @if (isset($$song['songId']))
             <div class="flex flex-col">
-              <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/{{ $$song['songId'] }}?utm_source=generator" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/{{ $$song['songId'] }}?utm_source=generator" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
           @endif
         </div>
