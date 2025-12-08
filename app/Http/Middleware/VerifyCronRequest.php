@@ -19,21 +19,21 @@ class VerifyCronRequest
         $clientIp = ip2long($request->ip()); // Prevod IP adresy na číselný formát
 
         // Definuj rozsah IP adries (od-do)
-        $startIp = ip2long('37.9.175.155');
-        $endIp = ip2long('37.9.175.157');
+        $startIp = ip2long('10.31.29.14');
+        $endIp = ip2long('10.31.29.14');
 
-        // Log::info('Client IP:', ['ip' => $request->ip()]);
-        // Log::info('Client IP:', ['ip' => $clientIp]);
-        // Log::info('Start IP:', ['start_ip' => $startIp]);
-        // Log::info('End IP:', ['end_ip' => $endIp]);
+        Log::info('Client IP:', ['ip' => $request->ip()]);
+        Log::info('Client IP:', ['ip' => $clientIp]);
+        Log::info('Start IP:', ['start_ip' => $startIp]);
+        Log::info('End IP:', ['end_ip' => $endIp]);
 
         // Skontroluj, či IP adresa spadá do rozsahu
         if ($clientIp < $startIp || $clientIp > $endIp) {
-            // Log::warning('Access denied for IP:', ['ip' => $request->ip()]);
+            Log::warning('Access denied for IP:', ['ip' => $request->ip()]);
             abort(403, 'Access denied.');
         }
 
-        // Log::info('Access granted for IP:', ['ip' => $request->ip()]);
+        Log::info('Access granted for IP:', ['ip' => $request->ip()]);
 
         return $next($request);
     }
