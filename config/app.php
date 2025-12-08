@@ -129,8 +129,8 @@ return [
     'voting_time_full' => env('VOTING_TIME_FULL', '14:00:00'),
     'youtube_api_key' => env('YOUTUBE_API_KEY', ''),
 
-    // SPOTIFY
-    'refresh_token' => env('SPOTIFY_REFRESH_TOKEN'),
-
+    // CRON
+    'cron_ip_start' => env('CRON_IP_START', NULL),
+    'cron_ip_end' => env('CRON_IP_END', NULL),
 
 ];
