@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cron;
 
+use App\Http\Controllers\Controller;
 use App\Models\Song;
-use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 
 
 
-class ImageGeneratorController extends Controller
+class CronJobImageGeneratorController extends Controller
 {
     public function index()
     {

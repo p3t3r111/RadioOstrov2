@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cron;
 
+use App\Http\Controllers\Controller;
 use App\Models\active_voting_song;
 use App\Models\Song;
 use App\Models\User;

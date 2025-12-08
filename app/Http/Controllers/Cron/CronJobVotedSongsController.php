@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cron;
 
+use App\Http\Controllers\Controller;
 use App\Models\active_voting_song;
 use App\Models\Vote;
 use App\Models\VotingDates;
 use Carbon\Carbon;
 use DateTime;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class CronJobVotedSongsController extends Controller
 {

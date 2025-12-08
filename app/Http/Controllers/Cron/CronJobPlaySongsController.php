@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cron;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use SpotifyWebAPI\SpotifyWebAPI; //https://github.com/jwilsson/spotify-web-api-php
 use SpotifyWebAPI\Session;
 

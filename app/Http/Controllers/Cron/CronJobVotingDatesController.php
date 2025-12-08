@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cron;
 
+use App\Http\Controllers\Controller;
 use App\Models\VotingDates;
 use Carbon\Carbon;
 
