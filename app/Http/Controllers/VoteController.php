@@ -76,10 +76,10 @@ class VoteController extends Controller
             $datum2 = Carbon::createFromFormat('d.m.Y', $date);
             $date2 = strtotime($date);
             $date_db = date("Y-m-d", $date2);
-            $db_query = Vote::select('songs_id', 'songName', 'songauthor', 'songimgpath', DB::raw('count(id) as vote_count'))
+            $db_query = Vote::select('songId', 'songName', 'songAuthor', 'songImgPath', DB::raw('count(id) as voteCount'))
                 ->where('datum', $date_db)
-                ->groupBy('songs_id', 'songName', 'songauthor', 'songimgpath')
-                ->orderBy('vote_count', 'desc')
+                ->groupBy('songId', 'songName', 'songAuthor', 'songImgPath')
+                ->orderBy('voteCount', 'desc')
                 ->orderBy('songName')
                 ->get();
 
@@ -187,17 +187,17 @@ class VoteController extends Controller
         $username = Auth::user()->name;
         $songid = $song_query->songId;
         $songName = $song_query->title;
-        $songauthor = $song_query->author;
-        $songimgpath = $song_query->imgPath;
+        $songAuthor = $song_query->author;
+        $songImgPath = $song_query->imgPath;
         $date = date('Y-m-d', strtotime($request->date));
         $vote = new Vote();
         $vote->datum = $date;
         $vote->users_id = $userid;
         $vote->username = $username;
         $vote->songName = $songName;
-        $vote->songs_id = $songid;
-        $vote->songauthor = $songauthor;
-        $vote->songimgpath = $songimgpath;
+        $vote->songId = $songid;
+        $vote->songAuthor = $songAuthor;
+        $vote->songImgPath = $songImgPath;
         $vote->save();
         $user = User::find($userid);
         $user->voted = 1;

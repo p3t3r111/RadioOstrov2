@@ -11,7 +11,7 @@ Rádio ostrov
   <div class="hero-body">
     <div class="flex flex-col items-center gap-2 mt-6"> {{--  mt-28 --}}
       <img src="{{ asset('assets/logo-white.png') }}" alt="Logo školy : Stredná odborná škola informačných technológií, Ostrovského 1, Košice"id="logoHero" class="mb-2 lg:mb-5 max-w-20 lg:max-w-32">
-      <h2 class="text-xl text-center md:text-3xl lg:text-4xl title text-white">Vítame vás na stránke <span class="text-primaryAction">rádia ostrov</span>!</h2>
+      <h2 class="flex flex-col lg:block text-xl text-center md:text-3xl lg:text-4xl title text-white">Vítame vás na stránke <span class="text-primaryAction">rádia ostrov</span></h2>
       <h2 class="subtitle text-sm lg:text-3xl capitalize mb-6 lg:mb-12 text-white">{{ auth()->user()->name }}</h2>
       <div class="inline-grid gap-6 lg:gap-2">
         <a href="{{ route('vote.active') }}" class="px-3 py-2 lg:mt-5 lg:px-8 lg:py-4 text-black text-center rounded-lg shadow-lg uppercase  @if (Auth::user()->voted == 0)

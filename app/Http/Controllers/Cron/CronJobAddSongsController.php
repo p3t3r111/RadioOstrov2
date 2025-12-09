@@ -20,7 +20,7 @@ class CronJobAddSongsController extends Controller
         $playlist_id = config('spotify.playlist_id');
 
         $datum = Carbon::now()->format('Y-m-d');
-        $db_query = Vote::select('songs_id', 'datum', DB::raw('count(id) as vote_count'))->where('datum', $datum)->groupBy("songs_id", "datum")->orderBy("vote_count", "DESC")->get();
+        $db_query = Vote::select('songs_id', 'datum', DB::raw('count(id) as voteCount'))->where('datum', $datum)->groupBy("songs_id", "datum")->orderBy("voteCount", "DESC")->get();
 
         $session = new Session(
             $client_id,

@@ -59,3 +59,14 @@ nav .navbar-dropdown .navbar-item {
 .show-passEye {
   display: block !important;
 }
+
+/* Gold - Silver - Bronze */
+.history-voted-card .card:nth-child(1) {
+  background-color: #FFD700;
+}
+.history-voted-card .card:nth-child(2) {
+  background-color: #C0C0C0;
+}
+.history-voted-card .card:nth-child(3) {
+  background-color: #CD7F32;
+}

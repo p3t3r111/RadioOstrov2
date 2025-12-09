@@ -24,14 +24,14 @@ class CronJobVotingSongsController extends Controller
         if ($songsCount >= 0) {
             // user songs
             $songVotesList = [];
-            $songsIds = Song::where('confirmed', 1)->get('id');
-            $songsIdsArray = [];
-            foreach ($songsIds as $song) {
-                array_push($songsIdsArray, $song->id);
+            $songIds = Song::where('confirmed', 1)->get('id');
+            $songIdsArray = [];
+            foreach ($songIds as $song) {
+                array_push($songIdsArray, $song->id);
             }
             for ($i = 0; count($songVotesList) < 10; $i++) {
-                $randomNumber = rand(1, count($songsIdsArray)) - 1;
-                $randomId = $songsIdsArray[$randomNumber];
+                $randomNumber = rand(1, count($songIdsArray)) - 1;
+                $randomId = $songIdsArray[$randomNumber];
                 $randomSong = Song::find($randomId);
                 if (!in_array($randomSong, $songVotesList)) {
                     array_push($songVotesList, $randomSong);

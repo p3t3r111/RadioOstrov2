@@ -13,10 +13,10 @@ class Vote extends Model
     protected $fillable = [
         'datum',
         'users_id',
-        'songs_id',
+        'songId',
         'username',
-        'songname',
-        'songauthor',
-        'songimgpath'
+        'songName',
+        'songAuthor',
+        'songImgPath'
     ];
 }

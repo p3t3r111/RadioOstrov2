@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::table('votes', function (Blueprint $table) {
             $table->string('username')->after('users_id');
             $table->string('songName')->after('username');
-            $table->string('songauthor')->after('username');
-            $table->string('songimgpath')->after('songauthor');
+            $table->string('songAuthor')->after('songName');
+            $table->string('songImgPath')->after('songAuthor');
         });
     }
 
@@ -26,9 +26,9 @@ return new class extends Migration
     {
         Schema::table('votes', function (Blueprint $table) {
             $table->dropColumn('username');
-            $table->dropColumn('songname');
-            $table->dropColumn('songauthor');
-            $table->dropColumn('songimgpath');
+            $table->dropColumn('songName');
+            $table->dropColumn('songAuthor');
+            $table->dropColumn('songImgPath');
         });
     }
 };

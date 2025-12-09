@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('datum');
             $table->string('users_id');
-            $table->string('songs_id');
+            $table->string('songId');
 
             $table->timestamps();
         });

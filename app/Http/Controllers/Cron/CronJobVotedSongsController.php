@@ -39,16 +39,16 @@ class CronJobVotedSongsController extends Controller
             $username = "bot";
             $songid = $song->songId;
             $songtitle = $song->title;
-            $songauthor = $song->author;
-            $songimgpath = $song->imgPath;
+            $songAuthor = $song->author;
+            $songImgPath = $song->imgPath;
             $vote = new Vote();
             $vote->datum = $votingDateNEW;
             $vote->users_id = $userid;
             $vote->username = $username;
-            $vote->songs_id = $songid;
+            $vote->songId = $songid;
             $vote->songName = $songtitle;
-            $vote->songauthor = $songauthor;
-            $vote->songimgpath = $songimgpath;
+            $vote->songAuthor = $songAuthor;
+            $vote->songImgPath = $songImgPath;
             $vote->save();
         }
         echo "done";

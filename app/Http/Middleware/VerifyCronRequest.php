@@ -20,7 +20,7 @@ class VerifyCronRequest
 
         // Definuj rozsah IP adries (od-do)
         $startIp = ip2long(config('app.cron_ip_start'));
-        $endIp = ip2long(config('app.cron_ip_end')) ?? $startIp;
+        $endIp = ip2long(config('app.cron_ip_end') ?? config('app.cron_ip_start'));
 
         // Skontroluj, či IP adresa spadá do rozsahu
         if ($clientIp < $startIp || $clientIp > $endIp) {
