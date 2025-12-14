@@ -20,7 +20,7 @@ class CronJobAddSongsController extends Controller
         $playlist_id = config('spotify.playlist_id');
 
         $datum = Carbon::now()->format('Y-m-d');
-        $db_query = Vote::select('songs_id', 'datum', DB::raw('count(id) as voteCount'))->where('datum', $datum)->groupBy("songs_id", "datum")->orderBy("voteCount", "DESC")->get();
+        $db_query = Vote::select('songId', 'datum', DB::raw('count(id) as voteCount'))->where('datum', $datum)->groupBy("songId", "datum")->orderBy("voteCount", "DESC")->get();
 
         $session = new Session(
             $client_id,
@@ -59,7 +59,7 @@ class CronJobAddSongsController extends Controller
         // PRIDAVANIE pesničiek
 
         foreach ($db_query as $index => $song) {
-            $uri = "spotify:track:" . $song->songs_id;
+            $uri = "spotify:track:" . $song->songId;
             try {
                 $vysledok = $api->addPlaylistTracks($playlist_id, [$uri], ['position' => $index]);
                 echo 'Skladba bola úspešne pridaná!';

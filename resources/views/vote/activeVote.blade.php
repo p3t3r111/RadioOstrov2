@@ -10,11 +10,13 @@
   <section class="py-8 flex flex-col items-center gap-6">
     <h2 class="text-center text-base lg:text-3xl font-bold">Hlasovanie | {{ $den }} {{ $datum }}</h2>
     <div class="container">
-    <form action="{{ route('vote.vote') }}" method="post" class="w-full flex flex-col items-center gap-3 relative">
+    <form action="{{ route('vote.vote') }}" method="post" class="w-full flex flex-col items-center justify-center gap-5">
       @csrf
-      @foreach ($songs as $index => $song)
-      <x-voteCard :datum="$datum" :index="$index" :song="$song" />
-    @endforeach
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        @foreach ($songs as $index => $song)
+          <x-voteCard :datum="$datum" :index="$index" :song="$song" />
+        @endforeach
+      </div>
       <button type="submit" id="confirmButton"
       class="mt-3 p-2 text-black text-center bg-primaryAction text-base rounded-lg lg:text-xl">Potvrdiť
       hlasovanie</button>

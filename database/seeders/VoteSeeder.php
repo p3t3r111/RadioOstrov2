@@ -18,32 +18,32 @@ class VoteSeeder extends Seeder
         // DB::table('votes')->insert([
         //     'datum' => '2001-01-01',
         //     'users_id' => '1',
-        //     'songs_id' => '2',
+        //     'songId' => '2',
         // ]);
         // DB::table('votes')->insert([
         //     'datum' => '2001-01-01',
         //     'users_id' => '1',
-        //     'songs_id' => '2',
+        //     'songId' => '2',
         // ]);
         // DB::table('votes')->insert([
         //     'datum' => '2001-01-01',
         //     'users_id' => '1',
-        //     'songs_id' => '1',
+        //     'songId' => '1',
         // ]);
         // DB::table('votes')->insert([
         //     'datum' => '2001-01-01',
         //     'users_id' => '1',
-        //     'songs_id' => '2',
+        //     'songId' => '2',
         // ]);
         // DB::table('votes')->insert([
         //     'datum' => '2001-01-01',
         //     'users_id' => '1',
-        //     'songs_id' => '1',
+        //     'songId' => '1',
         // ]);
         // DB::table('votes')->insert([
         //     'datum' => '2001-01-01',
         //     'users_id' => '1',
-        //     'songs_id' => '1',
+        //     'songId' => '1',
         // ]);
     }
 }

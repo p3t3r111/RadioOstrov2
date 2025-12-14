@@ -234,11 +234,11 @@ class AdminController extends Controller
         $timenow = Carbon::now()->format('Y-m-d');
         $i = 0;
         $items = [];
-        $votes = Vote::select('songName', 'songs_id', DB::raw('count(*) as total'))->where('datum', $timenow)->groupBy('songName', 'songs_id')->orderBy('total', 'desc')->orderBy('songName')->take(5)->get();
+        $votes = Vote::select('songName', 'songId', DB::raw('count(*) as total'))->where('datum', $timenow)->groupBy('songName', 'songId')->orderBy('total', 'desc')->orderBy('songName')->take(5)->get();
         foreach ($votes as $vote) {
             if ($i < 5) {
                 $item = [
-                    'songId' => $vote->songs_id,
+                    'songId' => $vote->songId,
                     'title' => $vote->songName,
                     'totalVotes' => $vote->total,
                 ];
