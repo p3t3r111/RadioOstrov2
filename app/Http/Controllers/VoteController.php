@@ -182,6 +182,10 @@ class VoteController extends Controller
 
     public function vote(Request $request)
     {
+        $request->validate([
+            'selected_song' => 'required'
+        ]);
+
         $song_query = active_voting_song::where('id', $request->selected_song + 1)->first();
         $userid = Auth::user()->id;
         $username = Auth::user()->name;

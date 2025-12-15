@@ -25,6 +25,5 @@ Route::middleware('cron')->group(function () {
     Route::get('cronPlaySongs', [CronJobPlaySongsController::class, 'index'])->name('cronJOBplaySongs.index');
     Route::get('cronPauseSongs', [CronJobPauseSongsController::class, 'index'])->name('cronJOBpauseSongs.index');
     
-    Route::get('cronIMAGE', [CronJobImageGeneratorController::class, 'index'])->name('cronImage.index');
-    Route::get('cronCreateImage', [CronJobCreateVoteResultImg::class, 'index'])->name('cronJOBcreateImage.index');
 });
+Route::get('cronCreateImage', [CronJobCreateVoteResultImg::class, 'index'])->name('cronJOBcreateImage.index');
