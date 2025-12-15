@@ -14,20 +14,17 @@ class CronJobAddSongsController extends Controller
 {
     public function index()
     {
-        $client_id = config('spotify.client_id');
-        $client_secret = config('spotify.client_secret');
-        $refresh_token = config('spotify.refresh_token');
         $playlist_id = config('spotify.playlist_id');
 
         $datum = Carbon::now()->format('Y-m-d');
         $db_query = Vote::select('songId', 'datum', DB::raw('count(id) as voteCount'))->where('datum', $datum)->groupBy("songId", "datum")->orderBy("voteCount", "DESC")->get();
 
         $session = new Session(
-            $client_id,
-            $client_secret
+            config('spotify.client_id'),
+            config('spotify.client_secret')
         );
 
-        $session->refreshAccessToken($refresh_token);
+        $session->refreshAccessToken(config('spotify.refresh_token'));
         $accessToken = $session->getAccessToken();
         $api = new SpotifyWebAPI();
         $api->setAccessToken($accessToken);
