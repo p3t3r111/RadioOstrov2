@@ -13,9 +13,14 @@ export default {
                     "50%": { opacity: "0.5" },
                     "100%": { opacity: "1" },
                 },
+                customPulse: {
+                    "0%, 100%": { color: "#000000", scale: "1" },
+                    "50%": { color: "#49FF00", scale: "1.1" },
+                },
             },
             animation: {
                 blink: "blink 5s linear infinite",
+                customPulse: "customPulse 5s infinite",
             },
             colors: {
                 ostrov: "#305582",

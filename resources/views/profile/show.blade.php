@@ -15,7 +15,7 @@ Rádio ostrov | {{ auth()->user()->name }}
             </div>
         </div>
 
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-300 shadow sm:rounded-lg">
+        <div id="personal-favorite-songs" class="p-4 sm:p-8 bg-white dark:bg-gray-300 shadow sm:rounded-lg">
             <div class="">
                 @include('profile.partials.add-favorite-songs')
             </div>

@@ -19,17 +19,15 @@
         <div id="mainNavBar" class="navbar-menu hidden lg:block">
           <div class="navbar-end flex items-center gap-6 uppercase">
 
-              <a class="navbar-item" href="{{ route('index') }}">
-                  <span>Domov</span>
-              </a>
+              <a class="navbar-item" href="{{ route('index') }}">Domov</a>
 
-              <a class="navbar-item" href="{{ route('vote.index') }}">
-                  <span>Hlasovania</span>
-              </a>
+              <a class="navbar-item text-nowrap animate-customPulse" href="{{ route('profile.show') }}#personal-favorite-songs">Moje pesničky</a>
+
+              <a class="navbar-item" href="{{ route('vote.index') }}">Hlasovania</a>
 
               @if (Auth::user()->usertype == "admin")
                 <a class="navbar-item" href="{{ route('admin.index') }}">
-                  <span>Admin</span>
+                  Admin
                 </a>
               @endif
               @if (Auth::user()->voted == 0)
