@@ -11,6 +11,11 @@
             <form action="{{ route('vote.vote') }}" method="post"
                 class="w-full flex flex-col items-center justify-center gap-5">
                 @csrf
+                <a href="{{ route('profile.show') }}#personal-favorite-songs"
+                    class="text-center text-sm px-2 italic lg:text-base hover:underline">
+                    💡 Tieto piesničky sa vyberajú z obľúbených skladieb používateľov. Chceš ovplyvniť výber? Pridaj si
+                    svoje obľúbené piesničky vo svojom profile alebo klikni sem.
+                </a>
                 <div class="flex flex-wrap items-center justify-center gap-3">
                     @foreach ($songs as $index => $song)
                         <x-voteCard :datum="$datum" :index="$index" :song="$song" />
