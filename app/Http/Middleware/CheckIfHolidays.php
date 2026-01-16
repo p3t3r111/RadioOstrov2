@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Holiday;
+use App\Actions\CheckHolidays;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,19 +16,10 @@ class CheckIfHolidays
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (self::isHoliday()) {
-            return response()->json(['message' => __('Dnes sú prázdniny')], 403);
+        if (CheckHolidays::execute()) {
+            abort(403, 'Dnes sú prázdniny');
         }
 
         return $next($request);
-    }
-
-    public static function isHoliday(): bool
-    {
-        $today = now()->toDateString();
-
-        return Holiday::where('start_date', '<=', $today)
-            ->where('end_date', '>=', $today)
-            ->exists();
     }
 }

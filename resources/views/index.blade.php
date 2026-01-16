@@ -14,12 +14,12 @@ Rádio ostrov
       <h2 class="flex flex-col lg:block text-xl text-center md:text-3xl lg:text-4xl title text-white">Vítame vás na stránke <span class="text-primaryAction">rádia ostrov</span></h2>
       <h2 class="subtitle text-sm lg:text-3xl capitalize mb-6 lg:mb-12 text-white">{{ auth()->user()->name }}</h2>
       <div class="inline-grid gap-6 lg:gap-2">
-        <a href="{{ route('vote.active') }}" class="px-3 py-2 lg:mt-5 lg:px-8 lg:py-4 text-black text-center rounded-lg shadow-lg uppercase  @if (Auth::user()->voted == 0)
+        <a href="{{ route('vote.active') }}" class="px-3 py-2 lg:mt-5 lg:px-8 lg:py-4 text-black text-center rounded-lg shadow-lg uppercase  @if ($canVote)
           animate-bounce bg-primaryAction
         @else
         bg-white
         @endif">Hlasovať</a>
-        <a href="{{ route('vote.index') }}" class="px-3 py-2 mt-2 lg:mt-5 lg:px-8 lg:py-4 text-black text-center rounded-lg shadow-lg uppercase @if (Auth::user()->voted == 1)
+        <a href="{{ route('vote.index') }}" class="px-3 py-2 mt-2 lg:mt-5 lg:px-8 lg:py-4 text-black text-center rounded-lg shadow-lg uppercase @if (!$canVote)
           animate-bounce bg-primaryAction
         @else
         bg-white
@@ -79,7 +79,7 @@ Rádio ostrov
     "5": "day5"
   };
   const activeClassName = days[activeVotingDay];
-  if (activeClassName && {{ Auth::user()->voted != 1 }}) {
+  if (activeClassName && {{ $canVote }}) {
     document.querySelector(`.${activeClassName}`).classList.add("active-day");
     var odkaz = document.querySelector(".active-day");
     odkaz.setAttribute("href", "{{ route('vote.active') }}");

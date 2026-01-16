@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\CheckIfHolidays;
+use App\Actions\CheckHolidays;
 use App\Models\active_voting_song;
 use App\Models\User;
 use App\Models\Vote;
@@ -113,7 +113,7 @@ class VoteController extends Controller
             return view('vote.voted');
         }
 
-        if (CheckIfHolidays::isHoliday()) {
+        if (CheckHolidays::execute()) {
             return view('vote.noActiveVote');
         }
 

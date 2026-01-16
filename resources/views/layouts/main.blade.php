@@ -11,8 +11,7 @@
   <title>@yield('title')</title>
 </head>
 <body class="min-h-screen">
-  @include('includes.navbar')
-  @include('includes.res-navbar')
+  <x-navbar />
   
 
   <div class="pt-12 min-h-[80vh] flex flex-col" id="content">

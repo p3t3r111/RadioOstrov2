@@ -34,7 +34,7 @@ nav .navbar-dropdown .navbar-item {
 }
 
 .move-userProfileDropdown {
-  @apply mt-28;
+  @apply mt-[.9rem];
 }
 
 #mainNavBar2 {
