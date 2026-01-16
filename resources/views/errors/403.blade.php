@@ -1,12 +1,12 @@
 @extends('layouts.error')
 
 @section('errorCode')
-403
+{{ $exception->getStatusCode() }}
 @endsection
 
 @section('content')
 <div class="flex flex-col items-center">
-  <p class="uppercase text-xl text-red-500">403 - Zakázaný prístup</p>
+  <p class="uppercase text-xl text-red-500">{{ $exception->getStatusCode() . ' - ' . $exception->getMessage() }}</p>
   <p>Nemáte oprávnenie na prístup k tejto stránke.</p>
 </div>
 <div class="flex flex-col justify-center">
