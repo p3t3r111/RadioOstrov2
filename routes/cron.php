@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Cron\CronJobAddSongsController;
 use App\Http\Controllers\Cron\CronJobCreateVoteResultImg;
+use App\Http\Controllers\Cron\CronJobGetHolidaysController;
 use App\Http\Controllers\Cron\CronJobPauseSongsController;
 use App\Http\Controllers\Cron\CronJobPlaySongsController;
 use App\Http\Controllers\Cron\CronJobVotedSongsController;
@@ -19,6 +20,7 @@ Route::middleware('cron')->group(function () {
     Route::get('cronSONGS', [CronJobVotingSongsController::class, 'index'])->name('cronJOBvotesSONGS.index');
 
     Route::middleware('isHoliday')->group(function () {
+        Route::get('cronAddSONGS', [CronJobAddSongsController::class, 'index'])->name('cronJOBaddSONGS.index');
         Route::get('cronVOTED', [CronJobVotedSongsController::class, 'index'])->name('cronJOBvotedSONGS.index');
 
         Route::get('cronPlaySongs', [CronJobPlaySongsController::class, 'index'])->name('cronJOBplaySongs.index');
@@ -26,6 +28,5 @@ Route::middleware('cron')->group(function () {
 
     });
 });
-Route::get('cronAddSONGS', [CronJobAddSongsController::class, 'index'])->name('cronJOBaddSONGS.index');
 Route::get('cronCreateImage', [CronJobCreateVoteResultImg::class, 'index'])->name('cronJOBcreateImage.index');
-Route::get('cronGetHolidays', [App\Http\Controllers\Cron\CronJobGetHolidaysController::class, 'index'])->name('cronJOBgetHolidays.index');
+Route::get('cronGetHolidays', [CronJobGetHolidaysController::class, 'index'])->name('cronJOBgetHolidays.index');
