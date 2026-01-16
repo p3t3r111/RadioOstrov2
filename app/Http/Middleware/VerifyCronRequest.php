@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
 
 class VerifyCronRequest
 {
@@ -20,7 +19,7 @@ class VerifyCronRequest
 
         // Definuj rozsah IP adries (od-do)
         $startIp = ip2long(config('app.cron_ip_start'));
-        $endIp = ip2long(config('app.cron_ip_end') ?? config('app.cron_ip_start'));
+        $endIp = ip2long(config('app.cron_ip_end') == '' ? config('app.cron_ip_start') : config('app.cron_ip_end'));
 
         // Skontroluj, či IP adresa spadá do rozsahu
         if ($clientIp < $startIp || $clientIp > $endIp) {
