@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Cron;
 
 use App\Http\Controllers\Controller;
-use SpotifyWebAPI\SpotifyWebAPI; //https://github.com/jwilsson/spotify-web-api-php
-use SpotifyWebAPI\Session;
+use SpotifyWebAPI\Session; // https://github.com/jwilsson/spotify-web-api-php
+use SpotifyWebAPI\SpotifyWebAPI;
 
 class CronJobPlaySongsController extends Controller
 {
@@ -19,19 +19,18 @@ class CronJobPlaySongsController extends Controller
 
         $session->refreshAccessToken(config('spotify.refresh_token'));
         $accessToken = $session->getAccessToken();
-        $api = new SpotifyWebAPI();
+        $api = new SpotifyWebAPI;
         $api->setAccessToken($accessToken);
-        
+
         $devices = $api->getMyDevices();
         foreach ($devices->devices as $device) {
-            if ($device->name == "Web Player (Firefox)") {
-                $deviceId = $device->id;
+            @dump(config('spotify.device_name'));
+            if ($device->name == config('spotify.device_name')) {
+                $api->play($device->id, [
+                    'context_uri' => "spotify:playlist:$playlist_id",
+                ]);
             }
         }
-        
-        $api->play($deviceId, [
-            'context_uri' => "spotify:playlist:$playlist_id",
-        ]);
 
     }
 }
