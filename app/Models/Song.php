@@ -21,5 +21,6 @@ class Song extends Model
         'songId',
         'author',
         'img_path',
+        'weekly_played',
     ];
 }
