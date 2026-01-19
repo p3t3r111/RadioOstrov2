@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Cron;
 
 use App\Http\Controllers\Controller;
+use App\Models\Song;
 use App\Models\Vote;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -13,6 +15,11 @@ use SpotifyWebAPI\SpotifyWebAPI;
 
 class CronJobAddSongsController extends Controller
 {
+    private function countTime($ms)
+    {
+        return CarbonInterval::milliseconds($ms)->cascade();
+    }
+
     public function index()
     {
         $playlist_id = config('spotify.playlist_id');
@@ -47,19 +54,35 @@ class CronJobAddSongsController extends Controller
             $api->deletePlaylistTracks($playlist_id, $request_body);
         }
 
-        $datumNow = Carbon::now()->format('d.m.Y');
+        $datum2 = Carbon::parse($datum)->format('d.m.Y');
 
         $api->updatePlaylist($playlist_id, [
-            'name' => 'Radio ostrov | '.$datumNow,
+            'name' => 'Radio ostrov | '.$datum2,
         ]);
 
         // PRIDAVANIE pesničiek
 
+        $playlist_length = 0;
         foreach ($db_query as $index => $song) {
+            if ($this->countTime($playlist_length)->totalMinutes >= 24) {
+                break;
+            }
+
             $uri = 'spotify:track:'.$song->songId;
+            $songModel = Song::where('songId', $song->songId)->first();
             try {
-                $vysledok = $api->addPlaylistTracks($playlist_id, [$uri], ['position' => $index++]);
+                $api->addPlaylistTracks($playlist_id, [$uri], ['position' => $index + 1]);
                 echo 'Skladba bola úspešne pridaná!';
+                if ($songModel) {
+                    $songLength = $songModel->duration_ms;
+                    if ($songLength == 0) {
+                        $track = $api->getTrack($song->songId);
+                        $songModel->duration_ms = isset($track->duration_ms) ? $track->duration_ms : 0;
+                    }
+                    $playlist_length += $songModel->duration_ms;
+                    $songModel->weekly_played = 1;
+                    $songModel->save();
+                }
             } catch (Exception $e) {
                 echo 'Chyba: '.$e->getMessage();
             }
