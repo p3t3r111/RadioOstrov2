@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CheckHolidays;
-use App\Models\active_voting_song;
+use App\Models\Active_voting_song;
 use App\Models\User;
 use App\Models\Vote;
 use App\Models\VotingDates;
@@ -155,7 +155,7 @@ class VoteController extends Controller
                 }
 
                 $songsArray = [];
-                $songs = active_voting_song::all();
+                $songs = Active_voting_song::all();
                 foreach ($songs as $song) {
                     $songArray = [
                         'title' => $song->title,
@@ -190,7 +190,7 @@ class VoteController extends Controller
             'selected_song' => 'required',
         ]);
 
-        $song_query = active_voting_song::where('id', $request->selected_song + 1)->first();
+        $song_query = Active_voting_song::where('id', $request->selected_song + 1)->first();
         $userid = Auth::user()->id;
         $username = Auth::user()->name;
         $songid = $song_query->songId;

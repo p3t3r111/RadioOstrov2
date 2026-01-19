@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\backupSong;
+use App\Models\BackupSong;
 use App\Models\Song;
-use App\Models\User;
 use App\Models\Vote;
 use Carbon\Carbon;
-use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Spotify;
 
@@ -50,7 +47,7 @@ class AdminController extends Controller
                 'author' => $unconfirmedSong->author,
                 'title' => $unconfirmedSong->title,
             ];
-            if (!in_array($songArray, $songInfo)) {
+            if (! in_array($songArray, $songInfo)) {
                 $songInfo[] = $songArray;
             }
         }
@@ -70,11 +67,13 @@ class AdminController extends Controller
             'songInfo' => $songInfo,
         ]);
     }
-    public function confirmUsersSongsPost(REQUEST $request)
+
+    public function confirmUsersSongsPost(Request $request)
     {
         $song = Song::where('title', $request->song)->first();
         $song->confirmed = 1;
         $song->save();
+
         return redirect()->back();
     }
 
@@ -90,7 +89,7 @@ class AdminController extends Controller
                 'author' => $deniedSong->author,
                 'title' => $deniedSong->title,
             ];
-            if (!in_array($songArray, $songInfo)) {
+            if (! in_array($songArray, $songInfo)) {
                 $songInfo[] = $songArray;
             }
         }
@@ -119,7 +118,7 @@ class AdminController extends Controller
                 'author' => $deniedSong->author,
                 'title' => $deniedSong->title,
             ];
-            if (!in_array($songArray, $songInfo)) {
+            if (! in_array($songArray, $songInfo)) {
                 $songInfo[] = $songArray;
             }
         }
@@ -136,11 +135,12 @@ class AdminController extends Controller
         ]);
     }
 
-    public function denyUsersSongsPost(REQUEST $request)
+    public function denyUsersSongsPost(Request $request)
     {
         $song = Song::where('songId', $request->songId)->first();
         $song->confirmed = -1;
         $song->save();
+
         return redirect()->back();
     }
 
@@ -154,9 +154,9 @@ class AdminController extends Controller
                 'imgPath' => $song->imgPath,
                 'author' => $song->author,
                 'title' => $song->title,
-                'user' => $song->user
+                'user' => $song->user,
             ];
-            if (!in_array($songArray, $backupSongs)) {
+            if (! in_array($songArray, $backupSongs)) {
                 array_push($backupSongs, $songArray);
             }
         }
@@ -168,19 +168,19 @@ class AdminController extends Controller
             'path' => LengthAwarePaginator::resolveCurrentPath(),
         ]);
 
-
         return view('admin.subpages.backup-songs', [
             'backupSongs' => $backupSongs,
         ]);
     }
-    public function addBackupSongsPost(REQUEST $request)
+
+    public function addBackupSongsPost(Request $request)
     {
         $string_version = $request->songAddInput;
 
         // dd($string_version);
         $songInfo = [];
 
-        if (!$string_version == null) {
+        if (! $string_version == null) {
             $json = Spotify::searchTracks($string_version)->limit(1)->get('tracks');
             $i = 0;
             if (isset($json['items']) && count($json['items']) > 0) {
@@ -204,9 +204,9 @@ class AdminController extends Controller
         // item['author'] = author
         // item['title'] = title
         foreach ($songInfo as $item) {
-            if (trim($item['songId']) !== "empty") {
+            if (trim($item['songId']) !== 'empty') {
                 $song = DB::table('backup_songs')->where('songId', trim($item['songId']))->first();
-                if (!$song) {
+                if (! $song) {
                     DB::table('backup_songs')->insert([
                         'songId' => trim($item['songId']),
                         'imgPath' => trim($item['imgPath']),
@@ -214,7 +214,7 @@ class AdminController extends Controller
                         'title' => trim($item['title']),
                         'user' => trim(Auth::user()->name),
                         'created_at' => now(),
-                        'updated_at' => now()
+                        'updated_at' => now(),
                     ]);
                 }
             }
@@ -225,7 +225,8 @@ class AdminController extends Controller
 
     public function delBackupSongsPost(Request $request)
     {
-        backupSong::where('title', trim($request->song))->delete();
+        BackupSong::where('title', trim($request->song))->delete();
+
         return redirect()->back();
     }
 
@@ -246,6 +247,7 @@ class AdminController extends Controller
                 $i++;
             }
         }
+
         return view('admin.playSongs', [
             'items' => $items,
         ]);
