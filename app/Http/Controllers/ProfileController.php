@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Song;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use App\Models\User;
-use App\Models\User_song;
-use Exception;
-use Illuminate\Support\Facades\DB;
 use Spotify;
 
 class ProfileController extends Controller
@@ -29,14 +26,14 @@ class ProfileController extends Controller
         $song5 = null;
 
         $user = User::with('songs')->find(Auth::user()->id);
-        $songs = $user->songs()->orderBy('song_id','asc')->get();
-        
+        $songs = $user->songs()->orderBy('song_id', 'asc')->get();
+
         foreach ($songs as $index => $song) {
-            $songobj = "song" . $index + 1;
+            $songobj = 'song'.$index + 1;
             $$songobj = [
                 'songId' => $song->songId,
                 'title' => $song->title,
-                'confirmed' => $song->confirmed
+                'confirmed' => $song->confirmed,
             ];
         }
 
@@ -88,28 +85,28 @@ class ProfileController extends Controller
     }
 
     public function songs(Request $request)
-    {        
+    {
         $songList = [];
         for ($i = 1; $i <= 5; $i++) {
-            $song = 'song' . $i;
-            $songId = 'song' . $i . 'Id';
+            $song = 'song'.$i;
+            $songId = 'song'.$i.'Id';
             $songF = [
                 'songName' => $request->$song,
-                'songId' => $request->$songId
+                'songId' => $request->$songId,
             ];
             array_push($songList, $songF);
         }
-        
+
         $songInfo = [];
 
         foreach ($songList as $song) {
             // PRÍPAD MAZANIA PESNOČKY
-            if (empty($song['songName'])){
+            if (empty($song['songName'])) {
                 array_push($songInfo, null);
             }
 
             // 1. MáME  ID PESNIČKY
-            if (!empty($song['songId'])) {
+            if (! empty($song['songId'])) {
                 $json = Spotify::track($song['songId'])->get();
                 if (isset($json) && count($json) > 0) {
                     $songToArr = [
@@ -117,17 +114,18 @@ class ProfileController extends Controller
                         'imgPath' => $json['album']['images'][1]['url'],
                         'author' => $json['artists'][0]['name'],
                         'title' => $json['name'],
-                        'explicit' => $json['explicit']
+                        'explicit' => $json['explicit'],
                     ];
                     array_push($songInfo, $songToArr);
                 } else {
                     array_push($songInfo, null);
                 }
+
                 continue;
             }
-            
+
             // 2. MÁME NAZOV PESNIČKY
-            if (!empty($song['songName'])) {
+            if (! empty($song['songName'])) {
                 $json = Spotify::searchTracks($song['songName'])->limit(1)->get('tracks');
                 if (isset($json['items']) && count($json['items']) > 0) {
                     $song = [
@@ -135,7 +133,7 @@ class ProfileController extends Controller
                         'imgPath' => $json['items'][0]['album']['images'][1]['url'],
                         'author' => $json['items'][0]['artists'][0]['name'],
                         'title' => $json['items'][0]['name'],
-                        'explicit' => $json['items'][0]['explicit']
+                        'explicit' => $json['items'][0]['explicit'],
                     ];
                     array_push($songInfo, $song);
                 } else {
@@ -150,32 +148,33 @@ class ProfileController extends Controller
         // item['imgPath'] = thumbnail_url
         // item['author'] = author
         // item['title'] = title
-        
+
         $songList = [];
 
         $user = User::with('songs')->find(Auth::user()->id);
         $songs = $user->songs;
-        
+
         foreach ($songInfo as $index => $item) {
             $songToUpdate = $songs->get($index);
             if ($item) {
                 // Nájdeme existujúcu skladbu alebo vytvoríme novú
-                // $existingSong = Song::where('songId', $item['songId'])->first();
-                // if (!$existingSong) {
-                $existingSong = Song::where('title', $item['title'])->where('author', $item['author'])->where('songId',$item["songId"])->first();
-                if (!$existingSong) {
+                $existingSong = Song::where('title', $item['title'])->where('author', $item['author'])->where('songId', $item['songId'])->first();
+                if (! $existingSong) {
                     $existingSong = Song::create([
                         'songId' => $item['songId'],
                         'author' => $item['author'],
                         'title' => $item['title'],
-                        'img_path' => $item['imgPath']
+                        'img_path' => $item['imgPath'],
                     ]);
-                    if(!$item['explicit']) {
+                    if (! $item['explicit']) {
                         $existingSong->confirmed = 1;
+                        $existingSong->save();
+                    } else {
+                        $existingSong->confirmed = 0;
                         $existingSong->save();
                     }
                 }
-                
+
                 if ($songToUpdate) {
                     $user->songs()->wherePivot('id', $songToUpdate->pivot->id)->detach();
                 }
