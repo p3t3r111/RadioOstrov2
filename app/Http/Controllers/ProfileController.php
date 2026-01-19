@@ -170,7 +170,7 @@ class ProfileController extends Controller
                         $existingSong->confirmed = 1;
                         $existingSong->save();
                     } else {
-                        $existingSong->confirmed = 0;
+                        $existingSong->confirmed = -1;
                         $existingSong->save();
                     }
                 }
