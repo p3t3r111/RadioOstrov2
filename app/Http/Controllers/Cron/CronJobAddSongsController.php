@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cron;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backup_song;
 use App\Models\Song;
 use App\Models\Vote;
 use Carbon\Carbon;
@@ -70,6 +71,9 @@ class CronJobAddSongsController extends Controller
 
             $uri = 'spotify:track:'.$song->songId;
             $songModel = Song::where('songId', $song->songId)->first();
+            if (! $songModel) {
+                $songModel = Backup_song::where('songId', $song->songId)->first();
+            }
             try {
                 $api->addPlaylistTracks($playlist_id, [$uri], ['position' => $index + 1]);
                 echo 'Skladba bola úspešne pridaná!';
