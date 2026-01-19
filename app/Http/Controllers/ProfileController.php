@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Song;
 use App\Models\User;
+use Carbon\CarbonInterval;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -115,6 +116,7 @@ class ProfileController extends Controller
                         'author' => $json['artists'][0]['name'],
                         'title' => $json['name'],
                         'explicit' => $json['explicit'],
+                        'duration_ms' => $json['duration_ms'],
                     ];
                     array_push($songInfo, $songToArr);
                 } else {
@@ -134,6 +136,7 @@ class ProfileController extends Controller
                         'author' => $json['items'][0]['artists'][0]['name'],
                         'title' => $json['items'][0]['name'],
                         'explicit' => $json['items'][0]['explicit'],
+                        'duration_ms' => $json['items'][0]['duration_ms'],
                     ];
                     array_push($songInfo, $song);
                 } else {
@@ -148,7 +151,7 @@ class ProfileController extends Controller
         // item['imgPath'] = thumbnail_url
         // item['author'] = author
         // item['title'] = title
-
+        // item['duration_ms'] = duration in milliseconds
         $songList = [];
 
         $user = User::with('songs')->find(Auth::user()->id);
@@ -165,8 +168,9 @@ class ProfileController extends Controller
                         'author' => $item['author'],
                         'title' => $item['title'],
                         'img_path' => $item['imgPath'],
+                        'duration_ms' => $item['duration_ms'] ?? 0,
                     ]);
-                    if (! $item['explicit']) {
+                    if (! $item['explicit'] and CarbonInterval::milliseconds($item['duration_ms'])->cascade()->totalMinutes < 6) {
                         $existingSong->confirmed = 1;
                         $existingSong->save();
                     } else {
@@ -178,7 +182,6 @@ class ProfileController extends Controller
                 if ($songToUpdate) {
                     $user->songs()->wherePivot('id', $songToUpdate->pivot->id)->detach();
                 }
-                // }
 
                 $user->songs()->syncWithoutDetaching([$existingSong->id]);
             } else {
@@ -188,7 +191,7 @@ class ProfileController extends Controller
             }
         }
 
-        // dd("Stop");
+        // dd('Stop');
 
         return Redirect::route('profile.show')
             ->with('status', 'songs-updated');
