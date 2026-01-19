@@ -23,7 +23,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-red-500">
             <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
           </svg>
-          <p class="text-sm text-gray-600">- Zamietnuté administrátorom</p>
+          <p class="text-sm text-gray-600">- Zamietnuté administrátorom (Ak máte zamietnutú pesničku pravdepodobne je to z dôvodu, že je explicitná alebo dlhšia ako 6 minút)</p>
         </div>
     </p>
   </header>
