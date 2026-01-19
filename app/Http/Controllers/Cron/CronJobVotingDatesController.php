@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Cron;
 
 use App\Http\Controllers\Controller;
-use App\Models\VotingDates;
+use App\Models\Voting_dates;
 use Carbon\Carbon;
 
 class CronJobVotingDatesController extends Controller
@@ -22,21 +22,22 @@ class CronJobVotingDatesController extends Controller
             $id = $i + 1;
             if ($i == 0) {
                 $dateArray = [
-                    "from" => $thursdayThisWeek,
-                    "to" => $sundayThisWeek
+                    'from' => $thursdayThisWeek,
+                    'to' => $sundayThisWeek,
                 ];
-                VotingDates::find($id)->update($dateArray);
+                Voting_dates::find($id)->update($dateArray);
+
                 continue;
             }
             $fromDate = $mondayStartDate->copy()->subDay();
             $toDate = $mondayStartDate->copy();
             $dateArray = [
-                "from" => $fromDate->format('Y-m-d'),
-                "to" => $toDate->format('Y-m-d')
+                'from' => $fromDate->format('Y-m-d'),
+                'to' => $toDate->format('Y-m-d'),
             ];
-            VotingDates::find($id)->update($dateArray);
+            Voting_dates::find($id)->update($dateArray);
             $mondayStartDate->addDay();
         }
-        echo "Zmenene datumy";
+        echo 'Zmenene datumy';
     }
 }

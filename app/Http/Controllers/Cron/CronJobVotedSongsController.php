@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Cron;
 use App\Http\Controllers\Controller;
 use App\Models\Active_voting_song;
 use App\Models\Vote;
-use App\Models\VotingDates;
+use App\Models\Voting_dates;
 use Carbon\Carbon;
 use DateTime;
 
@@ -17,7 +17,7 @@ class CronJobVotedSongsController extends Controller
 
         $dateNow = Carbon::now()->format('Y-m-d');
         $dateNowUNIX = strtotime($dateNow);
-        $dateIntervals = VotingDates::all('from', 'to')->toArray();
+        $dateIntervals = Voting_dates::all('from', 'to')->toArray();
         foreach ($dateIntervals as $dateInterval) {
             $fromUNIX = $dateInterval['from'];
             $toUNIX = $dateInterval['to'];

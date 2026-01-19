@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VotingDates extends Model
+class Voting_dates extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'from',
-        'to'
+        'to',
     ];
 }

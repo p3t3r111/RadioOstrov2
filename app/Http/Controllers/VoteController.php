@@ -6,7 +6,7 @@ use App\Actions\CheckHolidays;
 use App\Models\Active_voting_song;
 use App\Models\User;
 use App\Models\Vote;
-use App\Models\VotingDates;
+use App\Models\Voting_dates;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -34,7 +34,7 @@ class VoteController extends Controller
             }
         }
 
-        $dateIntervals = VotingDates::all('from', 'to')->toArray();
+        $dateIntervals = Voting_dates::all('from', 'to')->toArray();
         foreach ($dateIntervals as $dateInterval) {
             $fromDate = Carbon::createFromFormat('Y-m-d', $dateInterval['from'])
                 ->setTime(config('app.voting_hours'), 0, 0);
@@ -118,7 +118,7 @@ class VoteController extends Controller
         }
 
         $dateNowUNIX = Carbon::now()->timestamp;
-        $dateIntervals = VotingDates::all('from', 'to')->toArray();
+        $dateIntervals = Voting_dates::all('from', 'to')->toArray();
         foreach ($dateIntervals as $dateInterval) {
             $fromDate = Carbon::createFromFormat('Y-m-d', $dateInterval['from'])
                 ->setTime(config('app.voting_hours'), 0, 0);

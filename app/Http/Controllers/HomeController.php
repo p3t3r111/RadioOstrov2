@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CheckHolidays;
-use App\Models\VotingDates;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +19,7 @@ class HomeController extends Controller
 
         $dateNow = Carbon::now()->format('Y-m-d H:i:s');
         $dateNowUNIX = strtotime($dateNow);
-        $dateIntervals = VotingDates::all('from', 'to')->toArray();
+        $dateIntervals = Voting_dates::all('from', 'to')->toArray();
         foreach ($dateIntervals as $dateInterval) {
             $dateInterval['from'] = Carbon::createFromFormat('Y-m-d', $dateInterval['from'])->setTime(config('app.voting_hours'), 0, 0);
             $dateInterval['to'] = Carbon::createFromFormat('Y-m-d', $dateInterval['to'])->setTime(config('app.voting_hours'), 0, 0);

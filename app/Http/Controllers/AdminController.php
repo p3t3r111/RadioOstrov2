@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BackupSong;
+use App\Models\Backup_song;
 use App\Models\Song;
 use App\Models\Vote;
 use Carbon\Carbon;
@@ -225,7 +225,7 @@ class AdminController extends Controller
 
     public function delBackupSongsPost(Request $request)
     {
-        BackupSong::where('title', trim($request->song))->delete();
+        Backup_song::where('title', trim($request->song))->delete();
 
         return redirect()->back();
     }
