@@ -4,8 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VoteController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
 
 Route::view('/ochrana-udajov', 'ochrana_udajov')->name('ochranaUdajov');
 
@@ -29,9 +29,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('admin/confirm-user-song', [AdminController::class, 'confirmUsersSongsPost'])->name('admin.confirmUsersSongsPost');
 
         Route::get('admin/authorized-songs', [AdminController::class, 'authorizedSongsIndex'])->name('admin.authorized-songs');
-        
+
         Route::get('admin/denied-songs', [AdminController::class, 'deniedSongsIndex'])->name('admin.denied-songs');
-        Route::get('admin/deny-song', [AdminController::class, 'denyUsersSongsPost'])->name('admin.denyUsersSongsPost');
+        Route::post('admin/deny-song', [AdminController::class, 'denyUsersSongsPost'])->name('admin.denyUsersSongsPost');
 
         Route::get('admin/backup-songs', [AdminController::class, 'backupSongsIndex'])->name('admin.backup-songs');
         Route::post('admin/add-songs', [AdminController::class, 'addBackupSongsPost'])->name('admin.addBackSongsPost');
@@ -60,7 +60,9 @@ Route::middleware(['auth'])->get('/spotify/search', function () {
     });
 
     $query = request('q');
-    if (!$query) return response()->json(['tracks' => []]);
+    if (! $query) {
+        return response()->json(['tracks' => []]);
+    }
     $response = Http::withToken($token)->get('https://api.spotify.com/v1/search', [
         'q' => $query,
         'type' => 'track',
@@ -69,8 +71,6 @@ Route::middleware(['auth'])->get('/spotify/search', function () {
 
     return $response->json();
 });
-
-
 
 Route::get('email', function () {
     return view('mail.verify_email');
@@ -82,5 +82,5 @@ Route::get('test', function () {
     return view('test');
 });
 
-require __DIR__ . '/auth.php';
-require __DIR__ . '/cron.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/cron.php';
