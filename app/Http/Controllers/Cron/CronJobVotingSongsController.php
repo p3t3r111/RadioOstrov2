@@ -22,6 +22,7 @@ class CronJobVotingSongsController extends Controller
             // user songs
             $songVotesList = Song::where('confirmed', 1)
                 ->where('weekly_played', 0)
+                ->has('users')
                 ->inRandomOrder()
                 ->limit(10)
                 ->get();

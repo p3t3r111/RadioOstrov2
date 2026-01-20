@@ -49,7 +49,7 @@
       @endforeach
       </div>
     @endif
-      {{ $backupSongs->links('pagination::simple-tailwind') }}
+      {{ $backupSongs->links('pagination::tailwind') }}
 
 
     <div class="flex items-center gap-4">

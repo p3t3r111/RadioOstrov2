@@ -32,7 +32,7 @@
                         @endforeach
                     </div>
                 @endif
-                {{ $songInfo->links('pagination::simple-tailwind') }}
+                {{ $songInfo->links('pagination::tailwind') }}
             </div>
         </div>
     </section>

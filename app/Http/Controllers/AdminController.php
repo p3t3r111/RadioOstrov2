@@ -25,7 +25,7 @@ class AdminController extends Controller
         $songsToConfirmInfo = Song::where('confirmed', 0)->count();
         $confirmedSongs = Song::where('confirmed', 1)->count();
         $deniedSongsInfo = Song::where('confirmed', -1)->count();
-        $backupSongsInfo = backupSong::count();
+        $backupSongsInfo = Backup_song::count();
 
         return view('admin.dashboard', [
             'songsToConfirm' => $songsToConfirmInfo,
