@@ -19,7 +19,7 @@ class HomeController extends Controller
         }
 
         $dateNow = Carbon::now()->format('Y-m-d H:i:s');
-        $dateNowUNIX = strtotime($dateNow);
+        $dateNowUNIX = strtotime(datetime: $dateNow);
         $dateIntervals = Voting_dates::all('from', 'to')->toArray();
         foreach ($dateIntervals as $dateInterval) {
             $dateInterval['from'] = Carbon::createFromFormat('Y-m-d', $dateInterval['from'])->setTime(config('app.voting_hours'), 0, 0);
