@@ -31,20 +31,18 @@
     @csrf
     @method("PATCH")
     <div class="w-full flex flex-col lg:flex-row lg:whitespace-nowrap gap-2">
-      @for ($i=1; $i <= 5; $i++)
-        @php $song = 'song'.$i @endphp
-
+      @foreach ($songs as $index => $song)
         <div class="song flex flex-col flex-1 relative w-full lg:max-w-[20%] gap-2">
           <div class="flex-1 w-full" >
             <label class="flex justify-between px-2 font-medium text-sm text-black" for="name">
-              {{ $i }}. pesnička
-              @if ($$song != null)
-                @if ($$song['confirmed'] == 1)
+              {{ $index + 1 }}. pesnička
+              @if ($song != null)
+                @if ($song['confirmed'] == 1)
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-green-500">
                   <title>Schváleno administrátorom</title>
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                @elseif ($$song['confirmed'] == -1)
+                @elseif ($song['confirmed'] == -1)
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-red-500">
                   <title>Zamietnuté administrátorom</title>
                   <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -57,18 +55,18 @@
                 @endif
               @endif
             </label>
-            <input type="hidden" name="{{ $song }}Id" class="songId" @if ($$song)value="{{ $$song['songId'] }}"@endif> {{-- @if ($$song)value="{{ $$song['songId'] }}"@endif --}}
-            <input  class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" autocomplete="off" id="{{ $song }}" name="{{ $song }}" type="text" @if ($$song)value="{{ $$song['title'] }}"@endif>
+            <input type="hidden" name="{{ $song }}Id" class="songId" @if ($song)value="{{ $song['songId'] }}"@endif> {{-- @if ($song)value="{{ $song['songId'] }}"@endif --}}
+            <input  class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" autocomplete="off" id="{{ $song }}" name="{{ $song }}" type="text" @if ($song)value="{{ $song['title'] }}"@endif>
           </div>
 
-          @if (isset($$song['songId']))
+          @if (isset($song['songId']))
             <div class="flex flex-col">
-              <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/{{ $$song['songId'] }}?utm_source=generator" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/{{ $song['songId'] }}?utm_source=generator" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
           @endif
         </div>
 
-      @endfor
+      @endforeach
     </div>
     <div class="flex items-center gap-4">
       <input type="submit" value="Uložiť zmeny" class="p-2 bg-primaryAction rounded-md cursor-pointer">

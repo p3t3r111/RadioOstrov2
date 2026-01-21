@@ -20,31 +20,11 @@ class ProfileController extends Controller
      */
     public function show(Request $request): View
     {
-        $song1 = null;
-        $song2 = null;
-        $song3 = null;
-        $song4 = null;
-        $song5 = null;
-
         $user = User::with('songs')->find(Auth::user()->id);
-        $songs = $user->songs()->orderBy('song_id', 'asc')->get();
-
-        foreach ($songs as $index => $song) {
-            $songobj = 'song'.$index + 1;
-            $$songobj = [
-                'songId' => $song->songId,
-                'title' => $song->title,
-                'confirmed' => $song->confirmed,
-            ];
-        }
 
         return view('profile.show', [
             'user' => $request->user(),
-            'song1' => $song1,
-            'song2' => $song2,
-            'song3' => $song3,
-            'song4' => $song4,
-            'song5' => $song5,
+            'songs' => $user->songs,
         ]);
     }
 
