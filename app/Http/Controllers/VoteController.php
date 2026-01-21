@@ -197,8 +197,7 @@ class VoteController extends Controller
             'song_id' => $song_id,
         ]);
 
-        $user->voted = 1;
-        $user->save();
+        $user->markVoted();
 
         return redirect()->route('vote.active');
     }

@@ -11,12 +11,6 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
-
-    public function songs()
-    {
-    return $this->belongsToMany(Song::class, 'user_songs')->withPivot('id')->orderBy('pivot_id', 'asc');
-    }
-
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +24,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'google_token',
         'google_refresh_token',
         'email_verified_at',
+        'voted',
+        'votes',
+        'invited_people',
+        'vote_weight',
+        'max_favorite_songs',
+        'max_votes_per_day',
     ];
 
     /**
@@ -53,5 +53,16 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function songs()
+    {
+        return $this->belongsToMany(Song::class, 'user_songs')->withPivot('id')->orderBy('pivot_id', 'asc');
+    }
+
+    public function markVoted(): void
+    {
+        $this->update(['voted' => 1]);
+        $this->increment('votes');
     }
 }
