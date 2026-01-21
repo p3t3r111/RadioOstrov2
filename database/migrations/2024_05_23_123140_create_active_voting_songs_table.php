@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('active_voting_songs', function (Blueprint $table) {
             $table->id();
-            $table->string('songId')->unique();
-            $table->string('imgPath');
-            $table->string('author');
-            $table->string('title');
+            $table->foreignId('song_id')->references('id')->on('songs')->cascadeOnDelete();
             $table->timestamps();
         });
     }

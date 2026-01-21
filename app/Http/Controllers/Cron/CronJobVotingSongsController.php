@@ -14,24 +14,22 @@ class CronJobVotingSongsController extends Controller
     {
         User::where('voted', 1)->update(['voted' => 0]);
 
-        $songs = 0;
-        $songs = Song::where('confirmed', 1)->where('weekly_played', 0)->get();
-        $songsCount = count($songs);
-        Active_voting_song::truncate();
-        if ($songsCount > 0) {
-            // user songs
-            $songVotesList = Song::where('confirmed', 1)
-                ->where('weekly_played', 0)
-                ->has('users')
-                ->inRandomOrder()
-                ->limit(10)
-                ->get();
-        } else {
+        // user songs
+        $songVotesList = Song::where('confirmed', 1)
+            ->where('weekly_played', 0)
+            ->has('users')
+            ->inRandomOrder()
+            ->limit(10)
+            ->get();
+
+        if ($songVotesList->count() < 10) {
             $songVotesList = Backup_song::where('weekly_played', 0)
                 ->inRandomOrder()
                 ->limit(10)
                 ->get();
         }
+
+        Active_voting_song::truncate();
         foreach ($songVotesList as $item) {
             Active_voting_song::create([
                 'songId' => trim($item->songId),

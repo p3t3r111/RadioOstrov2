@@ -12,11 +12,17 @@ class Vote extends Model
 
     protected $fillable = [
         'datum',
-        'users_id',
-        'songId',
-        'username',
-        'songName',
-        'songAuthor',
-        'songImgPath'
+        'user_id',
+        'song_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function song()
+    {
+        return $this->belongsTo(Song::class);
+    }
 }

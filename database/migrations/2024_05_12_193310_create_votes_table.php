@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->date('datum');
-            $table->string('users_id');
-            $table->string('songId');
-
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('song_id')->references('id')->on('songs')->cascadeOnDelete();
             $table->timestamps();
         });
     }

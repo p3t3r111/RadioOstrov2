@@ -11,9 +11,11 @@ class Active_voting_song extends Model
 
     protected $fillable = [
         'name',
-        'songId',
-        'imgPath',
-        'author',
-        'title',
+        'song_id',
     ];
+
+    public function song()
+    {
+        return $this->belongsTo(Song::class);
+    }
 }

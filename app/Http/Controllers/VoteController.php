@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Actions\CheckHolidays;
 use App\Models\Active_voting_song;
-use App\Models\User;
 use App\Models\Vote;
 use App\Models\Voting_dates;
 use Carbon\Carbon;
@@ -189,25 +188,18 @@ class VoteController extends Controller
         $request->validate([
             'selected_song' => 'required',
         ]);
+        $date = date('Y-m-d', strtotime($request->date));
+        $user = Auth::user();
 
         $song_query = Active_voting_song::where('id', $request->selected_song + 1)->first();
-        $userid = Auth::user()->id;
-        $username = Auth::user()->name;
-        $songid = $song_query->songId;
-        $songName = $song_query->title;
-        $songAuthor = $song_query->author;
-        $songImgPath = $song_query->imgPath;
-        $date = date('Y-m-d', strtotime($request->date));
-        $vote = new Vote;
-        $vote->datum = $date;
-        $vote->users_id = $userid;
-        $vote->username = $username;
-        $vote->songName = $songName;
-        $vote->songId = $songid;
-        $vote->songAuthor = $songAuthor;
-        $vote->songImgPath = $songImgPath;
-        $vote->save();
-        $user = User::find($userid);
+        $song_id = $song_query->song_id;
+
+        Vote::create([
+            'datum' => $date,
+            'user_id' => $user->id,
+            'song_id' => $song_id,
+        ]);
+
         $user->voted = 1;
         $user->save();
 

@@ -9,11 +9,6 @@ class Song extends Model
 {
     use HasFactory;
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'user_songs');
-    }
-
     protected $table = 'songs';
 
     protected $fillable = [
@@ -24,4 +19,19 @@ class Song extends Model
         'weekly_played',
         'duration_ms',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_songs');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class, 'song_id', 'id');
+    }
+
+    public function activeVotingSong()
+    {
+        return $this->hasOne(Active_voting_song::class, 'song_id', 'id');
+    }
 }

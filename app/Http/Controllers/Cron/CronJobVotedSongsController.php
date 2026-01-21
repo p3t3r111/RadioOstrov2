@@ -35,21 +35,12 @@ class CronJobVotedSongsController extends Controller
             }
         }
         foreach ($song_query as $song) {
-            $userid = -3;
-            $username = 'bot';
-            $songid = $song->songId;
-            $songtitle = $song->title;
-            $songAuthor = $song->author;
-            $songImgPath = $song->imgPath;
-            $vote = new Vote;
-            $vote->datum = $votingDateNEW;
-            $vote->users_id = $userid;
-            $vote->username = $username;
-            $vote->songId = $songid;
-            $vote->songName = $songtitle;
-            $vote->songAuthor = $songAuthor;
-            $vote->songImgPath = $songImgPath;
-            $vote->save();
+            Vote::create([
+                'datum' => $votingDateNEW,
+                'user_id' => -3,
+                'song_id' => $song->song_id,
+            ]);
+
         }
         echo 'done';
     }
