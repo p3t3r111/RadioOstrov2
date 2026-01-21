@@ -1,18 +1,5 @@
 @props(['song', 'index' => null, 'datum'])
 
-
-@php
-  if ($index === null){
-    $songArray = is_object($song) ? $song->toArray() : (array) $song;
-    $song = [
-      'title' => $songArray['songName'],
-      'author' => $songArray['songAuthor'],
-      'imgPath' => $songArray['songImgPath'],
-      ...array_diff_key($songArray, array_flip(['songName', 'songAuthor', 'songImgPath']))
-    ];
-  }
-@endphp
-
 <div
   class="card @if ($index !== null) cursor-pointer @endif w-fit gap-5 lg:gap-10 flex justify-between items-center bg-white shadow-xl pr-3 rounded-md rounded-l-2xl border-slate-500 border-[.1px] hover:bg-slate-100"
   @if ($index !== null) onclick="document.getElementById('song-{{ $index }}').checked = true"; @endif>

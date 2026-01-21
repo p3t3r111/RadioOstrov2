@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Actions\CheckHolidays;
 use App\Models\Active_voting_song;
+use App\Models\Song;
 use App\Models\Vote;
 use App\Models\Voting_dates;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class VoteController extends Controller
 {
@@ -73,11 +73,11 @@ class VoteController extends Controller
             $datum2 = Carbon::createFromFormat('d.m.Y', $date);
             $date2 = strtotime($date);
             $date_db = date('Y-m-d', $date2);
-            $db_query = Vote::select('songId', 'songName', 'songAuthor', 'songImgPath', DB::raw('count(id) as voteCount'))
-                ->where('datum', $date_db)
-                ->groupBy('songId', 'songName', 'songAuthor', 'songImgPath')
-                ->orderBy('voteCount', 'desc')
-                ->orderBy('songName')
+            $db_query = Song::withCount([
+                'votes as voteCount' => fn ($q) => $q->whereDate('datum', $date_db),
+            ])
+                ->having('voteCount', '>', 0)
+                ->orderByDesc('voteCount')
                 ->get();
 
             $nazov_dna = $datum2->format('l');
@@ -154,13 +154,10 @@ class VoteController extends Controller
                 }
 
                 $songsArray = [];
-                $songs = Active_voting_song::all();
+                $songs = Active_voting_song::with('song')->get();
                 foreach ($songs as $song) {
                     $songArray = [
-                        'title' => $song->title,
-                        'author' => $song->author,
-                        'imgPath' => $song->imgPath,
-                        'songId' => $song->songId,
+                        'songId' => $song->song->songId,
                     ];
                     array_push($songsArray, $songArray);
                 }
