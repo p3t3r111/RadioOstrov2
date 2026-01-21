@@ -175,28 +175,32 @@ class AdminController extends Controller
 
     public function addBackupSongsPost(Request $request)
     {
-        $string_version = $request->songAddInput;
+        $request->validate([
+            'songAddInput' => 'required|string',
+        ]);
 
-        // dd($string_version);
+        $string_version = $request->songAddInput;
+        $string_version = explode(',', $string_version);
+        $string_version = collect($string_version)
+            ->map(fn ($item) => trim($item))
+            ->filter(fn ($item) => $item !== '')
+            ->values();
         $songInfo = [];
 
-        if (! $string_version == null) {
-            $json = Spotify::searchTracks($string_version)->limit(1)->get('tracks');
-            $i = 0;
-            if (isset($json['items']) && count($json['items']) > 0) {
-                $song = [
-                    'songId' => $json['items'][0]['id'],
-                    'imgPath' => $json['items'][0]['album']['images'][1]['url'],
-                    'author' => $json['items'][0]['artists'][0]['name'],
-                    'title' => $json['items'][0]['name'],
-                ];
-                array_push($songInfo, $song);
-                $i++;
-            } else {
-                array_push($songInfo, null);
-            }
+        $json = Spotify::searchTracks($string_version)->limit(1)->get('tracks');
+        $i = 0;
+        if (isset($json['items']) && count($json['items']) > 0) {
+            $song = [
+                'songId' => $json['items'][0]['id'],
+                'imgPath' => $json['items'][0]['album']['images'][1]['url'],
+                'author' => $json['items'][0]['artists'][0]['name'],
+                'title' => $json['items'][0]['name'],
+                'duration_ms' => $json['items'][0]['duration_ms'],
+            ];
+            array_push($songInfo, $song);
+            $i++;
         } else {
-            return redirect()->back();
+            array_push($songInfo, null);
         }
 
         // item['songId'] = songId
@@ -213,6 +217,7 @@ class AdminController extends Controller
                         'author' => trim($item['author']),
                         'title' => trim($item['title']),
                         'user' => trim(Auth::user()->name),
+                        'duration_ms' => trim($item['duration_ms']),
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);

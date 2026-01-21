@@ -5,14 +5,12 @@ namespace App\Http\Controllers\Cron;
 use App\Http\Controllers\Controller;
 use App\Models\Backup_song;
 use App\Models\Song;
-use App\Models\Vote;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use SpotifyWebAPI\Session; // https://github.com/jwilsson/spotify-web-api-php
-use SpotifyWebAPI\SpotifyWebAPI;
+use SpotifyWebAPI\Session;
+use SpotifyWebAPI\SpotifyWebAPI; // https://github.com/jwilsson/spotify-web-api-php
 
 class CronJobAddSongsController extends Controller
 {
@@ -24,9 +22,8 @@ class CronJobAddSongsController extends Controller
     public function index()
     {
         $playlist_id = config('spotify.playlist_id');
-
-        $datum = Carbon::now()->format('Y-m-d');
-        $db_query = Vote::select('songId', 'datum', DB::raw('count(id) as voteCount'))->where('datum', $datum)->groupBy('songId', 'datum')->orderBy('voteCount', 'DESC')->get();
+        $playlist_length = 0;
+        $songs = [];
 
         $session = new Session(
             config('spotify.client_id'),
@@ -38,6 +35,39 @@ class CronJobAddSongsController extends Controller
         $api = new SpotifyWebAPI;
         $api->setAccessToken($accessToken);
 
+        $datum = Carbon::now()->format('Y-m-d');
+        $db_query = Song::withCount([
+            'votes as voteCount' => fn ($q) => $q->whereDate('datum', $datum),
+        ])
+            ->having('voteCount', '>', 0)
+            ->orderByDesc('voteCount')
+            ->get();
+
+        $db_query2 = Backup_song::where('weekly_played', 0)
+            ->inRandomOrder()
+            ->limit(10)
+            ->get();
+
+        $db_query = $db_query->merge($db_query2);
+
+        foreach ($db_query as $song) {
+            if ($this->countTime($playlist_length)->totalMinutes >= 24) {
+                break;
+            }
+
+            if ($song) {
+                $songLength = $song->duration_ms;
+                if ($songLength == 0) {
+                    $track = $api->getTrack($song->songId);
+                    $song->duration_ms = isset($track->duration_ms) ? $track->duration_ms : 0;
+                }
+                $song->weekly_played = 1;
+                $playlist_length += $song->duration_ms;
+                $songs[] = $song;
+                $song->save();
+            }
+        }
+
         // VYMAZANIE PLAYLISTU
         $track_uris = [];
         $tracks = $api->getPlaylistTracks($playlist_id);
@@ -46,7 +76,6 @@ class CronJobAddSongsController extends Controller
                 $track_uris[] = ['uri' => $item->track->uri];
             }
         }
-        dump($track_uris);
         if (count($track_uris) > 0) {
 
             $request_body = [
@@ -62,31 +91,12 @@ class CronJobAddSongsController extends Controller
         ]);
 
         // PRIDAVANIE pesničiek
-
-        $playlist_length = 0;
-        foreach ($db_query as $index => $song) {
-            if ($this->countTime($playlist_length)->totalMinutes >= 24) {
-                break;
-            }
+        foreach ($songs as $index => $song) {
 
             $uri = 'spotify:track:'.$song->songId;
-            $songModel = Song::where('songId', $song->songId)->first();
-            if (! $songModel) {
-                $songModel = Backup_song::where('songId', $song->songId)->first();
-            }
             try {
                 $api->addPlaylistTracks($playlist_id, [$uri], ['position' => $index + 1]);
                 echo 'Skladba bola úspešne pridaná!';
-                if ($songModel) {
-                    $songLength = $songModel->duration_ms;
-                    if ($songLength == 0) {
-                        $track = $api->getTrack($song->songId);
-                        $songModel->duration_ms = isset($track->duration_ms) ? $track->duration_ms : 0;
-                    }
-                    $playlist_length += $songModel->duration_ms;
-                    $songModel->weekly_played = 1;
-                    $songModel->save();
-                }
             } catch (Exception $e) {
                 echo 'Chyba: '.$e->getMessage();
             }
