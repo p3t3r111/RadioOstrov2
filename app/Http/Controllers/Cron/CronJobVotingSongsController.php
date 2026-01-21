@@ -32,10 +32,7 @@ class CronJobVotingSongsController extends Controller
         Active_voting_song::truncate();
         foreach ($songVotesList as $item) {
             Active_voting_song::create([
-                'songId' => trim($item->songId),
-                'imgPath' => trim($item->img_path),
-                'author' => trim($item->author),
-                'title' => trim($item->title),
+                'song_id' => trim($item->id),
             ]);
         }
 
