@@ -35,7 +35,7 @@ importers:
         version: 1.13.2
       laravel-vite-plugin:
         specifier: ^1.0.6
-        version: 1.3.0(vite@7.2.2(jiti@1.21.7))
+        version: 1.3.0(vite@6.4.1(jiti@1.21.7))
       postcss:
         specifier: ^8.4.31
         version: 8.5.6
@@ -43,8 +43,8 @@ importers:
         specifier: ^3.1.0
         version: 3.4.18
       vite:
-        specifier: ^7.2.2
-        version: 7.2.2(jiti@1.21.7)
+        specifier: ^6.4.1
+        version: 6.4.1(jiti@1.21.7)
 
 packages:
 
@@ -986,19 +986,19 @@ packages:
   vite-plugin-full-reload@1.2.0:
     resolution: {integrity: sha512-kz18NW79x0IHbxRSHm0jttP4zoO9P9gXh+n6UTwlNKnviTTEpOlum6oS9SmecrTtSr+muHEn5TUuC75UovQzcA==}
 
-  vite@7.2.2:
-    resolution: {integrity: sha512-BxAKBWmIbrDgrokdGZH1IgkIk/5mMHDreLDmCJ0qpyJaAteP8NvMhkwr/ZCQNqNH97bw/dANTE9PDzqwJghfMQ==}
-    engines: {node: ^20.19.0 || >=22.12.0}
+  vite@6.4.1:
+    resolution: {integrity: sha512-+Oxm7q9hDoLMyJOYfUYBuHQo+dkAloi33apOPP56pzj+vsdJDzr+j1NISE5pyaAuKL4A3UD34qd0lx5+kfKp2g==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
-      '@types/node': ^20.19.0 || >=22.12.0
+      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
       jiti: '>=1.21.0'
-      less: ^4.0.0
+      less: '*'
       lightningcss: ^1.21.0
-      sass: ^1.70.0
-      sass-embedded: ^1.70.0
-      stylus: '>=0.54.8'
-      sugarss: ^5.0.0
+      sass: '*'
+      sass-embedded: '*'
+      stylus: '*'
+      sugarss: '*'
       terser: ^5.16.0
       tsx: ^4.8.1
       yaml: ^2.4.2
@@ -1529,10 +1529,10 @@ snapshots:
 
   jiti@1.21.7: {}
 
-  laravel-vite-plugin@1.3.0(vite@7.2.2(jiti@1.21.7)):
+  laravel-vite-plugin@1.3.0(vite@6.4.1(jiti@1.21.7)):
     dependencies:
       picocolors: 1.1.1
-      vite: 7.2.2(jiti@1.21.7)
+      vite: 6.4.1(jiti@1.21.7)
       vite-plugin-full-reload: 1.2.0
 
   lilconfig@3.1.3: {}
@@ -1800,7 +1800,7 @@ snapshots:
       picocolors: 1.1.1
       picomatch: 2.3.1
 
-  vite@7.2.2(jiti@1.21.7):
+  vite@6.4.1(jiti@1.21.7):
     dependencies:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.3)
