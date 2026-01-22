@@ -25,6 +25,10 @@ class ProfileController extends Controller
         return view('profile.show', [
             'user' => $request->user(),
             'songs' => $user->songs,
+            'votes' => $user->votes,
+            'invited_people' => $user->invited_people,
+            'max_votes_per_day' => $user->max_votes_per_day,
+            'weight_per_vote' => $user->vote_weight,
         ]);
     }
 
