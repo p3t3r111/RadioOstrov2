@@ -14,7 +14,7 @@
 }
 
 .dropdown-wrapper {
-  @apply absolute z-10 w-full bg-white rounded-md shadow-lg py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none overflow-scroll h-full overflow-x-hidden;
+  @apply absolute z-10 w-full bg-white rounded-md shadow-lg py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none overflow-scroll h-32 overflow-x-hidden;
 }
 
 .dropdown-item {
