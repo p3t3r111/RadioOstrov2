@@ -18,4 +18,9 @@ class Active_voting_song extends Model
     {
         return $this->belongsTo(Song::class);
     }
+
+    public static function count()
+    {
+        return self::all()->count();
+    }
 }

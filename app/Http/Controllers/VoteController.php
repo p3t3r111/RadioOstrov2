@@ -43,7 +43,7 @@ class VoteController extends Controller
             $fromUNIX = $fromDate->timestamp;
             $toUNIX = $toDate->timestamp;
 
-            if ($timestampNow >= $fromUNIX && $timestampNow <= $toUNIX) {
+            if ($timestampNow >= $fromUNIX && $timestampNow <= $toUNIX && Vote::canVote()) {
                 $i = 1;
                 $votingDateUNIX = $toDate->addDay()->timestamp;
                 $datum = Carbon::createFromTimestamp($votingDateUNIX)->format('d.m.Y');
