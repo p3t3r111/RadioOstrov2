@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+
 class ReferralController extends Controller
 {
     public function store(string $code)
