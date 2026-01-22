@@ -25,8 +25,12 @@
   @apply w-8 h-8 rounded-full;
 }
 
-.active-day {
-  @apply bg-primaryAction rounded-lg p-1;
+.active-day{
+  @apply bg-primaryAction bg-none text-black translate-x-4 lg:translate-x-0 lg:-translate-y-4;
+}
+
+.active-day *{
+  @apply text-black;
 }
 
 nav .navbar-dropdown .navbar-item {
