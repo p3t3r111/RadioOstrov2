@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CheckHolidays;
+use App\Models\Vote;
 use App\Models\Voting_dates;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $dayOfWeek = null;
-        $canVote = false;
-
-        if (Auth::user()->voted == 0 && ! CheckHolidays::execute()) {
-            $canVote = true;
-        }
+        $canVote = Vote::canVote();
 
         $dateNow = Carbon::now()->format('Y-m-d H:i:s');
         $dateNowUNIX = strtotime(datetime: $dateNow);

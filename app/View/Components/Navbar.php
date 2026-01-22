@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Actions\CheckHolidays;
+use App\Models\Vote;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +22,7 @@ class Navbar extends Component
     public function __construct()
     {
         $this->user = Auth::user();
-        $this->canVote = ($this->user && $this->user->voted == 0 && ! CheckHolidays::execute());
+        $this->canVote = Vote::canVote();
         $this->initials = $this->makeInitials($this->user?->name);
     }
 
