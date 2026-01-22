@@ -55,6 +55,9 @@ class GoogleOauthController extends Controller
                     'email' => $user->email,
                     'referrer_id' => $referredBy,
                 ]);
+
+                $referrer = User::find($referredBy);
+                $referrer->increment('invited_people');
             }
 
             Auth::login($user);
