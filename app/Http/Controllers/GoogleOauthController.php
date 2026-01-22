@@ -34,7 +34,7 @@ class GoogleOauthController extends Controller
 
             Auth::login($user);
         } else {
-            if ($referrerId && User::where('id', $referrerId)->exists() && ! ReferedLog::where('email', $user->email)->exists()) {
+            if ($referrerId && User::where('id', $referrerId)->exists() && ! ReferedLog::where('email', $googleUser->getEmail())->exists()) {
                 $referredBy = $referrerId;
             } else {
                 $referredBy = null;
