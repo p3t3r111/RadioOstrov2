@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ReferedLog;
 use App\Models\User;
 use Auth;
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleOauthController extends Controller
@@ -17,24 +17,51 @@ class GoogleOauthController extends Controller
     public function callback()
     {
         $googleUser = Socialite::driver('google')->user();
+
         $user = User::where('email', $googleUser->getEmail())->first();
-        if ($user and $user->google_id) {
-            // Používateľ existuje → prihlásiť
+
+        $referrerId = request()->cookie('referrer_id');
+
+        if ($user) {
+            if (! $user->google_id) {
+                $user->update([
+                    'google_id' => $googleUser->id,
+                    'google_token' => $googleUser->token,
+                    'google_refresh_token' => $googleUser->refreshToken,
+                    'email_verified_at' => now(),
+                ]);
+            }
+
             Auth::login($user);
         } else {
-            $user = User::updateOrCreate([
-                'email' => $googleUser->email,
-            ], [
+            if ($referrerId && User::where('id', $referrerId)->exists() && ! ReferedLog::where('email', $user->email)->exists()) {
+                $referredBy = $referrerId;
+            } else {
+                $referredBy = null;
+            }
+
+            $user = User::create([
                 'name' => $googleUser->name,
                 'email' => $googleUser->email,
+                'google_id' => $googleUser->id,
                 'google_token' => $googleUser->token,
                 'google_refresh_token' => $googleUser->refreshToken,
-                'google_id' => $googleUser->id,
-                'email_verified_at' => now()->timestamp,
+                'email_verified_at' => now(),
+                'referred_by' => $referredBy,
             ]);
+
+            if ($referredBy) {
+                ReferedLog::create([
+                    'email' => $user->email,
+                    'referrer_id' => $referredBy,
+                ]);
+            }
 
             Auth::login($user);
         }
+
+        // po registrácii cookie zmaž
+        cookie()->queue(cookie()->forget('referrer_id'));
 
         return redirect('/');
     }

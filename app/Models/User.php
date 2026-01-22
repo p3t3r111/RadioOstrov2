@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Str;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -30,7 +31,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'vote_weight',
         'max_favorite_songs',
         'max_votes_per_day',
+        'referred_by',
     ];
+
+    protected $guarded = ['referral_code'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -53,6 +57,21 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            if (! $user->referral_code) {
+                do {
+                    $code = Str::upper(Str::random(8));
+                } while (
+                    self::where('referral_code', $code)->exists()
+                );
+
+                $user->referral_code = $code;
+            }
+        });
     }
 
     public function songs()
