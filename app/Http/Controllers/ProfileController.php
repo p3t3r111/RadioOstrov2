@@ -20,15 +20,29 @@ class ProfileController extends Controller
      */
     public function show(Request $request): View
     {
-        $user = User::with('songs')->find(Auth::user()->id);
+        $user = User::with('songs.votes')->find(Auth::user()->id);
+
+        $userSongs = $user->songs;
+        $userSongsCount = $userSongs->count();
+        if ($userSongsCount < $user->max_favorite_songs) {
+            for ($i = $userSongsCount; $i < $user->max_favorite_songs; $i++) {
+                $arrayPush = [
+                    'songId' => null,
+                    'title' => null,
+                    'confirmed' => null,
+                ];
+                $userSongs->push($arrayPush);
+            }
+        }
 
         return view('profile.show', [
             'user' => $request->user(),
-            'songs' => $user->songs,
+            'songs' => $userSongs,
             'votes' => $user->votes,
             'invited_people' => $user->invited_people,
             'max_votes_per_day' => $user->max_votes_per_day,
             'weight_per_vote' => $user->vote_weight,
+            'max_favorite_songs' => $user->max_favorite_songs,
         ]);
     }
 
