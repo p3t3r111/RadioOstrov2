@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReferedLog extends Model
 {
-    private $fillable = [
+    protected $fillable = [
         'email',
         'referrer_id',
     ];
