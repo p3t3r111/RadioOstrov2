@@ -13,9 +13,9 @@ class HolidaySeeder extends Seeder
     public function run(): void
     {
         Holiday::create([
-            'name' => 'Vianočné prázdniny',
-            'start_date' => '2026-01-14',
-            'end_date' => '2026-01-18',
+            'name' => 'Skrateny den',
+            'start_date' => '2026-01-26',
+            'end_date' => '2026-01-26',
             'type' => 'test',
         ]);
     }

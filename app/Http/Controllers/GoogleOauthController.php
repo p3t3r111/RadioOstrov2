@@ -47,7 +47,6 @@ class GoogleOauthController extends Controller
                 'google_token' => $googleUser->token,
                 'google_refresh_token' => $googleUser->refreshToken,
                 'email_verified_at' => now(),
-                'referred_by' => $referredBy,
             ]);
 
             if ($referredBy) {

@@ -24,10 +24,10 @@
             </h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                {{ __('Po vymazaní vášho konta budú všetky jeho zdroje a údaje natrvalo vymazané. Zadajte svoje heslo a potvrďte, že chcete svoje konto natrvalo vymazať.') }}
+                {{ __('Po vymazaní vášho konta budú všetky jeho zdroje a údaje natrvalo vymazané.') }}
             </p>
 
-            <div class="mt-6">
+            {{-- <div class="mt-6">
                 <x-input-label for="password" value="{{ __('Heslo') }}" class="sr-only" />
 
                 <x-text-input
@@ -39,7 +39,7 @@
                 />
 
                 <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
-            </div>
+            </div> --}}
 
             <div class="mt-6 flex justify-end">
                 <x-secondary-button x-on:click="$dispatch('close')">
