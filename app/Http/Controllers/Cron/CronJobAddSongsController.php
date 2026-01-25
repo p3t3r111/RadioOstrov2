@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Cron;
 
-use App\Actions\CheckHolidays;
 use App\Http\Controllers\Controller;
 use App\Models\Backup_song;
 use App\Models\Song;
@@ -22,9 +21,6 @@ class CronJobAddSongsController extends Controller
 
     public function index()
     {
-        if (CheckHolidays::execute(true)) {
-            return;
-        }
         $playlist_id = config('spotify.playlist_id');
         $playlist_length = 0;
         $songs = [];

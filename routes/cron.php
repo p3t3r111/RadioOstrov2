@@ -10,7 +10,7 @@ use App\Http\Controllers\Cron\CronJobVotingDatesController;
 use App\Http\Controllers\Cron\CronJobVotingSongsController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('cron')->group(function () {
+Route::middleware(app()->environment('production') ? 'cron' : null)->group(function () {
     Route::get('/queue-start', function () {
         Artisan::call('queue:restart');
         Artisan::call('queue:work');

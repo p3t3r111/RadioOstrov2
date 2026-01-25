@@ -16,7 +16,7 @@ class CheckIfHolidays
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (CheckHolidays::execute()) {
+        if (CheckHolidays::execute(true)) {
             abort(403, 'Dnes sú prázdniny');
         }
 
