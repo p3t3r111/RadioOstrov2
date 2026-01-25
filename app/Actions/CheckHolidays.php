@@ -15,7 +15,7 @@ class CheckHolidays
             ->whereDate('end_date', '>=', $today)
             ->get();
 
-        if ($holiday) {
+        if ($holiday->isNotEmpty()) {
             if ($cronCall) {
                 return true;
             }
