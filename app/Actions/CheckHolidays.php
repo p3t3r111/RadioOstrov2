@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class CheckHolidays
 {
-    public static function execute()
+    public static function execute($cronCall = false)
     {
         $today = now()->toDateString();
 
@@ -16,6 +16,9 @@ class CheckHolidays
             ->get();
 
         if ($holiday) {
+            if ($cronCall) {
+                return true;
+            }
             $startDate = Carbon::parse($holiday->first()->start_date)->setTime(14, 0)->timestamp;
             $endDate = Carbon::parse($holiday->first()->end_date)->setTime(14, 0)->timestamp;
             $nowTimestamp = now()->timestamp;
