@@ -14,8 +14,8 @@ class HolidaySeeder extends Seeder
     {
         Holiday::create([
             'name' => 'Skrateny den',
-            'start_date' => '2026-01-26',
-            'end_date' => '2026-01-26',
+            'start_date' => '2026-01-23',
+            'end_date' => '2026-01-25',
             'type' => 'test',
         ]);
     }
