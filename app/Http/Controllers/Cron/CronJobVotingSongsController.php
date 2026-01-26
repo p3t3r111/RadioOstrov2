@@ -19,13 +19,13 @@ class CronJobVotingSongsController extends Controller
             ->where('weekly_played', 0)
             ->has('users')
             ->inRandomOrder()
-            ->limit(10)
+            ->limit(12)
             ->get();
 
-        if ($songVotesList->count() < 10) {
+        if ($songVotesList->count() < 12) {
             $songVotesList = Backup_song::where('weekly_played', 0)
                 ->inRandomOrder()
-                ->limit(10)
+                ->limit(12)
                 ->get();
         }
 
