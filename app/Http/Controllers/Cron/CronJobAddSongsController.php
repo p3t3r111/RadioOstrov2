@@ -84,7 +84,7 @@ class CronJobAddSongsController extends Controller
             $api->deletePlaylistTracks($playlist_id, $request_body);
         }
 
-        $datum2 = Carbon::parse($datum)->format('d.m.Y');
+        $datum2 = Carbon::parse($datum)->addDay()->format('d.m.Y');
 
         $api->updatePlaylist($playlist_id, [
             'name' => 'Radio ostrov | '.$datum2,
