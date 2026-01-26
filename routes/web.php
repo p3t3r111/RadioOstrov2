@@ -43,6 +43,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('admin/play-songs', [AdminController::class, 'playSongs'])->name('admin.playSongs');
         Route::get('admin/add-songs', [AdminController::class, 'addSongs'])->name('admin.addSongs');
+
+        Route::get('admin/holidays', [AdminController::class, 'holidays'])->name('admin.holidays');
+        Route::post('admin/holidays/add', [AdminController::class, 'addHolidayPost'])->name('admin.addHoliday');
+        Route::post('admin/holidays/delete', [AdminController::class, 'deleteHoliday'])->name('admin.deleteHoliday');
+
+        Route::get('admin/updates', [AdminController::class, 'updates'])->name('admin.updates');
+        Route::post('admin/updates/add', [AdminController::class, 'addUpdatePost'])->name('admin.addUpdate');
+        Route::post('admin/updates/delete', [AdminController::class, 'deleteUpdate'])->name('admin.deleteUpdate');
     });
 
     // VOTE

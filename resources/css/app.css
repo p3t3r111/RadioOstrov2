@@ -13,6 +13,14 @@
   scrollbar-color: #d1d5db #f3f4f6;
 }
 
+body:has(.update a) #content {
+  @apply pt-[5.3rem];
+}
+
+body:not(:has(.update a)) #content {
+  @apply pt-12;
+}
+
 .dropdown-wrapper {
   @apply absolute z-10 w-full bg-white rounded-md shadow-lg py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none overflow-scroll h-32 overflow-x-hidden;
 }

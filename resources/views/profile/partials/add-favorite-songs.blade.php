@@ -84,7 +84,6 @@
                 dropdownItem.appendChild(img);
                 dropdownItem.appendChild(text);
                 dropdownItem.addEventListener('click', () => {
-                    console.log("clicked");
                     input.value = track.name;
                     songIdInput.value = track.id;
                     dropdownDiv.remove();

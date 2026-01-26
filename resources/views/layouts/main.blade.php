@@ -16,7 +16,7 @@
     <x-navbar />
 
 
-    <div class="pt-14 min-h-[78vh] h-full flex flex-col" id="content">
+    <div class="min-h-[78vh] h-full flex flex-col" id="content">
         @yield('content')
     </div>
 

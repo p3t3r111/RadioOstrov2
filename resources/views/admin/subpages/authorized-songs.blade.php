@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-    <section class="space-y-6">
+    <section class="">
         <x-admin-section-header>Schválené pesničky</x-admin-section-header>
-        <div class="flex flex-col items-center gap-10 ">
+        <div class="flex flex-col items-center gap-10 my-8">
             <div class="flex flex-col items-center grow gap-4 w-[80%]">
                 @if ($songInfo)
                     <div class="flex flex-wrap gap-3 justify-center w-full" id="songUsersHolder">
