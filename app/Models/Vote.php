@@ -16,6 +16,8 @@ class Vote extends Model
         'datum',
         'user_id',
         'song_id',
+        'vote_weight',
+        'vote_count',
     ];
 
     public function user()
@@ -30,6 +32,6 @@ class Vote extends Model
 
     public static function canVote()
     {
-        return Auth::user()->voted == 0 && ! CheckHolidays::execute() && Active_voting_song::count() > 0;
+        return Auth::user()->voted < Auth::user()->max_votes_per_day && ! CheckHolidays::execute() && Active_voting_song::count() > 0;
     }
 }
