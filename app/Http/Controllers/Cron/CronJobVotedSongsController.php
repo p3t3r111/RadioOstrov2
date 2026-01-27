@@ -34,11 +34,14 @@ class CronJobVotedSongsController extends Controller
                 break;
             }
         }
+        // dd($song_query);
         foreach ($song_query as $song) {
             Vote::create([
                 'datum' => $votingDateNEW,
-                'user_id' => -3,
+                'user_id' => 1,
                 'song_id' => $song->song_id,
+                'vote_weight' => 1,
+                'vote_count' => 1,
             ]);
 
         }
