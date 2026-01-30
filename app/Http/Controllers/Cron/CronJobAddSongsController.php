@@ -35,7 +35,7 @@ class CronJobAddSongsController extends Controller
         $api = new SpotifyWebAPI;
         $api->setAccessToken($accessToken);
 
-        $datum = Carbon::now()->format('Y-m-d');
+        $datum = Carbon::now()->addDay()->format('Y-m-d');
         $db_query = Song::withCount([
             'votes as voteCount' => fn ($q) => $q->whereDate('datum', $datum),
         ])
@@ -84,7 +84,7 @@ class CronJobAddSongsController extends Controller
             $api->deletePlaylistTracks($playlist_id, $request_body);
         }
 
-        $datum2 = Carbon::parse($datum)->addDay()->format('d.m.Y');
+        $datum2 = Carbon::parse($datum)->format('d.m.Y');
 
         $api->updatePlaylist($playlist_id, [
             'name' => 'Radio ostrov | '.$datum2,
