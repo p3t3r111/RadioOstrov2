@@ -43,6 +43,7 @@ class ProfileController extends Controller
             'max_votes_per_day' => $user->max_votes_per_day,
             'weight_per_vote' => $user->vote_weight,
             'max_favorite_songs' => $user->max_favorite_songs,
+            'invite_code' => $user->referral_code,
         ]);
     }
 
