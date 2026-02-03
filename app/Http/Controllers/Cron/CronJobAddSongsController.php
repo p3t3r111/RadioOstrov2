@@ -45,7 +45,7 @@ class CronJobAddSongsController extends Controller
 
         $db_query2 = Backup_song::where('weekly_played', 0)
             ->inRandomOrder()
-            ->limit(10)
+            ->limit(12)
             ->get();
 
         $db_query = $db_query->merge($db_query2);
