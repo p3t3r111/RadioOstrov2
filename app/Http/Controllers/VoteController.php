@@ -17,54 +17,27 @@ class VoteController extends Controller
 {
     public function index()
     {
-        $hlasyNEW = [];
-        $i = 0;
-        $hlasy = Vote::distinct()->orderBy('datum', 'desc')->pluck('datum');
-        $timestampNow = Carbon::now()->timestamp;
-        foreach ($hlasy as $item) {
-            $date = Carbon::createFromFormat('Y-m-d H:i:s', $item.' '.config('app.voting_time_full'));
-            $timestamp = $date->subDay()->timestamp;
-            if ($timestamp < $timestampNow) {
-                $datum = Carbon::createFromFormat('Y-m-d', $item)->format('d.m.Y');
-                $datumArr = [
-                    'datum' => $datum,
-                    'active' => false,
-                ];
-                array_push($hlasyNEW, $datumArr);
-            }
-        }
+        $activeVotingTo = Carbon::parse(
+            Voting_dates::activeVotingDate()->to
+        )->setTime(config('app.voting_hours'), 0, 0);
 
-        $dateIntervals = Voting_dates::all('from', 'to')->toArray();
-        foreach ($dateIntervals as $dateInterval) {
-            $fromDate = Carbon::createFromFormat('Y-m-d', $dateInterval['from'])
-                ->setTime(config('app.voting_hours'), 0, 0);
-            $toDate = Carbon::createFromFormat('Y-m-d', $dateInterval['to'])
-                ->setTime(config('app.voting_hours'), 0, 0);
+        $hlasy = Vote::distinct()->orderBy('datum', 'desc')->pluck('datum')->map(function ($date) use ($activeVotingTo) {
+            $votingDate = Carbon::parse($date)->setTime(config('app.voting_hours'), 0, 0);
 
-            $fromUNIX = $fromDate->timestamp;
-            $toUNIX = $toDate->timestamp;
-
-            if ($timestampNow >= $fromUNIX && $timestampNow <= $toUNIX && Auth::user()->canVote()) {
-                $i = 1;
-                $votingDateUNIX = $toDate->addDay()->timestamp;
-                $datum = Carbon::createFromTimestamp($votingDateUNIX)->format('d.m.Y');
-                $datumArr = [
-                    'datum' => $datum,
-                    'active' => true,
-                ];
-                array_unshift($hlasyNEW, $datumArr);
-                break;
-            }
-        }
+            return [
+                'datum' => $votingDate->format('d.m.Y'),
+                'active' => $activeVotingTo->lt($votingDate),
+            ];
+        })->toArray();
 
         $perPage = 10;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems2 = array_slice($hlasyNEW, ($currentPage - 1) * $perPage, $perPage);
-        $hlasyNEW = new LengthAwarePaginator($currentItems2, count($hlasyNEW), $perPage, $currentPage, [
+        $currentItems2 = array_slice($hlasy, ($currentPage - 1) * $perPage, $perPage);
+        $hlasyNew = new LengthAwarePaginator($currentItems2, count($hlasy), $perPage, $currentPage, [
             'path' => LengthAwarePaginator::resolveCurrentPath(),
         ]);
 
-        return view('votes', ['hlasy' => $hlasyNEW]);
+        return view('votes', ['hlasy' => $hlasyNew]);
     }
 
     public function history(Request $request)
@@ -122,75 +95,61 @@ class VoteController extends Controller
             ->pluck('vote_count', 'song_id')
             ->toArray();
 
-        $dateNowUNIX = Carbon::now()->timestamp;
-        $dateIntervals = Voting_dates::all('from', 'to')->toArray();
-        foreach ($dateIntervals as $dateInterval) {
-            $fromDate = Carbon::createFromFormat('Y-m-d', $dateInterval['from'])
-                ->setTime(config('app.voting_hours'), 0, 0);
-            $toDate = Carbon::createFromFormat('Y-m-d', $dateInterval['to'])
-                ->setTime(config('app.voting_hours'), 0, 0);
+        $activeVotingDate = Voting_dates::activeVotingDate();
+        if ($activeVotingDate) {
+            $votingDate = Carbon::createFromFormat('Y-m-d', $activeVotingDate->to)
+                ->setTime(config('app.voting_hours'), 0, 0)->addDay();
+            $nazov_dna = $votingDate->format('l');
 
-            $fromUNIX = $fromDate->timestamp;
-            $toUNIX = $toDate->timestamp;
-
-            if ($dateNowUNIX >= $fromUNIX && $dateNowUNIX <= $toUNIX) {
-
-                $votingDateUNIX = $toDate->addDay()->timestamp;
-                $votingDateNEW = date('d.m.Y', $votingDateUNIX);
-
-                $datum2 = Carbon::createFromFormat('d.m.Y', $votingDateNEW);
-                $nazov_dna = $datum2->format('l');
-
-                switch ($nazov_dna) {
-                    case 'Monday':
-                        $nazov_dna = 'Pondelok';
-                        break;
-                    case 'Tuesday':
-                        $nazov_dna = 'Utorok';
-                        break;
-                    case 'Wednesday':
-                        $nazov_dna = 'Streda';
-                        break;
-                    case 'Thursday':
-                        $nazov_dna = 'Štvrtok';
-                        break;
-                    case 'Friday':
-                        $nazov_dna = 'Piatok';
-                        break;
-                }
-
-                $songsArray = [];
-                $songs = Active_voting_song::with('song')->get();
-                foreach ($songs as $song) {
-                    if (isset($votes[$song->song->id])) {
-                        $song->user_votes = $votes[$song->song->id];
-                    } else {
-                        $song->user_votes = null;
-                    }
-                    $songArray = [
-                        'id' => $song->song->id,
-                        'songId' => $song->song->songId,
-                        'user_votes' => $song->user_votes,
-                    ];
-                    array_push($songsArray, $songArray);
-                }
-
-                if (count($songsArray) < 5) {
-                    return view('vote.noActiveVote');
-                }
-
-                return view(
-                    'vote.activeVote',
-                    [
-                        'den' => $nazov_dna,
-                        'datum' => $votingDateNEW,
-                        'songs' => $songsArray,
-                        'maxVotes' => $user->max_votes_per_day,
-                        'voteWeight' => $user->vote_weight,
-                        'voteCounterUserTotal' => array_sum($votes),
-                    ],
-                );
+            switch ($nazov_dna) {
+                case 'Monday':
+                    $nazov_dna = 'Pondelok';
+                    break;
+                case 'Tuesday':
+                    $nazov_dna = 'Utorok';
+                    break;
+                case 'Wednesday':
+                    $nazov_dna = 'Streda';
+                    break;
+                case 'Thursday':
+                    $nazov_dna = 'Štvrtok';
+                    break;
+                case 'Friday':
+                    $nazov_dna = 'Piatok';
+                    break;
             }
+
+            $songsArray = [];
+            $songs = Active_voting_song::with('song')->get();
+            foreach ($songs as $song) {
+                if (isset($votes[$song->song->id])) {
+                    $song->user_votes = $votes[$song->song->id];
+                } else {
+                    $song->user_votes = null;
+                }
+                $songArray = [
+                    'id' => $song->song->id,
+                    'songId' => $song->song->songId,
+                    'user_votes' => $song->user_votes,
+                ];
+                array_push($songsArray, $songArray);
+            }
+
+            if (count($songsArray) < 5) {
+                return view('vote.noActiveVote');
+            }
+
+            return view(
+                'vote.activeVote',
+                [
+                    'den' => $nazov_dna,
+                    'datum' => $votingDate->format('d.m.Y'),
+                    'songs' => $songsArray,
+                    'maxVotes' => $user->max_votes_per_day,
+                    'voteWeight' => $user->vote_weight,
+                    'voteCounterUserTotal' => array_sum($votes),
+                ],
+            );
         }
 
         return view('vote.noActiveVote');
