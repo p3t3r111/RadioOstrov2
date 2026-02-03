@@ -13,4 +13,13 @@ class Voting_dates extends Model
         'from',
         'to',
     ];
+
+    public static function activeVotingDate()
+    {
+        $date = Voting_dates::where('from', '<=', today()->toDateString())
+            ->where('to', '>=', today()->toDateString())
+            ->first();
+
+        return $date;
+    }
 }
