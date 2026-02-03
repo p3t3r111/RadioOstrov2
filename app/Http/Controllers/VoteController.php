@@ -165,7 +165,7 @@ class VoteController extends Controller
                     if (isset($votes[$song->song->id])) {
                         $song->user_votes = $votes[$song->song->id];
                     } else {
-                        $song->user_votes = 0;
+                        $song->user_votes = null;
                     }
                     $songArray = [
                         'id' => $song->song->id,
@@ -205,6 +205,8 @@ class VoteController extends Controller
             'votes.*' => 'integer|min:0',
         ]);
 
+        // dd($request->votes);
+
         $totalVotes = array_sum($request->votes);
 
         if ($totalVotes > $user->max_votes_per_day) {
@@ -219,6 +221,8 @@ class VoteController extends Controller
                 if (! isset($activeSongs[$songId])) {
                     continue;
                 }
+
+                $voteCount = intval($voteCount);
 
                 $vote = Vote::where([
                     'user_id' => $user->id,
@@ -251,8 +255,6 @@ class VoteController extends Controller
 
                     $diff = $voteCount - $vote->vote_count;
 
-                    dd($diff);
-
                     if ($diff > 0) {
                         $user->markVoted($diff);
                     } else {
@@ -265,6 +267,5 @@ class VoteController extends Controller
         });
 
         return view('vote.voted');
-
     }
 }

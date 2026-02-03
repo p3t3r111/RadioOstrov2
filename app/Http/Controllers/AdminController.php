@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Backup_song;
+use App\Models\Holiday;
 use App\Models\Song;
-use App\Models\Vote;
-use Carbon\Carbon;
+use App\Models\Update;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Route;
 use Spotify;
 
 class AdminController extends Controller
@@ -237,24 +238,93 @@ class AdminController extends Controller
 
     public function playSongs()
     {
-        $timenow = Carbon::now()->format('Y-m-d');
-        $i = 0;
-        $items = [];
-        $votes = Vote::select('songName', 'songId', DB::raw('count(*) as total'))->where('datum', $timenow)->groupBy('songName', 'songId')->orderBy('total', 'desc')->orderBy('songName')->take(5)->get();
-        foreach ($votes as $vote) {
-            if ($i < 5) {
-                $item = [
-                    'songId' => $vote->songId,
-                    'title' => $vote->songName,
-                    'totalVotes' => $vote->total,
-                ];
-                array_push($items, $item);
-                $i++;
-            }
-        }
+        return view('admin.subpages.playSongs');
+    }
 
-        return view('admin.playSongs', [
-            'items' => $items,
+    public function holidays()
+    {
+        $holidays = Holiday::all()->sortBy('start_date');
+
+        return view('admin.subpages.holidays', [
+            'holidays' => $holidays,
         ]);
+    }
+
+    public function addHolidayPost(Request $request)
+    {
+        $request->validate([
+            'holidayName' => 'required|string|max:255',
+            'startDate' => 'required|date',
+            'endDate' => 'required|date|after_or_equal:startDate',
+        ]);
+
+        Holiday::create([
+            'name' => $request->holidayName,
+            'start_date' => $request->startDate,
+            'end_date' => $request->endDate,
+            'type' => 'custom',
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function deleteHoliday(Request $request)
+    {
+        $request->validate([
+            'holidayId' => 'required|integer|exists:holidays,id',
+        ]);
+
+        Holiday::where('id', $request->holidayId)->delete();
+
+        return redirect()->back();
+    }
+
+    public function updates()
+    {
+        $updates = Update::all()->sortByDesc('created_at');
+
+        return view('admin.subpages.updates', [
+            'updates' => $updates,
+        ]);
+    }
+
+    public function addUpdatePost(Request $request)
+    {
+        $request->validate([
+            'text' => 'required|string|max:255',
+            'action' => [
+                'nullable',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    if (
+                        ! filter_var($value, FILTER_VALIDATE_URL)
+                        && ! Route::has($value)
+                    ) {
+                        $fail('Action musí byť platná URL alebo názov routy.');
+                    }
+                },
+            ],
+            'endDate' => 'nullable|date|after_or_equal:today',
+        ]);
+
+        Update::create([
+            'text' => $request->text,
+            'action' => $request->action,
+            'end_date' => $request->endDate,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function deleteUpdate(Request $request)
+    {
+        $request->validate([
+            'updateId' => 'required|integer|exists:updates,id',
+        ]);
+
+        Update::where('id', $request->updateId)->delete();
+
+        return redirect()->back();
     }
 }

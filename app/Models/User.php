@@ -93,18 +93,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function markVoted(int $votes): void
     {
-        $this->incrementEach([
-            'voted' => $votes,
-            'votes' => $votes,
-        ]);
+        $this->increment('voted', $votes);
+        $this->increment('votes', $votes);
     }
 
     public function unMarkVoted(int $votes): void
     {
-        $this->decrementEach([
-            'voted' => $votes,
-            'votes' => $votes,
-        ]);
+        $this->decrement('voted', $votes);
+        $this->decrement('votes', $votes);
     }
 
     public function getSongsCount()

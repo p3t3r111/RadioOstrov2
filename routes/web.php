@@ -57,7 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('votes', [VoteController::class, 'index'])->name('vote.index');
     Route::get('votes/history', [VoteController::class, 'history'])->name('vote.history');
     Route::get('vote', [VoteController::class, 'active'])->name('vote.active');
-    Route::post('vote', [VoteController::class, 'vote'])->name('vote.vote');
+    Route::post('vote', [VoteController::class, 'vote'])->name('vote.vote')->middleware('throttle:5,1');
 });
 
 Route::middleware(['auth'])->get('/spotify/search', function () {
