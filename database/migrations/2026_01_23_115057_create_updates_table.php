@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('votes', function (Blueprint $table) {
+        Schema::create('updates', function (Blueprint $table) {
             $table->id();
-            $table->date('datum');
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreignId('song_id')->references('id')->on('songs')->cascadeOnDelete();
+            $table->string('text');
+            $table->string('action')->nullable();
+            $table->date('end_date')->nullable();
             $table->timestamps();
-
-            $table->unique(['user_id', 'song_id', 'datum']);
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('votes');
+        Schema::dropIfExists('updates');
     }
 };
