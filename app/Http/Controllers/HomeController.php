@@ -12,7 +12,6 @@ class HomeController extends Controller
     {
         $dayOfWeek = null;
         $canVote = Auth::user()->canVote();
-        dd($canVote);
         $exportDates = [];
 
         $dateNow = Carbon::now()->format('Y-m-d H:i:s');
