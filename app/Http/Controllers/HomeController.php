@@ -3,53 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Voting_dates;
+use Auth;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use Str;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $dayOfWeek = null;
+
         $canVote = Auth::user()->canVote();
-        $exportDates = [];
+        $dateIntervals = Voting_dates::all('from', 'to')->map(function ($item) {
+            $votingDate = Carbon::createFromFormat('Y-m-d', $item->to)->addDay();
 
-        $dateNow = Carbon::now()->format('Y-m-d H:i:s');
-        $dateNowUNIX = strtotime(datetime: $dateNow);
-        $dateIntervals = Voting_dates::all('from', 'to')->toArray();
-        foreach ($dateIntervals as $dateInterval) {
-            $votingDate = Carbon::createFromFormat('Y-m-d', $dateInterval['to'])->addDay()->format('d.m.Y');
-            $dateInterval['from'] = Carbon::createFromFormat('Y-m-d', $dateInterval['from'])->setTime(config('app.voting_hours'), 0, 0);
-            $dateInterval['to'] = Carbon::createFromFormat('Y-m-d', $dateInterval['to'])->setTime(config('app.voting_hours'), 0, 0);
-
-            $fromUNIX = strtotime($dateInterval['from']);
-            $toUNIX = strtotime($dateInterval['to']);
-
-            $fromDate = $dateInterval['from']->format('d.m.Y');
-            $toDate = $dateInterval['to']->format('d.m.Y');
-
-            // $dateNames = Carbon::getDays();
-            $datesName = [
-                0 => 'Pondelok',
-                1 => 'Utorok',
-                2 => 'Streda',
-                3 => 'Štvrtok',
-                4 => 'Piatok',
+            return [
+                'from' => Carbon::createFromFormat('Y-m-d', $item['from'])->format('d.m.Y'),
+                'to' => Carbon::createFromFormat('Y-m-d', $item['to'])->format('d.m.Y'),
+                'name' => Str::ucfirst($votingDate->translatedFormat('l')),
+                'votingDate' => $votingDate->format('d.m.Y'),
             ];
+        });
 
-            if ($dateNowUNIX >= $fromUNIX && $dateNowUNIX <= $toUNIX) {
-                $votingDateUNIX = $toUNIX + 86400;
-                $dayOfWeek = date('w', $votingDateUNIX);
-            }
+        $dayOfWeek = Voting_dates::activeVotingDate();
 
-            $exportDates[] = [
-                'from' => $fromDate,
-                'to' => $toDate,
-                'name' => $datesName[count($exportDates)],
-                'votingDate' => $votingDate,
-            ];
-        }
-
-        return View('index', ['canVote' => $canVote, 'activeVotingDay' => $dayOfWeek, 'votingDates' => $exportDates]);
+        return View('index', ['canVote' => $canVote, 'activeVotingDay' => $dayOfWeek, 'votingDates' => $dateIntervals]);
     }
 }
