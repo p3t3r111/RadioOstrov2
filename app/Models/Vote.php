@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Actions\CheckHolidays;
-use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -28,10 +26,5 @@ class Vote extends Model
     public function song()
     {
         return $this->belongsTo(Song::class);
-    }
-
-    public static function canVote()
-    {
-        return Auth::user()->voted < Auth::user()->max_votes_per_day && ! CheckHolidays::execute() && Active_voting_song::count() > 0;
     }
 }

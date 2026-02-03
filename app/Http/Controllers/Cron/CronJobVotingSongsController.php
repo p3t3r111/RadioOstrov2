@@ -12,7 +12,7 @@ class CronJobVotingSongsController extends Controller
 {
     public function index()
     {
-        User::where('voted', 1)->update(['voted' => 0]);
+        User::where('voted', '>', 0)->update(['voted' => 0]);
 
         // user songs
         $songVotesList = Song::where('confirmed', 1)

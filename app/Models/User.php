@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Actions\CheckHolidays;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -74,14 +76,50 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
+    public function canVote()
+    {
+        return $this->voted < $this->max_votes_per_day && ! CheckHolidays::execute() && Active_voting_song::count() > 0;
+    }
+
     public function songs()
     {
         return $this->belongsToMany(Song::class, 'user_songs')->withPivot('id')->orderBy('pivot_id', 'asc');
     }
 
-    public function markVoted(): void
+    public function votes()
     {
-        $this->update(['voted' => 1]);
-        $this->increment('votes');
+        return $this->hasMany(Vote::class);
+    }
+
+    public function markVoted(int $votes): void
+    {
+        $this->incrementEach([
+            'voted' => $votes,
+            'votes' => $votes,
+        ]);
+    }
+
+    public function unMarkVoted(int $votes): void
+    {
+        $this->decrementEach([
+            'voted' => $votes,
+            'votes' => $votes,
+        ]);
+    }
+
+    public function getSongsCount()
+    {
+        return $this->songs()->count();
+    }
+
+    public function activeVotedSongs()
+    {
+        $votingDate = Voting_dates::activeVotingDate();
+        $votingDay = Carbon::parse($votingDate->to)->addDay()->format('Y-m-d');
+
+        return $this->votes()
+            ->where('datum', $votingDay)
+            ->where('user_id', $this->id)
+            ->get();
     }
 }

@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vote;
 use App\Models\Voting_dates;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $dayOfWeek = null;
-        $canVote = Vote::canVote();
+        $canVote = Auth::user()->canVote();
+        dd($canVote);
         $exportDates = [];
 
         $dateNow = Carbon::now()->format('Y-m-d H:i:s');
         $dateNowUNIX = strtotime(datetime: $dateNow);
         $dateIntervals = Voting_dates::all('from', 'to')->toArray();
         foreach ($dateIntervals as $dateInterval) {
+            $votingDate = Carbon::createFromFormat('Y-m-d', $dateInterval['to'])->addDay()->format('d.m.Y');
             $dateInterval['from'] = Carbon::createFromFormat('Y-m-d', $dateInterval['from'])->setTime(config('app.voting_hours'), 0, 0);
             $dateInterval['to'] = Carbon::createFromFormat('Y-m-d', $dateInterval['to'])->setTime(config('app.voting_hours'), 0, 0);
 
@@ -45,6 +47,7 @@ class HomeController extends Controller
                 'from' => $fromDate,
                 'to' => $toDate,
                 'name' => $datesName[count($exportDates)],
+                'votingDate' => $votingDate,
             ];
         }
 

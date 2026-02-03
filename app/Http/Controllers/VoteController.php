@@ -8,6 +8,7 @@ use App\Models\Song;
 use App\Models\Vote;
 use App\Models\Voting_dates;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +44,7 @@ class VoteController extends Controller
             $fromUNIX = $fromDate->timestamp;
             $toUNIX = $toDate->timestamp;
 
-            if ($timestampNow >= $fromUNIX && $timestampNow <= $toUNIX && Vote::canVote()) {
+            if ($timestampNow >= $fromUNIX && $timestampNow <= $toUNIX && Auth::user()->canVote()) {
                 $i = 1;
                 $votingDateUNIX = $toDate->addDay()->timestamp;
                 $datum = Carbon::createFromTimestamp($votingDateUNIX)->format('d.m.Y');
@@ -80,6 +81,10 @@ class VoteController extends Controller
                 ->orderByDesc('voteCount')
                 ->get();
 
+            if ($db_query->isEmpty()) {
+                return abort(404);
+            }
+
             $nazov_dna = $datum2->format('l');
 
             switch ($nazov_dna) {
@@ -108,13 +113,14 @@ class VoteController extends Controller
 
     public function active()
     {
-        if (Auth::user()->voted == 1) {
-            return view('vote.voted');
-        }
-
         if (CheckHolidays::execute()) {
             return view('vote.noActiveVote');
         }
+
+        $user = Auth::user();
+        $votes = $user->activeVotedSongs()
+            ->pluck('vote_count', 'song_id')
+            ->toArray();
 
         $dateNowUNIX = Carbon::now()->timestamp;
         $dateIntervals = Voting_dates::all('from', 'to')->toArray();
@@ -156,8 +162,15 @@ class VoteController extends Controller
                 $songsArray = [];
                 $songs = Active_voting_song::with('song')->get();
                 foreach ($songs as $song) {
+                    if (isset($votes[$song->song->id])) {
+                        $song->user_votes = $votes[$song->song->id];
+                    } else {
+                        $song->user_votes = 0;
+                    }
                     $songArray = [
+                        'id' => $song->song->id,
                         'songId' => $song->song->songId,
+                        'user_votes' => $song->user_votes,
                     ];
                     array_push($songsArray, $songArray);
                 }
@@ -172,6 +185,9 @@ class VoteController extends Controller
                         'den' => $nazov_dna,
                         'datum' => $votingDateNEW,
                         'songs' => $songsArray,
+                        'maxVotes' => $user->max_votes_per_day,
+                        'voteWeight' => $user->vote_weight,
+                        'voteCounterUserTotal' => array_sum($votes),
                     ],
                 );
             }
@@ -182,23 +198,73 @@ class VoteController extends Controller
 
     public function vote(Request $request)
     {
-        $request->validate([
-            'selected_song' => 'required',
-        ]);
-        $date = date('Y-m-d', strtotime($request->date));
         $user = Auth::user();
-
-        $song_query = Active_voting_song::where('id', $request->selected_song + 1)->first();
-        $song_id = $song_query->song_id;
-
-        Vote::create([
-            'datum' => $date,
-            'user_id' => $user->id,
-            'song_id' => $song_id,
+        $request->validate([
+            'date' => 'required|date',
+            'votes' => 'required|array',
+            'votes.*' => 'integer|min:0',
         ]);
 
-        $user->markVoted();
+        $totalVotes = array_sum($request->votes);
 
-        return redirect()->route('vote.active');
+        if ($totalVotes > $user->max_votes_per_day) {
+            abort(403, 'Too many votes');
+        }
+
+        $date = date('Y-m-d', strtotime($request->date));
+        $activeSongs = Active_voting_song::pluck('song_id')->flip();
+
+        DB::transaction(function () use ($request, $user, $date, $activeSongs) {
+            foreach ($request->votes as $songId => $voteCount) {
+                if (! isset($activeSongs[$songId])) {
+                    continue;
+                }
+
+                $vote = Vote::where([
+                    'user_id' => $user->id,
+                    'song_id' => $songId,
+                    'datum' => $date,
+                ])->lockForUpdate()->first();
+
+                if ($vote && $voteCount === 0) {
+                    $user->unMarkVoted($vote->vote_count);
+                    $vote->delete();
+
+                    continue;
+                }
+
+                if (! $vote && $voteCount > 0) {
+                    $vote = Vote::create([
+                        'datum' => $date,
+                        'user_id' => $user->id,
+                        'song_id' => $songId,
+                        'vote_weight' => $user->vote_weight,
+                        'vote_count' => $voteCount,
+                    ]);
+
+                    $user->markVoted($voteCount);
+
+                    continue;
+                }
+
+                if ($vote && $voteCount !== $vote->vote_count) {
+
+                    $diff = $voteCount - $vote->vote_count;
+
+                    dd($diff);
+
+                    if ($diff > 0) {
+                        $user->markVoted($diff);
+                    } else {
+                        $user->unMarkVoted(abs($diff));
+                    }
+
+                    $vote->update(['vote_count' => $voteCount]);
+                }
+            }
+        });
+
+        return view('vote.voted');
+
     }
 }

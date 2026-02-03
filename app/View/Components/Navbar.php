@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Models\Vote;
+use App\Models\Update;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -16,14 +16,17 @@ class Navbar extends Component
 
     public ?object $user;
 
+    public $updates;
+
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
         $this->user = Auth::user();
-        $this->canVote = Vote::canVote();
+        $this->canVote = Auth::user()->canVote();
         $this->initials = $this->makeInitials($this->user?->name);
+        $this->updates = Update::active()->get();
     }
 
     private function makeInitials(?string $name): string
@@ -50,6 +53,8 @@ class Navbar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navbar');
+        return view('components.navbar', [
+            'updates' => $this->updates,
+        ]);
     }
 }
