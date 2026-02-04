@@ -1,13 +1,12 @@
 <section class="space-y-6">
-    <header>
+    <div class="flex flex-col gap-2">
         <h2 class="text-lg font-medium text-gray-900 dark:text-black">
             {{ __('Obľubené pesničky') }}
         </h2>
         <p class="flex flex-col mt-1 text-sm text-gray-600">
             <span
                 class="font-bold">{{ __('Tieto pesničky budú použité pri výbere skladieb do hlasovania. Víťazné pesničky z hlasovania sa následne budú prehrávať cez veľkú prestávku.') }}</span>
-            <span>{{ __('Po zadaní pesničky a uložení zmien sa vám pod pesničkou objaví spotify embed, pomocou ktorého si skontrolujte či sedí vaša pesnička, ak nie, tak upresnite názov pesničky (pridať interpreta, špecifikovať remix, atd...)') }}</span>
-
+        
         <div class="flex gap-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-5">
@@ -34,7 +33,7 @@
                 to z dôvodu, že je explicitná alebo dlhšia ako 6 minút)</p>
         </div>
         </p>
-    </header>
+    </div>
     <form action="{{ route('profile.songs') }}" method="post" class="flex flex-col items-center gap-10">
         @csrf
         @method('PATCH')
