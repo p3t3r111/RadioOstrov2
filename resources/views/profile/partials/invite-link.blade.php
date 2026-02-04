@@ -18,6 +18,10 @@
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             navigator.clipboard.writeText(btn.dataset.copy);
+            btn.textContent = 'Odkaz skopírovaný!';
+            setTimeout(() => {
+                btn.textContent = 'Kopírovať odkaz';
+            }, 2000);
         });
     });
 </script>
