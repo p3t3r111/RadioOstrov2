@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Cron;
 
 use App\Http\Controllers\Controller;
-use App\Models\Backup_song;
-use App\Models\Song;
 use App\Models\Voting_dates;
 use Carbon\Carbon;
 
@@ -12,8 +10,6 @@ class CronJobVotingDatesController extends Controller
 {
     public function index()
     {
-        Song::where('weekly_played', 1)->update(['weekly_played' => 0]);
-        Backup_song::where('weekly_played', 1)->update(['weekly_played' => 0]);
         $now = Carbon::now();
 
         $thursdayThisWeek = $now->copy()->startOfWeek(Carbon::THURSDAY)->format('Y-m-d');
