@@ -23,7 +23,7 @@
         </div>
 
         <div class="flex flex-col items-center">
-            <p class=" text-white/80">
+            <p class=" text-white/80 text-center">
                 Povedz svojim kamošom, aby hlasovali tiež za tvoju obľúbenú pesničku, aby si si zvýšil šancu, že ju zahráme!
             </p>
 

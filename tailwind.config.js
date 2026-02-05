@@ -24,6 +24,7 @@ export default {
             },
             colors: {
                 ostrov: "#305582",
+                ostrov2: "#1d3146",
                 ostrovHover: "#305582b8",
                 primaryAction: "#49FF00", //new
                 // primaryAction: "#38e1af", //old
