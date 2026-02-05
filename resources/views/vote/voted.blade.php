@@ -6,7 +6,7 @@
 
 @section('content')
     <section
-        class="flex-1 bg-gradient-to-br from-green-500 to-green-600 text-white flex flex-col items-center justify-center gap-6 lg:gap-4">
+        class="flex-1 bg-gradient-to-br from-green-500 to-green-600 text-white flex flex-col items-center justify-center gap-4">
 
         <div class="flex flex-col items-center">
             <img src="{{ asset('assets/logo-white.png') }}"
@@ -22,7 +22,7 @@
             </p>
         </div>
 
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center gap-4 lg:gap-0">
             <p class="text-white/80 text-center">
                 Povedz svojim kamošom, aby hlasovali tiež za tvoju obľúbenú pesničku, aby si si zvýšil šancu, že ju zahráme!
             </p>
