@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\CheckHolidays;
 use App\Models\Active_voting_song;
 use App\Models\Song;
+use App\Models\User;
 use App\Models\Vote;
 use App\Models\Voting_dates;
 use Carbon\Carbon;
@@ -164,18 +165,22 @@ class VoteController extends Controller
             'votes.*' => 'integer|min:0',
         ]);
 
-        // dd($request->votes);
-
-        $totalVotes = array_sum($request->votes);
-
-        if ($totalVotes > $user->max_votes_per_day) {
-            abort(403, 'Too many votes');
-        }
-
         $date = date('Y-m-d', strtotime($request->date));
         $activeSongs = Active_voting_song::pluck('song_id')->flip();
 
         DB::transaction(function () use ($request, $user, $date, $activeSongs) {
+            $user = User::where('id', $user->id)
+                ->lockForUpdate()
+                ->first();
+
+            $currentVotes = $user->activeVotedSongs()
+                ->sum('vote_count');
+            $incommingVotes = array_sum($request->votes);
+
+            if ($currentVotes + $incommingVotes > $user->max_votes_per_day) {
+                abort(403, 'Too many votes');
+            }
+
             foreach ($request->votes as $songId => $voteCount) {
                 if (! isset($activeSongs[$songId])) {
                     continue;
