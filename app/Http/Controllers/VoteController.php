@@ -173,14 +173,6 @@ class VoteController extends Controller
                 ->lockForUpdate()
                 ->first();
 
-            $currentVotes = $user->activeVotedSongs()
-                ->sum('vote_count');
-            $incommingVotes = array_sum($request->votes);
-
-            if ($currentVotes + $incommingVotes > $user->max_votes_per_day) {
-                abort(403, 'Too many votes');
-            }
-
             foreach ($request->votes as $songId => $voteCount) {
                 if (! isset($activeSongs[$songId])) {
                     continue;
@@ -227,6 +219,12 @@ class VoteController extends Controller
 
                     $vote->update(['vote_count' => $voteCount]);
                 }
+            }
+
+            $finalTotalVotes = $user->activeVotedSongs()->sum('vote_count');
+
+            if ($finalTotalVotes > $user->max_votes_per_day) {
+                abort(403, 'Too many votes');
             }
         });
 
