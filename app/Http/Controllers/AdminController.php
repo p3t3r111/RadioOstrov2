@@ -54,7 +54,7 @@ class AdminController extends Controller
         }
 
         $currentPage = Paginator::resolveCurrentPage();
-        $perPage = 10;
+        $perPage = 12;
         $currentItems = array_slice($songInfo, ($currentPage - 1) * $perPage, $perPage);
         $songInfo = new LengthAwarePaginator(
             $currentItems,
@@ -95,7 +95,7 @@ class AdminController extends Controller
             }
         }
 
-        $perPage = 10;
+        $perPage = 12;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems2 = array_slice($songInfo, ($currentPage - 1) * $perPage, $perPage);
         $songInfo = new LengthAwarePaginator($currentItems2, count($songInfo), $perPage, $currentPage, [
@@ -124,7 +124,7 @@ class AdminController extends Controller
             }
         }
 
-        $perPage = 10;
+        $perPage = 12;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems2 = array_slice($songInfo, ($currentPage - 1) * $perPage, $perPage);
         $songInfo = new LengthAwarePaginator($currentItems2, count($songInfo), $perPage, $currentPage, [
@@ -162,7 +162,7 @@ class AdminController extends Controller
             }
         }
 
-        $perPage = 10;
+        $perPage = 12;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems3 = array_slice($backupSongs, ($currentPage - 1) * $perPage, $perPage);
         $backupSongs = new LengthAwarePaginator($currentItems3, count($backupSongs), $perPage, $currentPage, [
