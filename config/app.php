@@ -130,7 +130,10 @@ return [
     'youtube_api_key' => env('YOUTUBE_API_KEY', ''),
 
     // CRON
-    'cron_ip_start' => env('CRON_IP_START', NULL),
-    'cron_ip_end' => env('CRON_IP_END', NULL),
+    'cron_ip_start' => env('CRON_IP_START', null),
+    'cron_ip_end' => env('CRON_IP_END', null),
+
+    'invite_point_value' => env('INVITE_POINT_VALUE', 1),
+    'vote_point_value' => env('VOTE_POINT_VALUE', 0.2),
 
 ];
