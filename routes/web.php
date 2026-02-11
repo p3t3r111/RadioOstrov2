@@ -15,6 +15,20 @@ Route::get('/r/{code}', [ReferralController::class, 'store'])
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
+
+    Route::get('/lang/{locale}', function ($locale) {
+
+        if (auth()->check()) {
+            auth()->user()->update([
+                'locale' => $locale,
+            ]);
+        }
+        session(['locale' => $locale]);
+        app()->setLocale($locale);
+
+        return back();
+    })->name('lang.switch');
+
     // PROFILE_USER
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

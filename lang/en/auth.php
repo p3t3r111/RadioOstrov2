@@ -13,13 +13,14 @@ return [
     |
     */
 
-    'failed' => 'Tieto údaje sa nezhodujú s našimi údajmi.',
-    'password' => 'Zadané heslo je nesprávne.',
-    'throttle' => 'Príliš veľa pokusov o prihlásenie. Prosím, skúste to znova za :sekundy sekúnd.',
+    'failed' => 'These credentials do not match our records.',
+    'password' => 'The provided password is incorrect.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
     'login' => [
-        'title' => 'Prihlásenie',
-        'text' => 'Prihláste sa školským emailom.',
-        'google' => 'Pokračovať cez Google',
+        'title' => 'Login',
+        'text' => 'Please log in with your school email.',
+        'google' => 'Continue with Google',
     ],
+
 ];
