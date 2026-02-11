@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Cron;
 
-use App\Actions\CheckSpotifyDevice;
-use App\Actions\ConnectSpotify;
+use App\Actions\spotify\CheckSpotifyDevice;
+use App\Actions\spotify\Connect;
 use App\Http\Controllers\Controller;
 
 class CronJobPlaySongsController extends Controller
@@ -12,7 +12,7 @@ class CronJobPlaySongsController extends Controller
     {
         $playlist_id = config('spotify.playlist_id');
 
-        $api = ConnectSpotify::execute();
+        $api = Connect::execute();
 
         $device = CheckSpotifyDevice::execute();
         if (! $device) {

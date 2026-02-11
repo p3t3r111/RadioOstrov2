@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\spotify;
 
 use SpotifyWebAPI\Session; // https://github.com/jwilsson/spotify-web-api-php
 use SpotifyWebAPI\SpotifyWebAPI;
 
-class ConnectSpotify
+class Connect
 {
     public static function execute()
     {

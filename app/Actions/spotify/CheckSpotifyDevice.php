@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\spotify;
 
 class CheckSpotifyDevice
 {
     public static function execute()
     {
-        $api = ConnectSpotify::execute();
+        $api = Connect::execute();
 
         $devices = $api->getMyDevices();
         foreach ($devices->devices as $device) {

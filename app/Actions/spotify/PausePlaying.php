@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\spotify;
 
 class PausePlaying
 {
     public static function execute()
     {
-        $api = ConnectSpotify::execute();
+        $api = Connect::execute();
 
         $device = CheckSpotifyDevice::execute();
         if (! $device) {

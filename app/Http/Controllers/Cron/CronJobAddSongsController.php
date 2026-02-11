@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Cron;
 
-use App\Actions\ConnectSpotify;
 use App\Http\Controllers\Controller;
 use App\Models\Backup_song;
 use App\Models\Song;
@@ -24,7 +23,7 @@ class CronJobAddSongsController extends Controller
         $playlist_length = 0;
         $songs = [];
 
-        $api = ConnectSpotify::execute();
+        $api = Connect::execute();
 
         $datum = Carbon::now()->addDay()->format('Y-m-d');
         $db_query = Song::withCount([
