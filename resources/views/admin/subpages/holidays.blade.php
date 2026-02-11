@@ -1,37 +1,37 @@
 @extends('layouts.main')
 
 @section('title')
-    Rádio ostrov | Prázdniny
+{{ __('admin.holidays') }}
 @endsection
 
 @section('content')
     <section class="">
-        <x-admin-section-header>Prázdniny</x-admin-section-header>
+        <x-admin-section-header>{{ __('admin.holidays') }}</x-admin-section-header>
         <div class="flex flex-col items-center my-8">
             <div class="flex flex-col items-center grow gap-4 w-[80%]">
                 <div
                     class="w-full p-4 border border-gray-300 rounded-lg shadow-sm bg-white flex flex-col items-center justify-center">
-                    <h3 class="text-lg font-semibold mb-2">Pridať dátum</h3>
+                    <h3 class="text-lg font-semibold mb-2">{{ __('admin.holiday.add_date') }}</h3>
                     <form method="post" action="{{ route('admin.addHoliday') }}" class="w-full flex gap-4 mt-4">
                         @csrf
-                        <input class="flex-1" type="text" name="holidayName" id="holidayName" placeholder="Názov prázdnin">
+                        <input class="flex-1" type="text" name="holidayName" id="holidayName" placeholder="{{ __('admin.holiday.name') }}">
                         <input class="flex-1" type="date" name="startDate" id="startDate">
                         <input class="flex-1" type="date" name="endDate" id="endDate">
-                        <input type="submit" value="Pridať"
+                        <input type="submit" value="{{ __('admin.holiday.create') }}"
                             class="bg-ostrov text-white px-4 py-2 rounded hover:bg-ostrovHover cursor-pointer">
                     </form>
                 </div>
 
                 @foreach ($holidays as $holiday)
-                    <div class="w-full p-4 border border-gray-300 rounded-lg shadow-sm bg-white grid grid-cols-3 items-center justify-items-center">
+                    <div
+                        class="w-full p-4 border border-gray-300 rounded-lg shadow-sm bg-white grid grid-cols-3 items-center justify-items-center">
                         <h3 class="text-lg font-semibold mb-2 text-start w-full">{{ $holiday->name }}</h3>
-                        <p class="text-gray-600">Od: {{ $holiday->start_date }} Do: {{ $holiday->end_date }}</p>
+                        <p class="text-gray-600">{{ __('admin.holiday.from') }} {{ $holiday->start_date }} {{ __('admin.holiday.to') }} {{ $holiday->end_date }}</p>
                         <form action="{{ route('admin.deleteHoliday') }}" method="post"
                             class="flex items-center justify-center w-full">
                             @csrf
                             <input type="hidden" name="holidayId" value="{{ $holiday->id }}">
-                            <button type="submit" title="Zmazať prázdniny"
-                                class="text-red-400 hover:text-red-500">
+                            <button type="submit" title="{{ __('admin.holiday.remove') }}" class="text-red-400 hover:text-red-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer">
                                     <path stroke-linecap="round" stroke-linejoin="round"

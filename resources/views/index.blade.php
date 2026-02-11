@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('title')
-    Rádio ostrov
 @endsection
 
 @section('content')
@@ -13,15 +12,15 @@
                 <img src="{{ asset('assets/logo-white.png') }}"
                     alt="Logo školy : Stredná odborná škola informačných technológií, Ostrovského 1, Košice"id="logoHero"
                     class="mb-2 lg:mb-5 max-w-20 lg:max-w-32">
-                <h2 class="flex flex-col lg:block text-xl text-center md:text-3xl lg:text-4xl title text-white">Vítame
-                    vás na
-                    stránke <span class="text-primaryAction">rádia ostrov</span></h2>
+                <h2 class="flex flex-col lg:block text-xl text-center md:text-3xl lg:text-4xl title text-white">{{ __('home.welcome') }}
+                    <span class="text-primaryAction">{{ __('home.welcome_name') }}</span>
+                </h2>
                 <h2 class="subtitle text-sm lg:text-3xl capitalize mb-6 lg:mb-12 text-white">{{ auth()->user()->name }}
                 </h2>
                 <div class="inline-grid gap-6 lg:gap-2">
-                    <x-home-button :canVote="$canVote" :href="route('vote.active')">Hlasovať</x-home-button>
-                    <x-home-button :canVote="!$canVote" :href="route('vote.index')">Výsledky hlasovania</x-home-button>
-                    <x-home-button :href="route('profile.show').'#personal-favorite-songs'">Moje pesničky</x-home-button>
+                    <x-home-button :canVote="$canVote" :href="route('vote.active')">{{ __('home.vote') }}</x-home-button>
+                    <x-home-button :canVote="!$canVote" :href="route('vote.index')">{{ __('home.results') }}</x-home-button>
+                    <x-home-button :href="route('profile.show').'#personal-favorite-songs'">{{ __('home.my_songs') }}</x-home-button>
                 </div>
             </div>
         </div>

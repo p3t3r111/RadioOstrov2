@@ -13,6 +13,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Str;
 
 class VoteController extends Controller
 {
@@ -59,25 +60,7 @@ class VoteController extends Controller
                 return abort(404);
             }
 
-            $nazov_dna = $datum2->format('l');
-
-            switch ($nazov_dna) {
-                case 'Monday':
-                    $nazov_dna = 'Pondelok';
-                    break;
-                case 'Tuesday':
-                    $nazov_dna = 'Utorok';
-                    break;
-                case 'Wednesday':
-                    $nazov_dna = 'Streda';
-                    break;
-                case 'Thursday':
-                    $nazov_dna = 'Štvrtok';
-                    break;
-                case 'Friday':
-                    $nazov_dna = 'Piatok';
-                    break;
-            }
+            $nazov_dna = Str::lower($datum2->format('l'));
 
             return view('vote.historyVote', ['datum' => $date, 'den' => $nazov_dna, 'result' => $db_query]);
         } else {
@@ -100,25 +83,7 @@ class VoteController extends Controller
         if ($activeVotingDate) {
             $votingDate = Carbon::createFromFormat('Y-m-d', $activeVotingDate->to)
                 ->setTime(config('app.voting_hours'), 0, 0)->addDay();
-            $nazov_dna = $votingDate->format('l');
-
-            switch ($nazov_dna) {
-                case 'Monday':
-                    $nazov_dna = 'Pondelok';
-                    break;
-                case 'Tuesday':
-                    $nazov_dna = 'Utorok';
-                    break;
-                case 'Wednesday':
-                    $nazov_dna = 'Streda';
-                    break;
-                case 'Thursday':
-                    $nazov_dna = 'Štvrtok';
-                    break;
-                case 'Friday':
-                    $nazov_dna = 'Piatok';
-                    break;
-            }
+            $nazov_dna = Str::lower($votingDate->format('l'));
 
             $songsArray = [];
             $songs = Active_voting_song::with('song')->get();

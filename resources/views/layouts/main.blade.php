@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8">
@@ -8,8 +8,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('includes.meta')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <title>
+        {{ __('navbar.name') }}
+        @hasSection('title')
+            | @yield('title')
+        @endif
+    </title>
 
-    <title>@yield('title')</title>
 </head>
 
 <body class="min-h-screen">
@@ -21,8 +27,6 @@
     </div>
 
     @include('includes.footer')
-    <script src="{{ asset('js/navbar.js') }}"></script>
-    <script src="{{ asset('js/hamburger.js') }}"></script>
 </body>
 
 </html>

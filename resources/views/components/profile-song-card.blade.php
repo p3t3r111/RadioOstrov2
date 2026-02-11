@@ -3,26 +3,26 @@
 <div class="song flex flex-col flex-1 relative w-full gap-2">
     <div class="flex-1 w-full">
         <label class="flex justify-between px-2 font-medium text-sm text-black" for="name">
-            {{ $index }}. pesnička
+            {{ $index }}. {{ __('profile.favorite_songs.song') }}
             @if ($songId != null)
                 @if ($confirmed == 1)
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-5 text-green-500">
-                    <title>Schváleno administrátorom</title>
+                    <title>{{ __('profile.favorite_songs.text.approved') }}</title>
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
                 @elseif ($confirmed == -1)
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-5 text-red-500">
-                    <title>Zamietnuté administrátorom</title>
+                    <title>{{ __('profile.favorite_songs.text.rejected') }}</title>
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
                 @else
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-5">
-                    <title>Čaká sa na schválenie administrátorom</title>
+                    <title>{{ __('profile.favorite_songs.text.waiting') }}</title>
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>

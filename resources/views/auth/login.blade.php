@@ -1,15 +1,14 @@
 @extends('layouts.auth')
 
 @section('title')
-    Rádio Ostrov | Prihlásenie
+    {{ __('auth.login.title') }}
 @endsection
 
 @section('content')
-
     <div class="field flex flex-col justify-center items-center gap-2">
         <img src="{{ asset('assets/logo.png') }}" class="h-[75px] md:h-[100px] mb-5 animate-blink"
-        alt="Logo školy : Stredná odborná škola informačných technológií, Ostrovského 1, Košice">
-        <h1 class="subtitle mb-3 font-semibold text-base md:text-xl text-[#4a4a4a]">RÁDIO OSTROV | PRIHLÁSENIE
+            alt="Logo školy : Stredná odborná škola informačných technológií, Ostrovského 1, Košice">
+        <h1 class="subtitle mb-3 font-semibold text-base md:text-xl text-[#4a4a4a] uppercase">{{ __('navbar.name') }} | {{ __('auth.login.title') }}
         </h1>
     </div>
 
@@ -17,7 +16,7 @@
         <x-google-button />
 
         <div class="italic mt-2">
-            <p>Prihláste sa školským emailom</p>
+            <p>{{ __('auth.login.text') }}</p>
         </div>
 
         {{-- <form action="{{ route('login') }}" method="post" class="w-full flex flex-col gap-6" novalidate>

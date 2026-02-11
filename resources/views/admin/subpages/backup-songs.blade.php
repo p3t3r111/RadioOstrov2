@@ -1,12 +1,12 @@
 @extends('layouts.main')
 
 @section('title')
-    Rádio ostrov | Záložne pesničky
+{{ __('admin.backup_songs') }}
 @endsection
 
 @section('content')
     <section class="">
-        <x-admin-section-header>Záložne pesničky</x-admin-section-header>
+        <x-admin-section-header>{{ __('admin.backup_songs') }}</x-admin-section-header>
 
         <div class="flex flex-col items-center gap-10 my-8">
             <form action="{{ route('admin.addBackSongsPost') }}" method="post" class="flex flex-col items-center gap-10 w-full">
@@ -16,8 +16,8 @@
                         <input
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full"
                             id="songAddInput" name="songAddInput" type="text"
-                            placeholder="Názov pesničky, ak zadáš viac pesničiek oddel ich čiarkou">
-                        <input type="submit" value="Pridať"
+                            placeholder="{{ __('admin.add_songs_placeholder') }}">
+                        <input type="submit" value="{{ __('admin.add_songs') }}"
                             class="p-2 px-4 bg-primaryAction rounded-md text-black cursor-pointer">
                     </div>
                 </div>
@@ -41,13 +41,13 @@
 
                             <div class="flex gap-3">
                                 <div class="flex items-center text-xs text-gray-500">
-                                    <p>Pridal : {{ $song['user'] }}</p>
+                                    <p>{{ __('admin.add_by', ['name' => $song['user']]) }}</p>
                                 </div>
                                 <form action="{{ route('admin.delBackSongsPost') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="song" value="{{ $song['title'] }}">
 
-                                    <button type="submit" title="Zmazať pesničku"><svg xmlns="http://www.w3.org/2000/svg"
+                                    <button type="submit" title="{{ __('admin.deny_song') }}"><svg xmlns="http://www.w3.org/2000/svg"
                                             fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                             class="size-6 text-red-600 cursor-pointer">
                                             <path stroke-linecap="round" stroke-linejoin="round"

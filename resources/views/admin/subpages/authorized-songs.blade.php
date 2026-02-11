@@ -1,12 +1,12 @@
 @extends('layouts.main')
 
 @section('title')
-    Rádio ostrov | Schválené pesničky
+{{ __('admin.authorized_songs') }}
 @endsection
 
 @section('content')
     <section class="">
-        <x-admin-section-header>Schválené pesničky</x-admin-section-header>
+        <x-admin-section-header>{{ __('admin.authorized_songs') }}</x-admin-section-header>
         <div class="flex flex-col items-center gap-10 my-8">
             <div class="flex flex-col items-center grow gap-4 w-[80%]">
                 @if ($songInfo)
@@ -18,7 +18,7 @@
                                         class="flex items-center justify-center">
                                         @csrf
                                         <input type="hidden" name="songId" value="{{ $song['songId'] }}">
-                                        <button type="submit" title="Zamietnuť pesničku"
+                                        <button type="submit" title="{{ __('admin.deny_song') }}"
                                             class="flex-3 min-h-[9.5rem] bg-red-400 rounded-r-2xl hover:bg-red-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer">

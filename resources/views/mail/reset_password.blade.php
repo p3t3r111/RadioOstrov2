@@ -1,7 +1,6 @@
 @extends('layouts.email')
 
 @section('title')
-Radio Ostrov
 @endsection
 
 @section('username')

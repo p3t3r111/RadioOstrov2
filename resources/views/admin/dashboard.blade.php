@@ -1,25 +1,25 @@
 @extends('layouts.main')
 
     @section('title')
-        Rádio ostrov | Admin dashboard
+        {{ __('admin.dashboard') }}
     @endsection
 
     @section('content')
-        <x-admin-section-header>Admin dashboard</x-admin-section-header>
+        <x-admin-section-header>{{ __('admin.dashboard') }}</x-admin-section-header>
         <section class="p-8">
             <div class="grid lg:grid-cols-3 gap-8 items-center">
-                <x-admin-card title="Pesničky na schválenie" link='admin.confirming-songs'
-                    info="Počet pesničiek na schválenie : {{ $songsToConfirm }}">Kliknite pre správu</x-admin-card>
-                <x-admin-card title="Schválené pesničky" link='admin.authorized-songs'
-                    info="Počet potvrdených pesničiek : {{ $confirmedSongs }}">Kliknite pre správu</x-admin-card>
-                <x-admin-card title="Zamietnuté pesničky" link='admin.denied-songs'
-                    info="Počet zamietnutých pesničiek : {{ $deniedSongs }}">Kliknite pre správu</x-admin-card>
-                <x-admin-card title="Záložne pesničky" link='admin.backup-songs'
-                    info="Počet back up pesničiek : {{ $backupSongs }}">Kliknite pre správu</x-admin-card>
-                <x-admin-card title="Pesničky na zapnutie" link='admin.playSongs' info="">Kliknite pre
+                <x-admin-card title="{{ __('admin.confirming_songs') }}" link='admin.confirming-songs'
+                    info="{{ __('admin.confirming_songs_text', ['count' => $songsToConfirm]) }}">Kliknite pre správu</x-admin-card>
+                <x-admin-card title="{{ __('admin.authorized_songs') }}" link='admin.authorized-songs'
+                    info="{{ __('admin.authorized_songs_text', ['count' => $confirmedSongs]) }}">Kliknite pre správu</x-admin-card>
+                <x-admin-card title="{{ __('admin.denied_songs') }}" link='admin.denied-songs'
+                    info="{{ __('admin.denied_songs_text', ['count' => $deniedSongs]) }}">Kliknite pre správu</x-admin-card>
+                <x-admin-card title="{{ __('admin.backup_songs') }}" link='admin.backup-songs'
+                    info="{{ __('admin.backup_songs_text', ['count' => $backupSongs]) }}">Kliknite pre správu</x-admin-card>
+                <x-admin-card title="{{ __('admin.play_songs') }}" link='admin.playSongs' info="">Kliknite pre
                     správu</x-admin-card>
-                <x-admin-card title="Prázdniny" link='admin.holidays' info="">Kliknite pre správu</x-admin-card>
-                <x-admin-card title="Novinky" link='admin.updates' info="">Kliknite pre správu</x-admin-card>
+                <x-admin-card title="{{ __('admin.holidays') }}" link='admin.holidays' info="">Kliknite pre správu</x-admin-card>
+                <x-admin-card title="{{ __('admin.updates') }}" link='admin.updates' info="">Kliknite pre správu</x-admin-card>
             </div>
         </section>
     @endsection

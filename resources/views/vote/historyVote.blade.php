@@ -1,16 +1,17 @@
 @extends('layouts.main')
 
 @section('title')
-    Rádio ostrov | Výsledky
+{{ __('vote.active.title') }} | {{ __('vote.days.' . $den) }} {{ $datum }}
 @endsection
 
 @section('content')
     <section class="py-8 flex flex-col items-center gap-6">
-        <h2 class="text-center text-base lg:text-3xl font-bold">Výsledky hlasovania | {{ $den }} {{ $datum }}
+        <h2 class="text-center text-base lg:text-3xl font-bold">{{ __('vote.history.title') }} |
+            {{ __('vote.days.' . $den) }} {{ $datum }}
         </h2>
         <div class="history-voted-card container flex flex-wrap items-center justify-center gap-3 w-full">
             @foreach ($result as $song)
-                <x-voteCard :datum="$datum" :song="$song" />
+                <x-voteCard :song="$song" />
             @endforeach
         </div>
     </section>

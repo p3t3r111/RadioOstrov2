@@ -3,7 +3,7 @@
 
 
 @section('title')
-Rádio ostrov | {{ auth()->user()->name }}
+{{ auth()->user()->name }}
 @endsection
 
 @section('content')
@@ -15,9 +15,13 @@ Rádio ostrov | {{ auth()->user()->name }}
             </div>
         </div>
 
-        <div id="invite-link" class="p-4 sm:p-8 bg-white dark:bg-gray-300 shadow sm:rounded-lg">
+        <div id="invite-link" class="p-4 sm:p-8 bg-white dark:bg-gray-300 shadow sm:rounded-lg flex flex-col gap-6">
             <div class="">
                 @include('profile.partials.invite-link')
+            </div>
+            <hr>
+            <div class="">
+                @include('profile.partials.reward-system')
             </div>
         </div>
 

@@ -1,18 +1,18 @@
 <section class="space-y-6">
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-black">
-            {{ __('Odstrániť účet') }}
+            {{ __('profile.delete_account.title') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('Po vymazaní vášho konta budú všetky jeho zdroje a údaje natrvalo vymazané.') }}
+            {{ __('profile.delete_account.text') }}
         </p>
     </header>
 
     <x-danger-button
         x-data=""
         x-on:click.prevent="console.log('Button clicked'); $dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Odstrániť účet') }}</x-danger-button>
+    >{{ __('profile.delete_account.delete') }}</x-danger-button>
 
     <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
         <form method="post" action="{{ route('profile.destroy') }}" class="p-6 bg-white">
@@ -20,11 +20,11 @@
             @method('delete')
 
             <h2 class="text-lg font-medium text-gray-900">
-                {{ __('Určite chcete vymazať svoje konto?') }}
+                {{ __('profile.delete_account.confirm_delete.title') }}
             </h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                {{ __('Po vymazaní vášho konta budú všetky jeho zdroje a údaje natrvalo vymazané.') }}
+                {{ __('profile.delete_account.confirm_delete.text') }}
             </p>
 
             {{-- <div class="mt-6">
@@ -43,11 +43,11 @@
 
             <div class="mt-6 flex justify-end">
                 <x-secondary-button x-on:click="$dispatch('close')">
-                    {{ __('Zrušiť') }}
+                    {{ __('profile.delete_account.confirm_delete.cancel') }}
                 </x-secondary-button>
 
                 <x-danger-button class="ms-3">
-                    {{ __('Odstrániť účet') }}
+                    {{ __('profile.delete_account.confirm_delete.delete') }}
                 </x-danger-button>
             </div>
         </form>
