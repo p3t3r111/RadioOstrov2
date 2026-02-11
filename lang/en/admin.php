@@ -2,6 +2,7 @@
 
 return [
     'dashboard' => 'Admin dashboard',
+    'card_action' => 'Click to manage',
     'confirming_songs' => 'Confirming songs',
     'confirming_songs_text' => 'Number of songs to confirm : :count',
     'authorized_songs' => 'Authorized songs',
@@ -39,5 +40,12 @@ return [
         'add' => 'Add update',
         'remove' => 'Remove update',
         'to' => 'To: :date',
+    ],
+
+    'pause_songs' => [
+        'title' => 'Pause songs',
+        'info' => 'Currently songs are playing on the school device',
+        'disabled_info' => 'Currently nothing is playing / not on the school device',
+        'action' => 'Click to pause the songs',
     ],
 ];

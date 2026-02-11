@@ -2,6 +2,7 @@
 
 return [
     'dashboard' => 'Admin dashboard',
+    'card_action' => 'Kliknite pre správu',
     'confirming_songs' => 'Pesničky na schválenie',
     'confirming_songs_text' => 'Počet pesničiek na schválenie : :count',
     'authorized_songs' => 'Schválené pesničky',
@@ -39,5 +40,12 @@ return [
         'add' => 'Pridať novinku',
         'remove' => 'Odstrániť novinku',
         'to' => 'Do: :date',
+    ],
+
+    'pause_songs' => [
+        'title' => 'Pozastaviť prehrávanie',
+        'info' => 'Aktuálne sa prehrávajú pesničky na školskom zariadení',
+        'disabled_info' => 'Aktuálne sa nič neprehráva / nie na školskom zariadení',
+        'action' => 'Kliknite pre vypnutie prehrávania pesničiek',
     ],
 ];

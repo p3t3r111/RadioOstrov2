@@ -65,6 +65,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('admin/updates', [AdminController::class, 'updates'])->name('admin.updates');
         Route::post('admin/updates/add', [AdminController::class, 'addUpdatePost'])->name('admin.addUpdate');
         Route::post('admin/updates/delete', [AdminController::class, 'deleteUpdate'])->name('admin.deleteUpdate');
+
+        Route::get('admin/pause-songs', [AdminController::class, 'pauseSongs'])->name('admin.pauseSongs');
     });
 
     // VOTE

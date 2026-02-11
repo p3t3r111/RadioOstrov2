@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\spotify\CheckIfPlayingRightDevice;
+use App\Actions\spotify\PausePlaying;
 use App\Models\Backup_song;
 use App\Models\Holiday;
 use App\Models\Song;
@@ -18,21 +20,19 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $songsToConfirmInfo = null;
-        $confirmedSongs = null;
-        $deniedSongsInfo = null;
-        $backupSongsInfo = null;
+        $songsToConfirmInfo = Song::where('confirmed', 0)->count() ?? null;
+        $confirmedSongs = Song::where('confirmed', 1)->count() ?? null;
+        $deniedSongsInfo = Song::where('confirmed', -1)->count() ?? null;
+        $backupSongsInfo = Backup_song::count() ?? null;
 
-        $songsToConfirmInfo = Song::where('confirmed', 0)->count();
-        $confirmedSongs = Song::where('confirmed', 1)->count();
-        $deniedSongsInfo = Song::where('confirmed', -1)->count();
-        $backupSongsInfo = Backup_song::count();
+        $playingSongs = CheckIfPlayingRightDevice::execute();
 
         return view('admin.dashboard', [
             'songsToConfirm' => $songsToConfirmInfo,
             'confirmedSongs' => $confirmedSongs,
             'deniedSongs' => $deniedSongsInfo,
             'backupSongs' => $backupSongsInfo,
+            'playingSongs' => $playingSongs,
         ]);
     }
 
@@ -324,6 +324,13 @@ class AdminController extends Controller
         ]);
 
         Update::where('id', $request->updateId)->delete();
+
+        return redirect()->back();
+    }
+
+    public function pauseSongs()
+    {
+        PausePlaying::execute();
 
         return redirect()->back();
     }
