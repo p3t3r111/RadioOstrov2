@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cron;
 
+use App\Actions\ConnectSpotify;
 use App\Http\Controllers\Controller;
 use App\Models\Backup_song;
 use App\Models\Song;
@@ -9,8 +10,6 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Exception;
 use Illuminate\Support\Str;
-use SpotifyWebAPI\Session;
-use SpotifyWebAPI\SpotifyWebAPI; // https://github.com/jwilsson/spotify-web-api-php
 
 class CronJobAddSongsController extends Controller
 {
@@ -25,15 +24,7 @@ class CronJobAddSongsController extends Controller
         $playlist_length = 0;
         $songs = [];
 
-        $session = new Session(
-            config('spotify.client_id'),
-            config('spotify.client_secret')
-        );
-
-        $session->refreshAccessToken(config('spotify.refresh_token'));
-        $accessToken = $session->getAccessToken();
-        $api = new SpotifyWebAPI;
-        $api->setAccessToken($accessToken);
+        $api = ConnectSpotify::execute();
 
         $datum = Carbon::now()->addDay()->format('Y-m-d');
         $db_query = Song::withCount([
