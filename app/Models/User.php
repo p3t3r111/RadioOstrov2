@@ -34,6 +34,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'max_favorite_songs',
         'max_votes_per_day',
         'referred_by',
+        'all_time_points',
+        'reserved_points',
+        'used_points',
+        'locale',
     ];
 
     protected $guarded = ['referral_code'];
@@ -73,7 +77,23 @@ class User extends Authenticatable implements MustVerifyEmail
 
                 $user->referral_code = $code;
             }
+
         });
+        static::created(function ($user) {
+
+            logger('USER CREATED EVENT FIRED');
+            $data = Reward::all()->mapWithKeys(fn ($reward) => [
+                $reward->id => ['level' => 0],
+            ])->toArray();
+            logger('ATTACHING REWARDS TO USER', $data);
+
+            $user->rewards()->attach($data);
+        });
+    }
+
+    public function rewards()
+    {
+        return $this->belongsToMany(Reward::class, 'rewards_users')->withPivot('level')->withTimestamps();
     }
 
     public function canVote()
@@ -117,5 +137,10 @@ class User extends Authenticatable implements MustVerifyEmail
             ->where('datum', $votingDay)
             ->where('user_id', $this->id)
             ->get();
+    }
+
+    public function rewardCards()
+    {
+        // get Reward by user required
     }
 }
