@@ -1,4 +1,4 @@
-<nav id="navbar" class="navbar fixed flex justify-center items-center bg-white w-full h-14 z-50 shadow-lg"
+<nav class="navbar fixed flex flex-col items-center justify-between bg-white w-full z-40 shadow-lg"
     id="mainNav" role="navigation" aria-label="main navigation">
     <div class="flex justify-between items-center absolute w-full">
         <div class="navbar-brand flex justify-between px-2 lg:pl-6 w-full items-center " id="mainNavBrand">
