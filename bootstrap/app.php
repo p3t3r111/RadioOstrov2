@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CheckIfAdmin;
 use App\Http\Middleware\CheckIfHolidays;
+use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\VerifyCronRequest;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -18,6 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'isAdmin' => CheckIfAdmin::class,
             'cron' => VerifyCronRequest::class,
             'isHoliday' => CheckIfHolidays::class,
+        ]);
+
+        $middleware->web([
+            SetLocale::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

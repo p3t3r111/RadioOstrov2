@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\GetAvailableLocales;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +17,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+
+        return view('auth.login', [
+            'actualLocale' => app()->getLocale() == 'en' ? 'gb' : app()->getLocale(),
+            'availableLocales' => GetAvailableLocales::execute(),
+        ]);
     }
 
     /**

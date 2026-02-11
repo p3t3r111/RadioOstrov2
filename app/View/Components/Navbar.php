@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Actions\GetAvailableLocales;
 use App\Models\Update;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -18,6 +19,10 @@ class Navbar extends Component
 
     public $updates;
 
+    public $availableLocales;
+
+    public string $actualLocale;
+
     /**
      * Create a new component instance.
      */
@@ -27,6 +32,8 @@ class Navbar extends Component
         $this->canVote = Auth::user()->canVote();
         $this->initials = $this->makeInitials($this->user?->name);
         $this->updates = Update::active()->get();
+        $this->availableLocales = GetAvailableLocales::execute();
+        $this->actualLocale = app()->getLocale() == 'en' ? 'gb' : app()->getLocale();
     }
 
     private function makeInitials(?string $name): string
@@ -53,8 +60,6 @@ class Navbar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navbar', [
-            'updates' => $this->updates,
-        ]);
+        return view('components.navbar');
     }
 }
