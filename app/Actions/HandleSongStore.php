@@ -12,10 +12,13 @@ class HandleSongStore
 {
     public static function execute($song, $songToUpdate = null)
     {
+        Log::info($songToUpdate);
         $user = Auth::user();
 
         if (! $song) {
-            $user->songs()->detach();
+            if ($songToUpdate) {
+                $user->songs()->detach($songToUpdate->id);
+            }
 
             return;
         }
@@ -29,6 +32,7 @@ class HandleSongStore
         ];
 
         DB::transaction(function () use ($user, $songArr, $songToUpdate) {
+
             $existingSong = Song::where('songId', $songArr['songId'])
                 ->lockForUpdate()
                 ->first();
@@ -50,7 +54,11 @@ class HandleSongStore
                 $user->songs()->detach($songToUpdate->id);
             }
 
-            $user->songs()->syncWithoutDetaching([$existingSong->id]);
+            if ($user->songs()->count() >= $user->max_favorite_songs) {
+                return back()->with('error', 'Song limit reached.');
+            }
+
+            $result = $user->songs()->syncWithoutDetaching([$existingSong->id]);
         });
     }
 }
