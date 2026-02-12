@@ -14,7 +14,7 @@ class CheckIfPlayingRightDevice
         }
 
         $playback = $api->getMyCurrentPlaybackInfo();
-        if ($playback->device->id == $device) {
+        if ($playback && $playback->device->id == $device) {
             return true;
         }
 
