@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\HandleSongStore;
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\Song;
 use App\Models\User;
-use Carbon\CarbonInterval;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -152,36 +151,8 @@ class ProfileController extends Controller
 
         foreach ($songInfo as $index => $item) {
             $songToUpdate = $songs->get($index);
-            if ($item) {
-                // Nájdeme existujúcu skladbu alebo vytvoríme novú
-                $existingSong = Song::where('title', $item['title'])->where('author', $item['author'])->where('songId', $item['songId'])->first();
-                if (! $existingSong) {
-                    $existingSong = Song::create([
-                        'songId' => $item['songId'],
-                        'author' => $item['author'],
-                        'title' => $item['title'],
-                        'img_path' => $item['imgPath'],
-                        'duration_ms' => $item['duration_ms'] ?? 0,
-                    ]);
-                    if (! $item['explicit'] and CarbonInterval::milliseconds($item['duration_ms'])->cascade()->totalMinutes < 6) {
-                        $existingSong->confirmed = 1;
-                        $existingSong->save();
-                    } else {
-                        $existingSong->confirmed = -1;
-                        $existingSong->save();
-                    }
-                }
+            HandleSongStore::execute($item, $songToUpdate);
 
-                if ($songToUpdate) {
-                    $user->songs()->wherePivot('id', $songToUpdate->pivot->id)->detach();
-                }
-
-                $user->songs()->syncWithoutDetaching([$existingSong->id]);
-            } else {
-                if ($songToUpdate) {
-                    $user->songs()->wherePivot('id', $songToUpdate->pivot->id)->detach();
-                }
-            }
         }
 
         // dd('Stop');
