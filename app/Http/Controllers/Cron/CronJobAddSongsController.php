@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cron;
 
+use App\Actions\spotify\Connect;
 use App\Http\Controllers\Controller;
 use App\Models\Backup_song;
 use App\Models\Song;
