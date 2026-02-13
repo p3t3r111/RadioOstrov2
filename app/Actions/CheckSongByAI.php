@@ -12,7 +12,7 @@ class CheckSongByAI
     {
         $lyrics = GetSongLyrics::execute($song['songId']);
         $prompt = "
-You are moderating music for a Slovak public school radio.
+You are moderating music for a Slovak public secondary vocational school radio.
 
 Reject songs that:
 - contain sexual content
