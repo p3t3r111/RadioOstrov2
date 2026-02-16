@@ -1,7 +1,10 @@
 #!/bin/bash
 set -e
 
-git pull
+git fetch origin
+git reset --hard origin/main
+git clean -fd
+
 
 npm run build
 mv public/build/.vite/manifest.json public/build/manifest.json
