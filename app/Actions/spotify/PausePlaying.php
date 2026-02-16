@@ -2,6 +2,8 @@
 
 namespace App\Actions\spotify;
 
+use Log;
+
 class PausePlaying
 {
     public static function execute()
@@ -10,6 +12,8 @@ class PausePlaying
 
         $device = CheckSpotifyDevice::execute();
         if (! $device) {
+            Log::critical('No active Spotify device found. Cannot pause songs. Device: '.$device);
+
             return;
         }
 

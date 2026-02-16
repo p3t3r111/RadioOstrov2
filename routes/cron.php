@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(app()->environment('production') ? 'cron' : null)->group(function () {
     Route::get('/queue-start', function () {
         Artisan::call('queue:restart');
-        Artisan::call('queue:work');
+        Artisan::call('queue:work', ['--stop-when-empty' => true, '--max-time' => 60]);
     });
 
     Route::get('cronDATES', [CronJobVotingDatesController::class, 'index'])->name('cronJOBvotesDATES.index');

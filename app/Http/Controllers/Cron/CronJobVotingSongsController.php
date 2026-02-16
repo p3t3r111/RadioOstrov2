@@ -36,6 +36,6 @@ class CronJobVotingSongsController extends Controller
             ]);
         }
 
-        dd('done');
+        // dd('done');
     }
 }

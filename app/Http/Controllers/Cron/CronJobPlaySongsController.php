@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cron;
 use App\Actions\spotify\CheckSpotifyDevice;
 use App\Actions\spotify\Connect;
 use App\Http\Controllers\Controller;
+use Log;
 
 class CronJobPlaySongsController extends Controller
 {
@@ -16,6 +17,8 @@ class CronJobPlaySongsController extends Controller
 
         $device = CheckSpotifyDevice::execute();
         if (! $device) {
+            Log::critical('No active Spotify device found. Cannot play songs. Device: '.$device);
+
             return;
         }
 
