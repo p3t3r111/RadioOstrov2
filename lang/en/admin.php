@@ -22,7 +22,7 @@ return [
     'add_by' => 'Added by: :name',
 
     'holiday' => [
-        'add_date' => 'Add date',
+        'name' => 'Add date',
         'holiday_name' => 'Holiday name',
         'create' => 'Create holiday',
         'remove' => 'Remove holiday',

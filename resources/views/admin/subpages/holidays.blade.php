@@ -11,7 +11,7 @@
             <div class="flex flex-col items-center grow gap-4 w-[80%]">
                 <div
                     class="w-full p-4 border border-gray-300 rounded-lg shadow-sm bg-white flex flex-col items-center justify-center">
-                    <h3 class="text-lg font-semibold mb-2">{{ __('admin.holiday.add_date') }}</h3>
+                    <h3 class="text-lg font-semibold mb-2">{{ __('admin.holiday.name') }}</h3>
                     <form method="post" action="{{ route('admin.addHoliday') }}" class="w-full flex gap-4 mt-4">
                         @csrf
                         <input class="flex-1" type="text" name="holidayName" id="holidayName" placeholder="{{ __('admin.holiday.name') }}">

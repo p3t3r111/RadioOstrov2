@@ -22,7 +22,7 @@ return [
     'add_by' => 'Pridal: :name',
 
     'holiday' => [
-        'add_date' => 'Pridať dátum',
+        'name' => 'Pridať dátum',
         'holiday_name' => 'Názov prázdnin',
         'create' => 'Vytvoriť prázdniny',
         'remove' => 'Odstrániť prázdniny',
