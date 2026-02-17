@@ -41,6 +41,4 @@
             </div>
         </form> --}}
     </div>
-
-    <script src="{{ asset('js/auth/inputs.js') }}"></script>
 @endsection

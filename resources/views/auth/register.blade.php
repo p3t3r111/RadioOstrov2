@@ -71,7 +71,3 @@
         </div>
     </div>
 @endsection
-
-@section('script')
-    <script src="{{ asset('js/auth/inputs.js') }}"></script>
-@endsection

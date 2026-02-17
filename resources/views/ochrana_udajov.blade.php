@@ -126,7 +126,5 @@
     </section>
   </div>
   @include('includes.footer')
-  <script src="{{ asset('js/navbar.js') }}"></script>
-  <script src="{{ asset('js/hamburger.js') }}"></script>
 </body>
 </html>

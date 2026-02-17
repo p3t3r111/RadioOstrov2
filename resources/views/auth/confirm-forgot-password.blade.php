@@ -41,7 +41,3 @@ Rádio Ostrov | Obnova Hesla
     </div>
 </form>
 @endsection
-
-@section('scripts')
-<script src="{{ asset('js/auth/inputs.js') }}"></script>
-@endsection
