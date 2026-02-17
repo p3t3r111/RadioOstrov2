@@ -39,7 +39,6 @@ false if the song should be rejected
             'max_output_tokens' => 16,
         ]);
 
-        Log::info('AI moderation response (output)', ['response' => $response->output]);
         Log::info('AI moderation response', ['response' => $response->outputText]);
 
         return trim(strtolower($response->outputText)) === 'true';

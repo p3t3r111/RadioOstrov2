@@ -12,7 +12,6 @@ class HandleSongStore
 {
     public static function execute($song, $songToUpdate = null)
     {
-        Log::info($songToUpdate);
         $user = Auth::user();
 
         if (! $song) {
