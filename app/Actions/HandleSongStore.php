@@ -29,6 +29,7 @@ class HandleSongStore
             'title' => $song['title'],
             'img_path' => $song['imgPath'],
             'duration_ms' => $song['duration_ms'] ?? 0,
+            'explicit' => $song['explicit'] ?? false,
         ];
 
         DB::transaction(function () use ($user, $songArr, $songToUpdate) {
