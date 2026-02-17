@@ -1,13 +1,11 @@
 <?php
 
-use App\Http\Controllers\Cron\CronJobAddSongsController;
 use App\Http\Controllers\Cron\CronJobCreateVoteResultImg;
 use App\Http\Controllers\Cron\CronJobGetHolidaysController;
 use App\Http\Controllers\Cron\CronJobPauseSongsController;
 use App\Http\Controllers\Cron\CronJobPlaySongsController;
-use App\Http\Controllers\Cron\CronJobVotedSongsController;
 use App\Http\Controllers\Cron\CronJobVotingDatesController;
-use App\Http\Controllers\Cron\CronJobVotingSongsController;
+use App\Http\Controllers\Cron\CronResetVotingController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(app()->environment('production') ? 'cron' : null)->group(function () {
@@ -15,14 +13,10 @@ Route::middleware(app()->environment('production') ? 'cron' : null)->group(funct
         Artisan::call('queue:restart');
         Artisan::call('queue:work', ['--stop-when-empty' => true, '--max-time' => 60]);
     });
-
-    Route::get('cronDATES', [CronJobVotingDatesController::class, 'index'])->name('cronJOBvotesDATES.index');
-    Route::get('cronSONGS', [CronJobVotingSongsController::class, 'index'])->name('cronJOBvotesSONGS.index');
+    Route::get('cronDates', [CronJobVotingDatesController::class, 'index'])->name('cronJOBvotesDATES.index');
 
     Route::middleware('isHoliday')->group(function () {
-        Route::get('cronAddSONGS', [CronJobAddSongsController::class, 'index'])->name('cronJOBaddSONGS.index');
-        Route::get('cronVOTED', [CronJobVotedSongsController::class, 'index'])->name('cronJOBvotedSONGS.index');
-
+        Route::get('cronResetVoting', [CronResetVotingController::class, 'index'])->name('cronJOBresetVoting.index');
         Route::get('cronPlaySongs', [CronJobPlaySongsController::class, 'index'])->name('cronJOBplaySongs.index');
         Route::get('cronPauseSongs', [CronJobPauseSongsController::class, 'index'])->name('cronJOBpauseSongs.index');
 
