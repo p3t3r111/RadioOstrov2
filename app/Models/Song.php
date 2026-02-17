@@ -18,6 +18,7 @@ class Song extends Model
         'img_path',
         'weekly_played',
         'duration_ms',
+        'explicit',
     ];
 
     public function users()
