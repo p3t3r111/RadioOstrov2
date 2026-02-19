@@ -10,6 +10,14 @@ return [
         'weight_of_individual_vote' => 'Váha jednotlivého hlasu',
     ],
 
+    'theme_selection' => [
+        'title' => 'Výber motivu',
+        'text' => 'Vyberte svoj preferovaný motiv pre webovú stránku.',
+        'light' => 'Svetlý',
+        'dark' => 'Tmavý',
+        'system' => 'Predvolené nastavenie systému',
+    ],
+
     'invite_link' => [
         'title' => 'Váš pozývací odkaz',
         'text' => 'Zdieľajte tento odkaz s priateľmi, aby sa mohli pripojiť k Rádio ostrov. Každý nový používateľ, ktorý sa zaregistruje pomocou tohto odkazu, vám poskytne extra výhody.',

@@ -160,4 +160,18 @@ class ProfileController extends Controller
         return Redirect::route('profile.show')
             ->with('status', 'songs-updated');
     }
+
+    public function patchTheme(Request $request)
+    {
+        $request->validate([
+            'theme' => ['required', 'in:light,dark,system'],
+        ]);
+
+        $user = $request->user();
+        $user->theme = $request->theme;
+        $user->save();
+
+        return Redirect::route('profile.show')
+            ->with('status', 'theme-updated');
+    }
 }

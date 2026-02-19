@@ -10,6 +10,14 @@ return [
         'weight_of_individual_vote' => 'Weight of Individual Vote',
     ],
 
+    'theme_selection' => [
+        'title' => 'Theme selection',
+        'text' => 'Choose your preferred theme for the website.',
+        'light' => 'Light',
+        'dark' => 'Dark',
+        'system' => 'System Default',
+    ],
+
     'invite_link' => [
         'title' => 'Your invite link',
         'text' => 'Share this link with your friends to join Radio Ostrov. Each new user that registers using this link will provide you with extra benefits.',

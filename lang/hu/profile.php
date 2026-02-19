@@ -10,6 +10,14 @@ return [
         'weight_of_individual_vote' => 'Egyéni szavazat súlya',
     ],
 
+    'theme_selection' => [
+        'title' => 'Téma kiválasztása',
+        'text' => 'Válaszd ki a kívánt témát a weboldalhoz.',
+        'light' => 'Világos mód',
+        'dark' => 'Sötét mód',
+        'system' => 'Rendszer alapértelmezése',
+    ],
+
     'invite_link' => [
         'title' => 'A meghívó linked',
         'text' => 'Oszd meg ezt a hivatkozást a barátaiddal, hogy csatlakozhassanak a Rádió Ostrovhoz. Minden új felhasználó, aki ezen a linken keresztül regisztrál, extra előnyöket biztosít neked.',

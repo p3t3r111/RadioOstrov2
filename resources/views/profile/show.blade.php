@@ -14,6 +14,12 @@
                 @include('profile.partials.update-profile-information-form')
             </div>
         </div>
+        
+        <div id="personal-favorite-songs" class="p-4 sm:p-8 bg-gray-300 dark:bg-darkMode-background-800 shadow sm:rounded-lg">
+            <div class="">
+                @include('profile.partials.theme-selection')
+            </div>
+        </div>
 
         <div id="invite-link" class="p-4 sm:p-8 bg-gray-300 dark:bg-darkMode-background-800 shadow sm:rounded-lg flex flex-col gap-6">
             <div class="">

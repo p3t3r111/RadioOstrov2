@@ -4,7 +4,6 @@
 <head>
     @include('includes.meta')
 
-    <meta name="user-theme" content="{{ auth()->user()?->theme ?? 'system' }}">
     <title>
         {{ __('navbar.name') }}
         @hasSection('title')

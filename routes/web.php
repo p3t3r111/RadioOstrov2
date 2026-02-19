@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::patch('/profile/songs', [ProfileController::class, 'songs'])->name('profile.songs');
     Route::patch('/profile/picture', [ProfileController::class, 'picture'])->name('profile.picture');
+    Route::patch('/profile/theme', [ProfileController::class, 'patchTheme'])->name('profile.theme.update');
 
     // GAME
     Route::view('/game', 'game.index');

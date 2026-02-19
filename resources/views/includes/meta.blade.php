@@ -12,4 +12,6 @@
 <meta property="og:url" content="{{ config('app.url') }}">
 <meta property="og:type" content="website">
 
+
+<meta name="user-theme" content="{{ auth()->user()?->theme ?? 'system' }}">
 <script src="{{ asset('js/theme.js') }}"></script>
