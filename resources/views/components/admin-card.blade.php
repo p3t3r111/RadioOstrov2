@@ -4,7 +4,7 @@
     @else
         <a href="{{ route($link) }}">
 @endif
-<div class="@if ($disabled) opacity-50 @endif bg-[#cccccc57] p-4 rounded-xl flex flex-col text-center gap-4 text-black min-h-40">
+<div class="@if ($disabled) opacity-50 @endif bg-[#cccccc57] p-4 rounded-xl flex flex-col text-center gap-4 text-black min-h-40 dark:bg-darkMode-background-800 dark:text-darkMode-text">
     <div class="">
         <h2 class="text-2xl uppercase font-bold">{{ ucfirst($title) }}</h2>
     </div>

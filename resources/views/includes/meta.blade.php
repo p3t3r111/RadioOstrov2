@@ -11,3 +11,5 @@
 <meta property="og:image" content="{{ asset('assets/logo-white-bg.png') }}">
 <meta property="og:url" content="{{ config('app.url') }}">
 <meta property="og:type" content="website">
+
+<script src="{{ asset('js/theme.js') }}"></script>

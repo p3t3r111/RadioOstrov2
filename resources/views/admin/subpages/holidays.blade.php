@@ -10,13 +10,13 @@
         <div class="flex flex-col items-center my-8">
             <div class="flex flex-col items-center grow gap-4 w-[80%]">
                 <div
-                    class="w-full p-4 border border-gray-300 rounded-lg shadow-sm bg-white flex flex-col items-center justify-center">
+                    class="w-full p-4 border border-gray-300 rounded-lg shadow-sm bg-white dark:bg-darkMode-background-800 dark:border-none flex flex-col items-center justify-center">
                     <h3 class="text-lg font-semibold mb-2">{{ __('admin.holiday.name') }}</h3>
                     <form method="post" action="{{ route('admin.addHoliday') }}" class="w-full flex gap-4 mt-4">
                         @csrf
-                        <input class="flex-1" type="text" name="holidayName" id="holidayName" placeholder="{{ __('admin.holiday.name') }}">
-                        <input class="flex-1" type="date" name="startDate" id="startDate">
-                        <input class="flex-1" type="date" name="endDate" id="endDate">
+                        <input class="flex-1 dark:bg-darkMode-background-800 dark:border-slate-700 rounded dark:text-darkMode-text" type="text" name="holidayName" id="holidayName" placeholder="{{ __('admin.holiday.name') }}">
+                        <input class="flex-1 dark:bg-darkMode-background-800 dark:border-slate-700 rounded dark:text-darkMode-text" type="date" name="startDate" id="startDate">
+                        <input class="flex-1 dark:bg-darkMode-background-800 dark:border-slate-700 rounded dark:text-darkMode-text" type="date" name="endDate" id="endDate">
                         <input type="submit" value="{{ __('admin.holiday.create') }}"
                             class="bg-ostrov text-white px-4 py-2 rounded hover:bg-ostrovHover cursor-pointer">
                     </form>
@@ -24,7 +24,7 @@
 
                 @foreach ($holidays as $holiday)
                     <div
-                        class="w-full p-4 border border-gray-300 rounded-lg shadow-sm bg-white grid grid-cols-3 items-center justify-items-center">
+                        class="w-full p-4 border border-gray-300 rounded-lg shadow-sm bg-white dark:bg-darkMode-background-800 dark:border-none grid grid-cols-3 items-center justify-items-center">
                         <h3 class="text-lg font-semibold mb-2 text-start w-full">{{ $holiday->name }}</h3>
                         <p class="text-gray-600">{{ __('admin.holiday.from') }} {{ $holiday->start_date }} {{ __('admin.holiday.to') }} {{ $holiday->end_date }}</p>
                         <form action="{{ route('admin.deleteHoliday') }}" method="post"

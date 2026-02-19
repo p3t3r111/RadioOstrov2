@@ -1,8 +1,8 @@
 @props(['songId', 'title', 'confirmed', 'index' => 0])
 
-<div class="song flex flex-col flex-1 relative w-full gap-2">
+<div class="song flex flex-col flex-1 relative w-full gap-2 dark:text-darkMode-text">
     <div class="flex-1 w-full">
-        <label class="flex justify-between px-2 font-medium text-sm text-black" for="name">
+        <label class="flex justify-between px-2 font-medium text-sm" for="name">
             {{ $index }}. {{ __('profile.favorite_songs.song') }}
             @if ($songId != null)
                 @if ($confirmed == 1)
@@ -31,7 +31,7 @@
         </label>
         <input type="hidden" name="song{{ $index }}Id" class="songId" @if ($songId)value="{{ $songId }}" @endif>
         <input
-            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full dark:bg-darkMode-background-900 dark:border-slate-700 dark:text-darkMode-text"
             autocomplete="off" id="song{{ $index }}" name="song{{ $index }}" type="text" @if ($title)value="{{ $title }}"
             @endif>
     </div>

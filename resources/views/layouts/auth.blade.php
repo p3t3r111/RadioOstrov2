@@ -2,22 +2,20 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @include('includes.meta')
+
+    <meta name="user-theme" content="{{ auth()->user()?->theme ?? 'system' }}">
     <title>
         {{ __('navbar.name') }}
         @hasSection('title')
             | @yield('title')
         @endif
     </title>
-    @include('includes.meta')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-    <section class="hero min-h-screen flex flex-col">
+    <section class="hero min-h-screen flex flex-col dark:bg-darkMode-background-950 dark:text-darkMode-text">
         <div class="flex-grow flex items-center">
             <div
                 class="container flex flex-col justify-center flex-grow flex-shrink relative w-auto mx-auto max-w-screen-[1344px]">

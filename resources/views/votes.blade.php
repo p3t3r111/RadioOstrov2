@@ -6,7 +6,7 @@
 
 @section('content')
     {{-- Welcome --}}
-    <section class="py-8 flex flex-col items-center min-h-[78vh] ">
+    <section class="py-8 flex flex-col items-center min-h-[78vh] dark:bg-darkMode-background-950 dark:text-darkMode-text ">
         <h2 class="text-center text-base lg:text-3xl font-bold">{{ __('vote.history.title') }}</h2>
         <div class="container h-full">
             <div class="grid grid-cols-2 w-full p-2 gap-3 lg:gap-6 lg:p-6">
@@ -15,7 +15,7 @@
                         href="{{ $item['active'] ? route('vote.active') : route('vote.history') . '?date=' . $item['datum'] }}">
                         <div class="card cursor-pointer flex items-center justify-center">
                             <div
-                                class="flex h-16 justify-center items-center w-full lg:w-[60%] {{ $item['active'] ? 'bg-primaryAction' : 'bg-white' }} shadow-xl rounded-md border-slate-500 border-[.1px]">
+                                class="flex h-16 justify-center items-center w-full lg:w-[60%] {{ $item['active'] ? 'bg-primaryAction dark:text-darkMode-background-900' : 'bg-white dark:bg-darkMode-background-800' }} shadow-xl rounded-md border-[1px] border-darkMode-background-800 hover:bg-ostrovHover dark:hover:bg-ostrovHover hover:text-darkMode-text">
                                 <p class="text-sm lg:text-base text-center">
                                     {{ $item['active'] ? $item['datum'] . ' - ' . __('vote.history.active') : $item['datum'] }}
                                 </p>

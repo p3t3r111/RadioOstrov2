@@ -6,7 +6,7 @@
 @section('content')
     {{-- Welcome --}}
     <section class="hero h-[78vh] flex flex-col justify-center items-center gap-2 bg-cover bg-center bg-no-repeat"
-        style="background-image: linear-gradient(rgba(0,0,0,0.22), rgba(0,0,0,0.22)), url('{{ asset('assets/bg/default/bg.png') }}')";>
+        style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ asset('assets/bg/default/bg.png') }}')";>
         <div class="hero-body">
             <div class="flex flex-col items-center gap-2 mt-6"> {{--  mt-28 --}}
                 <img src="{{ asset('assets/logo-white.png') }}"

@@ -1,9 +1,9 @@
 <section class="space-y-6">
     <div class="flex flex-col gap-2">
-        <h2 class="text-lg font-medium text-gray-900 dark:text-black">
+        <h2 class="text-lg font-medium text-gray-900 dark:text-white">
             {{ __('profile.favorite_songs.title') }}
         </h2>
-        <div class="flex flex-col mt-1 text-sm text-gray-600 gap-2">
+        <div class="flex flex-col mt-1 text-sm text-gray-600 dark:text-darkMode-text gap-2">
             <span
                 class="font-bold">{{ __('profile.favorite_songs.text.main') }}</span>
 
@@ -13,7 +13,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                <p class="text-sm text-gray-600">{{ __('profile.favorite_songs.text.waiting') }}</p>
+                <p class="text-sm">{{ __('profile.favorite_songs.text.waiting') }}</p>
             </div>
             <div class="flex gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -21,7 +21,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                <p class="text-sm text-gray-600">{{ __('profile.favorite_songs.text.approved') }}</p>
+                <p class="text-sm">{{ __('profile.favorite_songs.text.approved') }}</p>
             </div>
             <div class="flex gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -29,7 +29,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                <p class="text-sm text-gray-600">{{ __('profile.favorite_songs.text.rejected') }}</p>
+                <p class="text-sm">{{ __('profile.favorite_songs.text.rejected') }}</p>
             </div>
         </div>
     </div>

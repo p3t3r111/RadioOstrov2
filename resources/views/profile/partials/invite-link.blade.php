@@ -1,12 +1,12 @@
 <div class="">
     <div class="">
-        <h2 class="text-lg font-medium text-gray-900 mb-4">{{ __('profile.invite_link.title') }}</h2>
-        <p class="mb-4 text-sm text-gray-600">
+        <h2 class="text-lg font-medium dark:text-white mb-4">{{ __('profile.invite_link.title') }}</h2>
+        <p class="mb-4 text-sm text-gray-600 dark:text-darkMode-text">
             {{ __('profile.invite_link.text') }}
         </p>
     </div>
     <div class="relative w-full lg:max-w-[60%]">
-        <input disabled class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed shadow-sm"
+        <input disabled class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed shadow-sm dark:border-gray-700 dark:bg-darkMode-background-900 dark:text-darkMode-text sm:text-sm" type="text"
             value="{{ url('/r/' . $user->referral_code) }}">
         <button
             class="copy-btn absolute right-2 top-1/2 -translate-y-1/2 rounded bg-ostrov hover:bg-ostrovHover text-white px-2 py-1 text-sm font-semibold"

@@ -4,7 +4,8 @@ import forms from "@tailwindcss/forms";
 /** @type {import('tailwindcss').Config} */
 export default {
     content: ["./resources/**/*.blade.php", "./resources/**/*.js"],
-
+    
+    darkMode: "class",
     theme: {
         extend: {
             keyframes: {
@@ -24,14 +25,19 @@ export default {
             },
             colors: {
                 ostrov: "#305582",
-                ostrov2: "#1d3146",
-                ostrovHover: "#305582b8",
-                primaryAction: "#49FF00", //new
-                // primaryAction: "#38e1af", //old
-                color1: "#A30000",
-                color1Hover: "#7A0000",
-                color2: "#8B008B",
-                color2Hover: "#FFFFFF",
+                ostrovHover: "#1d3146",
+                primaryAction: "#49FF00",
+
+                darkMode: {
+                    background: {
+                        950: "#121212",
+                        900: "#181818",
+                        800: "#1f1f1f",
+                    },
+                    text: "#E0E0E0",
+                    primary: "#49FF00",
+                    buttonBg: "#1d3146",
+                },
             },
         },
     },

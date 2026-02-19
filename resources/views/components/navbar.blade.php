@@ -1,4 +1,4 @@
-<nav class="navbar fixed flex flex-col items-center justify-between bg-white w-full z-40 shadow-lg"
+<nav class="navbar fixed flex flex-col items-center justify-between bg-white dark:bg-darkMode-background-900 dark:text-darkMode-text w-full z-40 shadow-lg "
     id="mainNav" role="navigation" aria-label="main navigation">
     @if ($updates->isNotEmpty())
         <div
@@ -31,7 +31,8 @@
             <a class="navbar-item flex items-center" href="{{ route('index') }}">
                 <img src="{{ asset('assets/logo.png') }}" id="logoFly" class="h-8 w-8 mr-2"
                     alt="Logo školy : Stredná odborná škola informačných technológií, Ostrovského 1, Košice">
-                <h1 class="title pageTitle uppercase text-sm lg:text-lg font-bold">{{ __('navbar.name') }}</h1>
+                <h1 class="title pageTitle uppercase text-sm lg:text-lg font-bold hover:text-ostrovHover">
+                    {{ __('navbar.name') }}</h1>
             </a>
 
             <div class="flex items-center gap-4 z-50">
@@ -55,29 +56,27 @@
         <div class="hidden lg:block">
             <div id="mainNavBar" class="navbar-menu hidden lg:block">
                 <div class="navbar-end flex items-center gap-6 uppercase">
-
-                    <a class="navbar-item" href="{{ route('index') }}">{{ __('navbar.home') }}</a>
-
-                    <a class="navbar-item text-nowrap animate-customPulse"
-                        href="{{ route('profile.show') }}#personal-favorite-songs">{{ __('navbar.my_songs') }}</a>
-
-                    <a class="navbar-item" href="{{ route('vote.index') }}">{{ __('navbar.votes') }}</a>
+                    <x-nav-link route="{{ route('index') }}" :active="request()->routeIs('index')">{{ __('navbar.home') }}</x-nav-link>
+                    <x-nav-link route="{{ route('profile.show') }}#personal-favorite-songs" :active="request()->routeIs('profile.show') &&
+                        request()->getRequestUri() == '/profile#personal-favorite-songs'"
+                        class="text-nowrap animate-customPulse">{{ __('navbar.my_songs') }}</x-nav-link>
+                    <x-nav-link route="{{ route('vote.index') }}"
+                        :active="request()->routeIs('vote.index')">{{ __('navbar.votes') }}</x-nav-link>
 
                     @if ($user->usertype == 'admin')
-                        <a class="navbar-item" href="{{ route('admin.index') }}">
-                            {{ __('navbar.admin') }}
-                        </a>
+                        <x-nav-link route="{{ route('admin.index') }}"
+                            :active="request()->routeIs('admin.index')">{{ __('navbar.admin') }}</x-nav-link>
                     @endif
+
                     @if ($canVote)
-                        <a class="navbar-item" href="{{ route('vote.active') }}">
-                            <span
-                                class="p-2 text-black text-center bg-primaryAction rounded-lg">{{ __('navbar.vote') }}</span>
-                        </a>
+                        <x-nav-link route="{{ route('vote.active') }}" :active="request()->routeIs('vote.active')"
+                            class="text-center bg-primaryAction text-black rounded-lg p-2 hover:text-black">{{ __('navbar.vote') }}</x-nav-link>
                     @endif
 
                     <a class="flex items-center gap-1 capitalize w-fit mr-2" onmouseover="showDropdown('dropdown')"
                         href="{{ route('profile.show') }}">
-                        <div class="w-7 h-7 rounded-full bg-slate-300 flex justify-center items-center">
+                        <div
+                            class="w-7 h-7 rounded-full bg-darkMode-text flex justify-center items-center dark:text-darkMode-background-900">
                             {{ $initials }}
                         </div>
                         <div class="is-user-name whitespace-nowrap">
@@ -99,8 +98,9 @@
                 </div>
             </div>
             <div class="flex flex-col absolute right-16 min-w-40" onmouseleave="hideDropdown('dropdown')">
-                <div class="navbar-dropdown flex flex-col gap-2 bg-white rounded-b-lg hidden item" id="dropdown">
-                    <a class="navbar-item" href="{{ route('profile.show') }}">
+                <div class="navbar-dropdown flex flex-col items-center justify-center gap-2 bg-white dark:bg-darkMode-background-900 rounded-b-lg hidden item"
+                    id="dropdown">
+                    <a class="flex items-center justify-center gap-2 p-2" href="{{ route('profile.show') }}">
                         <span class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -112,11 +112,11 @@
                     </a>
 
 
-                    <hr class="navbar-divider">
+                    <hr class="border-gray-300 dark:border-gray-800 w-full">
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a class="navbar-item" href="{{ route('logout') }}"
+                        <a class="flex items-center justify-center gap-2 p-2" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
             this.closest('form').submit();">
                             <span class="icon">
@@ -133,34 +133,37 @@
             </div>
         </div>
 
-        <div id="mainNavBar2" class="navbar-menu bg-white hidden border-l-2">
+        <div id="mainNavBar2"
+            class="navbar-menu bg-white dark:bg-darkMode-background-900 dark:border-slate-800 hidden border-l">
             <div class="navbar-end h-full flex flex-col gap-3 uppercase justify-between w-full">
                 <div class="flex flex-col gap-5 pt-5 w-full items-center">
                     <a class="flex items-center gap-1 capitalize" href="{{ route('profile.show') }}">
-                        <div class="w-7 h-7 rounded-full bg-slate-300 flex justify-center items-center">
+                        <div
+                            class="w-7 h-7 rounded-full text-darkMode-background-900 bg-darkMode-text flex justify-center items-center">
                             {{ $initials }}
                         </div>
                         <div class="is-user-name">
                             {{ $user->name }}
                         </div>
                     </a>
-                    <hr class="navbar-divider w-full">
-                    <a class="navbar-item" href="{{ route('index') }}">Domov</a>
 
-                    <a class="navbar-item text-nowrap animate-customPulse"
-                        href="{{ route('profile.show') }}#personal-favorite-songs">Moje pesničky</a>
+                    <hr class="border-gray-300 dark:border-gray-800 w-full">
 
-                    <a class="navbar-item" href="{{ route('vote.index') }}">Hlasovania</a>
+                    <x-nav-link route="{{ route('index') }}" :active="request()->routeIs('index')">Domov</x-nav-link>
+                    <x-nav-link route="{{ route('profile.show') }}#personal-favorite-songs" :active="request()->routeIs('profile.show') &&
+                        request()->getRequestUri() == '/profile#personal-favorite-songs'"
+                        class="text-nowrap animate-customPulse">Moje pesničky</x-nav-link>
+                    <x-nav-link route="{{ route('vote.index') }}"
+                        :active="request()->routeIs('vote.index')">{{ __('navbar.votes') }}</x-nav-link>
 
                     @if ($user->usertype == 'admin')
-                        <a class="navbar-item" href="{{ route('admin.index') }}">
-                            <span>Admin</span>
-                        </a>
+                        <x-nav-link route="{{ route('admin.index') }}"
+                            :active="request()->routeIs('admin.index')">{{ __('navbar.admin') }}</x-nav-link>
                     @endif
+
                     @if ($canVote)
-                        <a class="navbar-item" href="{{ route('vote.active') }}">
-                            <span class="p-2 text-black text-center bg-primaryAction rounded-lg">Hlasovať</span>
-                        </a>
+                        <x-nav-link route="{{ route('vote.active') }}" :active="request()->routeIs('vote.active')"
+                            class="text-center bg-primaryAction text-black rounded-lg p-2">{{ __('navbar.vote') }}</x-nav-link>
                     @endif
                 </div>
 
@@ -177,7 +180,7 @@
                     </a>
 
 
-                    <hr class="navbar-divider">
+                    <hr class="border-gray-300 dark:border-gray-800">
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

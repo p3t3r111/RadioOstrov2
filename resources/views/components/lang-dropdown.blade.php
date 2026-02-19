@@ -8,7 +8,7 @@
         onclick="toggleDropdown('{{ $id }}')">
 
     <div id="{{ $id }}"
-        class="absolute right-0 w-max top-full mt-2 p-3 hidden flex-col gap-2 bg-white rounded-lg shadow-lg z-50">
+        class="absolute right-0 w-max top-full mt-2 p-3 hidden flex-col gap-2 bg-white rounded-lg shadow-lg z-50 dark:bg-darkMode-background-900">
 
         @foreach ($availableLocales as $locale)
             <a class="w-full flex items-center gap-2" href="{{ route('lang.switch', $locale['code']) }}">

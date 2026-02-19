@@ -22,7 +22,7 @@
     <x-navbar />
 
 
-    <div class="min-h-[78vh] h-full flex flex-col" id="content">
+    <div class="min-h-[78vh] h-full flex flex-col dark:bg-darkMode-background-950 dark:text-darkMode-text" id="content">
         @yield('content')
     </div>
 

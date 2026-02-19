@@ -41,3 +41,13 @@ window.toggleDropdown = function (id) {
         dropdown.classList.remove("flex");
     }
 }
+
+const navbar = document.getElementById("mainNav");
+const dropdown = document.getElementById("dropdown").parentElement;
+
+console.log(navbar, dropdown);
+
+if (navbar && dropdown) {
+    console.log(navbar.offsetHeight);
+    dropdown.style.top = `${navbar.offsetHeight}px`;
+}
