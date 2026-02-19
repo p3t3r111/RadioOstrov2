@@ -11,6 +11,7 @@ class CronJobPlaySongsController extends Controller
 {
     public function index()
     {
+        sleep(20);
         $playlist_id = config('spotify.playlist_id');
 
         $api = Connect::execute();
