@@ -1,5 +1,5 @@
 <section class="space-y-6">
-    <div>
+    <div class="">
         <h2 class="text-lg font-medium text-gray-900 dark:text-white">
             {{ __('profile.delete_account.title') }}
         </h2>
@@ -15,11 +15,11 @@
     >{{ __('profile.delete_account.delete') }}</x-danger-button>
 
     <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6 bg-white">
+        <form method="post" action="{{ route('profile.destroy') }}" class="p-6 bg-white dark:bg-darkMode-background-900">
             @csrf
             @method('delete')
 
-            <h2 class="text-lg font-medium text-gray-900">
+            <h2 class="text-lg font-medium text-gray-900 dark:text-darkMode-text">
                 {{ __('profile.delete_account.confirm_delete.title') }}
             </h2>
 
