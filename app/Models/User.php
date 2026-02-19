@@ -38,6 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'reserved_points',
         'used_points',
         'locale',
+        'theme',
     ];
 
     protected $guarded = ['referral_code'];
