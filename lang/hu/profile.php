@@ -8,6 +8,18 @@ return [
         'all_time_votes' => 'Összes szavazat',
         'max_votes_per_day' => 'Napi maximális szavazatszám',
         'weight_of_individual_vote' => 'Egyéni szavazat súlya',
+
+        'all_time_points' => 'Összes pont',
+        'all_time_points_description' => 'Az összes pont, amelyet szavazással és meghívásokkal szereztél. (Minden szavazatért :each_vote pontot kapsz, és minden meghívott személy után :each_invite pontot kapsz)',
+
+        'reserved_points' => 'Foglalt pontok',
+        'reserved_points_description' => 'Azok a pontok, amelyek jelenleg foglalva vannak, és a mai szavazás lezárása után hozzáadódnak az összes pontodhoz. (A foglalt pontok a mai szavazatok alapján kerülnek kiszámításra)',
+
+        'unused_points' => 'Felhasználatlan pontok',
+        'unused_points_description' => 'Azok a pontok, amelyeket még felhasználhatsz jutalmak igénylésére.',
+
+        'used_points' => 'Felhasznált pontok',
+        'used_points_description' => 'Azok a pontok, amelyeket már felhasználtál jutalmak igénylésére.',
     ],
 
     'theme_selection' => [

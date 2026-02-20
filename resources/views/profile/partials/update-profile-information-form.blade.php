@@ -32,4 +32,24 @@
         <x-text-input disabled class="mt-1" value="{{ $user->vote_weight }}" name="weight_of_individual_vote" />
     </div>
 
+    <div>
+        <x-input-label for="all_time_points" value="{{ __('profile.info.all_time_points') }}" :description="__('profile.info.all_time_points_description', ['each_vote' => config('app.vote_point_value'), 'each_invite' => config('app.invite_point_value')])" />
+        <x-text-input disabled class="mt-1" value="{{ $user->all_time_points }}" name="all_time_points" />
+    </div>
+
+    <div>
+        <x-input-label for="reserved_points" value="{{ __('profile.info.reserved_points') }}" :description="__('profile.info.reserved_points_description')" />
+        <x-text-input disabled class="mt-1" value="{{ $user->reserved_points }}" name="reserved_points" />
+    </div>
+
+    <div>
+        <x-input-label for="unused_points" value="{{ __('profile.info.unused_points') }}" :description="__('profile.info.unused_points_description', ['points' => $user->all_time_points - $user->used_points])" />
+        <x-text-input disabled class="mt-1" value="{{ $user->all_time_points - $user->used_points }}" name="unused_points" />
+    </div>
+
+    <div>
+        <x-input-label for="used_points" value="{{ __('profile.info.used_points') }}" :description="__('profile.info.used_points_description')" />
+        <x-text-input disabled class="mt-1" value="{{ $user->used_points }}" name="used_points" />
+    </div>
+
 </div>

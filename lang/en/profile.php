@@ -8,6 +8,18 @@ return [
         'all_time_votes' => 'All Time Votes',
         'max_votes_per_day' => 'Max Votes Per Day',
         'weight_of_individual_vote' => 'Weight of Individual Vote',
+
+        'all_time_points' => 'All Time Points',
+        'all_time_points_description' => 'Total points you have earned from voting and inviting people. (From for each vote you earn :each_vote points and for each invited person you earn :each_invite points)',
+
+        'reserved_points' => 'Reserved Points',
+        'reserved_points_description' => "Points that are reserved for you and will be added to your total points when today's voting ends. (Reserved points are calculated based on today's votes)",
+
+        'unused_points' => 'Unused Points',
+        'unused_points_description' => 'Points that are available for you to use to claim rewards.',
+
+        'used_points' => 'Used Points',
+        'used_points_description' => 'Points that you have already used to claim rewards.',
     ],
 
     'theme_selection' => [
