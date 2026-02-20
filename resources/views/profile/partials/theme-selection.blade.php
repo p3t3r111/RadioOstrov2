@@ -11,7 +11,7 @@
         </p>
     </div>
 
-    <form method="post" action="{{ route('profile.theme.update') }}" class="flex w-full gap-4">
+    <form method="post" action="{{ route('profile.theme.update') }}" class="flex flex-col lg:flex-row w-full gap-4">
         @csrf
         @method('patch')
         <div class="flex-1">

@@ -39,7 +39,7 @@
 
     <div>
         <x-input-label for="reserved_points" value="{{ __('profile.info.reserved_points') }}" :description="__('profile.info.reserved_points_description')" />
-        <x-text-input disabled class="mt-1" value="{{ $user->reserved_points }}" name="reserved_points" />
+        <x-text-input disabled class="mt-1" value="{{ $user->getReservedPointsAttribute() }}" name="reserved_points" />
     </div>
 
     <div>

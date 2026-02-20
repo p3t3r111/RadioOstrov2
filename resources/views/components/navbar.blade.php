@@ -149,10 +149,10 @@
 
                     <hr class="border-gray-300 dark:border-gray-800 w-full">
 
-                    <x-nav-link route="{{ route('index') }}" :active="request()->routeIs('index')">Domov</x-nav-link>
+                    <x-nav-link route="{{ route('index') }}" :active="request()->routeIs('index')">{{ __('navbar.home') }}</x-nav-link>
                     <x-nav-link route="{{ route('profile.show') }}#personal-favorite-songs" :active="request()->routeIs('profile.show') &&
                         request()->getRequestUri() == '/profile#personal-favorite-songs'"
-                        class="text-nowrap animate-customPulse">Moje pesničky</x-nav-link>
+                        class="text-nowrap animate-customPulse">{{ __('navbar.my_songs') }}</x-nav-link>
                     <x-nav-link route="{{ route('vote.index') }}"
                         :active="request()->routeIs('vote.index')">{{ __('navbar.votes') }}</x-nav-link>
 
@@ -167,7 +167,7 @@
                     @endif
                 </div>
 
-                <div class="flex flex-col navbar-item has-dropdown relative w-full gap-3">
+                <div class="flex flex-col navbar-item has-dropdown relative w-full gap-3 normal-case">
                     <a class="navbar-item flex items-center justify-center" href="{{ route('profile.show') }}">
                         <span class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -176,7 +176,7 @@
                                     d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                             </svg>
                         </span>
-                        <span>Môj profil</span>
+                        <span>{{ __('navbar.my_profile') }}</span>
                     </a>
 
 
@@ -194,7 +194,7 @@
                                         d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
                                 </svg>
                             </span>
-                            <span>Odhlásiť sa</span>
+                            <span>{{ __('navbar.logout') }}</span>
                         </a>
                     </form>
                 </div>

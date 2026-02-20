@@ -35,7 +35,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'max_votes_per_day',
         'referred_by',
         'all_time_points',
-        'reserved_points',
         'used_points',
         'locale',
         'theme',
