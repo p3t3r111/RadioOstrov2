@@ -91,6 +91,11 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
+    public function getReservedPointsAttribute()
+    {
+        return $this->voted * config('app.vote_point_value');
+    }
+
     public function rewards()
     {
         return $this->belongsToMany(Reward::class, 'rewards_users')->withPivot('level')->withTimestamps();
