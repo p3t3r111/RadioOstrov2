@@ -12,6 +12,7 @@ class CronResetVotingController extends Controller
     public function index()
     {
         sleep(50);
+
         StoreVotingSongs::execute();
         GenerateNewVotingSongs::execute();
         AddNewSongsToPlaylist::execute();

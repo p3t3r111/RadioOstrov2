@@ -57,6 +57,7 @@ class GoogleOauthController extends Controller
 
                 $referrer = User::find($referredBy);
                 $referrer->increment('invited_people');
+                $referrer->increment('all_time_points', config('app.invite_point_value', 0));
             }
 
             Auth::login($user);
