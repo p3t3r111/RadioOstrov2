@@ -16,7 +16,7 @@ return [
     'welcome' => 'Vítame vás na stránke',
     'welcome_name' => 'Rádia Ostrov',
     'vote' => 'Hlasovať',
-    'results' => 'Výsledky hlasovánia',
+    'results' => 'Výsledky hlasovania',
     'my_songs' => 'Moje pesničky',
 
 ];

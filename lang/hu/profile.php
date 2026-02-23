@@ -43,6 +43,7 @@ return [
             'level' => ':level. szint',
             'max_level' => 'Maximális szint',
             'text' => 'Szerezz még :points pontot a(z) :level. szinthez!',
+            'ready_to_claim' => 'Átvehető',
             'reward' => 'Jutalom',
             'claim' => 'Átvétel',
             'points' => '{0} pont|{1} pont|[2,4] pont|[5,*] pont',

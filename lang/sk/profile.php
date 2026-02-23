@@ -43,6 +43,7 @@ return [
             'level' => 'Úroveň :level',
             'max_level' => 'Maximálna úroveň',
             'text' => 'Získaj ešte :points body pre úroveň :level!',
+            'ready_to_claim' => 'K vyzdvihnutiu',
             'reward' => 'Odmena',
             'claim' => 'Vyzdvihnúť',
             'points' => '{0} bodov|{1} bod|[2,4] body|[5,*] bodov',
