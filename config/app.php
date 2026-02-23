@@ -136,4 +136,5 @@ return [
     'invite_point_value' => env('INVITE_POINT_VALUE', 1),
     'vote_point_value' => env('VOTE_POINT_VALUE', 0.2),
 
+    'song_title_author_blocked_keywords' => env('SONG_TITLE_AUTHOR_BLOCKED_KEYWORDS', ''),
 ];

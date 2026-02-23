@@ -22,13 +22,15 @@ class GetSongLyrics
                 $finalLyrics .= $line['words']."\n";
             }
 
-            Log::info('Fetched lyrics for songId: '.$songId);
-            Log::info('Lyrics: '.$finalLyrics);
+            // Log::info('Fetched lyrics for songId: '.$songId);
+            // Log::info('Lyrics: '.$finalLyrics);
 
             return $finalLyrics;
         } catch (SpotifyException $e) {
-            Log::info('Error: '.$e->getMessage()."\n");
-            Log::info('Status Code: '.$e->getCode()."\n");
+            // Log::info('Error: '.$e->getMessage()."\n");
+            // Log::info('Status Code: '.$e->getCode()."\n");
+
+            return null;
         }
     }
 }

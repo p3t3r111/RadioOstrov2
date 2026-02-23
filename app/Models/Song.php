@@ -19,6 +19,8 @@ class Song extends Model
         'weekly_played',
         'duration_ms',
         'explicit',
+        'confirmed',
+        'moderation_reason',
     ];
 
     public function users()
