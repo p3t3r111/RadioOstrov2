@@ -107,6 +107,11 @@ class ModerateSong implements ShouldQueue
             if ($song->confirmed != 1) {
                 $song->moderation_reason = $aiResponse['reason'] ?? 'Rejected without reason';
             }
+
+            if ($song->confirmed == 1) {
+                $song->moderation_reason = null;
+            }
+
             Log::info('Moderation result for song '.$song->title.': '.($song->confirmed == 1 ? 'approved' : ($song->confirmed == -1 ? 'rejected' : 'needs review')).' – reason: '.$song->moderation_reason);
             $song->save();
 
