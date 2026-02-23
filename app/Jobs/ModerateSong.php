@@ -60,14 +60,22 @@ class ModerateSong implements ShouldQueue
                 }
             }
 
-            if ($song->explicit || $songLength >= 360000) {
-                $song->confirmed = -1;
-                $song->moderation_reason = $song->explicit
-                    ? 'Explicit flag from Spotify'
-                    : 'Song duration exceeds 6 minutes';
+            $songExplicit = $song->explicit;
+            if ($songExplicit == 0) {
+                $track = $api->getTrack($song->songId);
+                $song->explicit = $track->explicit ?? 0;
                 $song->save();
+            }
 
-                return;
+                if ($song->explicit || $songLength >= 360000) {
+                    $song->confirmed = -1;
+                    $song->moderation_reason = $song->explicit
+                        ? 'Explicit flag from Spotify'
+                        : 'Song duration exceeds 6 minutes';
+                    $song->save();
+
+                    return;
+                }
             }
 
             if (HandleSongTitleAutorFilter::execute($song->toArray())) {
