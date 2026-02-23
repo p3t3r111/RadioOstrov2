@@ -62,10 +62,13 @@ class ModerateSong implements ShouldQueue
 
             $songExplicit = $song->explicit;
             if ($songExplicit == 0) {
+                $api = Connect::execute();
                 $track = $api->getTrack($song->songId);
                 $song->explicit = $track->explicit ?? 0;
                 $song->save();
             }
+
+            Log::info("Moderating song {$song->title} by {$song->author} (explicit: {$song->explicit}, duration: {$song->duration_ms}ms)");
 
             if ($song->explicit || $songLength >= 360000) {
                 $song->confirmed = -1;
