@@ -19,7 +19,7 @@
             <div
                 class="container flex flex-col justify-center flex-grow flex-shrink relative w-auto mx-auto max-w-screen-[1344px]">
                 <div class="columns flex justify-center">
-                    <div class="column max-w-sm flex flex-col items-center">
+                    <div class="flex flex-col items-center w-full">
                         @yield('content')
                     </div>
                 </div>

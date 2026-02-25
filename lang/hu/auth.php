@@ -21,5 +21,9 @@ return [
         'title' => 'Bejelentkezés',
         'text' => 'Jelentkezzen be iskolai e-mail címével.',
         'google' => 'Folytatás Google-fiókkal',
+        'or' => 'Vagy',
+        'email' => 'Email',
+        'password' => 'Jelszó',
+        'loginIn' => 'Bejelentkezés',
     ],
 ];

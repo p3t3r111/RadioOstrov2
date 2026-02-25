@@ -43,9 +43,10 @@ window.toggleDropdown = function (id) {
 }
 
 const navbar = document.getElementById("mainNav");
-const dropdown = document.getElementById("dropdown").parentElement;
+const dropdown = document.getElementById("dropdown");
 
 
 if (navbar && dropdown) {
+    dropdown = dropdown.parentElement;
     dropdown.style.top = `${navbar.offsetHeight}px`;
 }

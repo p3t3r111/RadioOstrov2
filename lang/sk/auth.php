@@ -21,5 +21,9 @@ return [
         'title' => 'Prihlásenie',
         'text' => 'Prihláste sa školským emailom.',
         'google' => 'Pokračovať cez Google',
+        'or' => 'Alebo',
+        'email' => 'Email',
+        'password' => 'Heslo',
+        'loginIn' => 'Prihlásiť sa',
     ],
 ];

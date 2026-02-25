@@ -54,9 +54,9 @@ body:not(:has(.update a)) #content {
 }
 
 .md-textbox :is(input:focus, .has-value)~label {
-  color: #000000d9;
   translate: -7px -30px;
-  transition: .5s
+  transition: .5s;
+  @apply text-darkMode-background-950 dark:text-darkMode-text;
 }
 
 .md-textbox :is(input:focus, .has-value)~span {

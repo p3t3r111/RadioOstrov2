@@ -21,6 +21,10 @@ return [
         'title' => 'Login',
         'text' => 'Please log in with your school email.',
         'google' => 'Continue with Google',
+        'or' => 'Or',
+        'email' => 'Email',
+        'password' => 'Password',
+        'loginIn' => 'Log in',
     ],
 
 ];

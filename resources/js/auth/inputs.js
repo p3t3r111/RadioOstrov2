@@ -100,3 +100,5 @@ function togglePasswordVisibility(id) {
         );
     }
 }
+
+window.handleInputChange = handleInputChange;
