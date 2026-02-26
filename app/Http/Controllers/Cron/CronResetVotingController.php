@@ -12,13 +12,14 @@ class CronResetVotingController extends Controller
 {
     public function index()
     {
-        sleep(50);
-        $votedUsers = User::where('voted', '>', 0)->each(function ($user) {
+        sleep(30);
+        User::where('voted', '>', 0)->each(function ($user) {
             $user->all_time_points += $user->voted * config('app.vote_point_value');
+            $user->voted = 0;
             $user->save();
         });
         StoreVotingSongs::execute();
-        GenerateNewVotingSongs::execute();
         AddNewSongsToPlaylist::execute();
+        GenerateNewVotingSongs::execute();
     }
 }
