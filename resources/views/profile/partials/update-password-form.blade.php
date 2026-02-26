@@ -1,65 +1,48 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-black">
+        <h2 class="text-lg font-medium text-gray-900 dark:text-darkMode-text">
             @if (Auth::user()->password == null)
-                {{ __('Nastaviť heslo') }}
+                {{ __('profile.password.title2') }}
             @else
-                {{ __('Aktualizovať heslo') }}
+                {{ __('profile.password.title') }}
             @endif
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('Uistite sa, že vaše konto používa dlhé, náhodné heslo, aby bolo bezpečné.') }}
+            {{ __('profile.password.text') }}
         </p>
     </header>
 
-    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6 text-black dark:text-darkMode-text">
         @csrf
         @method('put')
 
-        @if (Auth::user()->password)
-            <div class="text-black">
-                <label class="block font-medium text-sm text-black" for="update_password_current_password">
-                    Aktuálne heslo
-                </label>
-                <input
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
-                    id="update_password_current_password" name="current_password" type="password"
-                    autocomplete="current-password">
-                <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
-            </div>
-        @endif
+        {{-- @if (Auth::user()->password)
+            <x-form-input name="current_password" type="password"
+                iconPath='<path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />'>{{ __('profile.password.current_password') }}</x-form-input>
+        @endif --}}
 
         <div>
-            <label class="block font-medium text-sm text-black" for="update_password_password">
-                Nové heslo
-            </label>
-            <input
-                class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
-                id="update_password_password" name="password" type="password" autocomplete="new-password">
-            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+            <x-form-input name="password" type="password"
+                iconPath='<path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />'
+                mt_2='true'>{{ __('profile.password.new_password') }}</x-form-input>
         </div>
 
         <div>
-            <label class="block font-medium text-sm text-black" for="update_password_password_confirmation">
-                Potvrdenie hesla
-            </label>
-            <input
-                class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
-                id="update_password_password_confirmation" name="password_confirmation" type="password"
-                autocomplete="new-password">
-            <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
+            <x-form-input name="password_confirmation" type="password"
+                iconPath='<path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />'
+                mt_2='true'>{{ __('profile.password.confirm_new_password') }}</x-form-input>
         </div>
 
         <div class="flex items-center gap-4">
             <button type="submit"
-                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                Uložiť
+                class="inline-flex items-center px-4 py-2 bg-ostrov border border-transparent rounded-md text-white tracking-widest hover:bg-ostrovHover focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                {{ __('profile.password.save_changes') }}
             </button>
 
             @if (session('status') === 'password-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('Uložené.') }}</p>
+                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('profile.password.saved') }}</p>
             @endif
         </div>
     </form>
