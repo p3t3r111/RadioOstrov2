@@ -7,7 +7,7 @@
             frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"></iframe>
         @if ($index === null)
-            <p class="pr-2"><span class="hidden md:inline-block">{{ __('vote.history.vote_count') }}:</span> {{ $song['voteCount'] - 1 }}</p>
+            <p class="pr-2"><span class="hidden md:inline-block">{{ __('vote.history.vote_count') }}:</span> {{ $song['total_weight'] - 1 }}</p>
         @endif
     </div>
     @if ($index !== null)

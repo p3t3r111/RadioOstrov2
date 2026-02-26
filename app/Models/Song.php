@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +23,20 @@ class Song extends Model
         'confirmed',
         'moderation_reason',
     ];
+
+    public function scopeWithTotalWeightForDate($query, $date)
+    {
+        return $query->withSum([
+            'votes as total_weight' => function ($q) use ($date) {
+                $q->whereDate('datum', $date);
+            },
+        ], DB::raw('vote_count * vote_weight'));
+    }
+
+    public function scopeOrderByTotalWeight($query)
+    {
+        return $query->orderByDesc('total_weight');
+    }
 
     public function users()
     {

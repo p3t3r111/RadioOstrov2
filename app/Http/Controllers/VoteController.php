@@ -54,11 +54,9 @@ class VoteController extends Controller
             $datum2 = Carbon::createFromFormat('d.m.Y', $date);
             $date2 = strtotime($date);
             $date_db = date('Y-m-d', $date2);
-            $db_query = Song::withCount([
-                'votes as voteCount' => fn ($q) => $q->whereDate('datum', $date_db),
-            ])
-                ->having('voteCount', '>', 0)
-                ->orderByDesc('voteCount')
+            $db_query = Song::withTotalWeightForDate($date_db)
+                ->having('total_weight', '>', 0)
+                ->orderByTotalWeight()
                 ->get();
 
             if ($db_query->isEmpty()) {
