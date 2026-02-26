@@ -46,6 +46,7 @@ return [
             'ready_to_claim' => 'K vyzdvihnutiu',
             'reward' => 'Odmena',
             'claim' => 'Vyzdvihnúť',
+            'earn_more_points' => 'Získaj viac bodov',
             'points' => '{0} bodov|{1} bod|[2,4] body|[5,*] bodov',
         ],
     ],

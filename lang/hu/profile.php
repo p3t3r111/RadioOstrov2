@@ -46,7 +46,8 @@ return [
             'ready_to_claim' => 'Átvehető',
             'reward' => 'Jutalom',
             'claim' => 'Átvétel',
-            'points' => '{0} pont|{1} pont|[2,4] pont|[5,*] pont',
+            'earn_more_points' => 'Szerezz még pontokat',
+            'points' => 'pont',
         ],
     ],
 
