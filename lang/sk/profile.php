@@ -62,6 +62,16 @@ return [
         'save_changes' => 'Uložiť zmeny',
     ],
 
+    'password' => [
+        'title' => 'Zmena hesla',
+        'title2' => 'Nastaviť heslo',
+        'text' => 'Uistite sa, že vaše konto používa dlhé, náhodné heslo, aby bolo bezpečné.',
+        'current_password' => 'Aktuálne heslo',
+        'new_password' => 'Nové heslo',
+        'confirm_new_password' => 'Potvrďte nové heslo',
+        'save_changes' => 'Uložiť zmeny',
+    ],
+
     'delete_account' => [
         'title' => 'Vymazať účet',
         'text' => 'Po vymazaní vášho konta budú všetky jeho zdroje a údaje natrvalo vymazané.',

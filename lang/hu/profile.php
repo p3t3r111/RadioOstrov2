@@ -62,6 +62,16 @@ return [
         'save_changes' => 'Változtatások mentése',
     ],
 
+    'password' => [
+        'title' => 'Jelszó módosítása',
+        'title2' => 'Jelszó beállítása',
+        'text' => 'Győződj meg róla, hogy a fiókodhoz tartozó jelszó hosszú és véletlenszerű, így biztonságos.',
+        'current_password' => 'Jelenlegi jelszó',
+        'new_password' => 'Új jelszó',
+        'confirm_new_password' => 'Új jelszó megerősítése',
+        'save_changes' => 'Változtatások mentése',
+    ],
+
     'delete_account' => [
         'title' => 'Fiók törlése',
         'text' => 'A fiók törlése után az összes erőforrása és adata véglegesen törlésre kerül.',

@@ -63,6 +63,16 @@ return [
         'save_changes' => 'Save changes',
     ],
 
+    'password' => [
+        'title' => 'Change password',
+        'title2' => 'Set password',
+        'text' => 'Make sure your account uses a long, random password to be secure.',
+        'current_password' => 'Current password',
+        'new_password' => 'New password',
+        'confirm_new_password' => 'Confirm new password',
+        'save_changes' => 'Save changes',
+    ],
+
     'delete_account' => [
         'title' => 'Delete account',
         'text' => 'After deleting your account, all its resources and data will be permanently deleted.',
