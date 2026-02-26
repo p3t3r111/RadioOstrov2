@@ -8,7 +8,7 @@
             @endif
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
+        <p class="mt-1 text-sm text-gray-600 dark:text-darkMode-text">
             {{ __('profile.password.text') }}
         </p>
     </header>
