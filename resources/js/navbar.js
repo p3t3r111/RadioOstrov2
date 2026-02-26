@@ -43,7 +43,7 @@ window.toggleDropdown = function (id) {
 }
 
 const navbar = document.getElementById("mainNav");
-const dropdown = document.getElementById("dropdown");
+let dropdown = document.getElementById("dropdown");
 
 
 if (navbar && dropdown) {
