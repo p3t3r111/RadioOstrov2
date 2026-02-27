@@ -62,6 +62,7 @@ function handleInputChange(id) {
             inputSpan.classList.add("pointer-events-none");
             const inputSvg = inputSpan.querySelector("svg");
             inputSvg.classList.remove("text-black");
+            inputSvg.classList.remove("dark:text-darkMode-text");
             var svgPath = inputSvg.querySelector("path");
             // Eye Open
             svgPath.setAttribute(
