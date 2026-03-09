@@ -25,10 +25,10 @@
             <div class="">
                 @include('profile.partials.invite-link')
             </div>
-            {{-- <hr>
+            <hr class="dark:border-gray-800">
             <div class="">
                 @include('profile.partials.reward-system')
-            </div> --}}
+            </div>
         </div>
 
         <div id="personal-favorite-songs" class="p-4 sm:p-8 bg-gray-300 dark:bg-darkMode-background-800 shadow sm:rounded-lg">

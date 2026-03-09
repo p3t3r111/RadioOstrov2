@@ -174,4 +174,35 @@ class ProfileController extends Controller
         return Redirect::route('profile.show')
             ->with('status', 'theme-updated');
     }
+
+    public function claimReward(Request $request, $rewardId)
+    {
+        $user = $request->user();
+
+        $reward = $user->rewards->where('id', $rewardId)->firstOrFail();
+        $reward_points = $reward->points;
+        $currentLevelPoints = $reward_points[$reward->pivot->level] ?? $reward_points[0];
+
+        if ($reward->pivot->level >= $reward->max_level) {
+            return Redirect::route('profile.show')
+                ->with('status', 'reward-already-claimed');
+        }
+
+        if ($user->unused_points < $currentLevelPoints) {
+            return Redirect::route(route: 'profile.show')
+                ->with('status', 'not-enough-points');
+        }
+
+        if ($reward->db_column_to_update) {
+            $user->{$reward->db_column_to_update} += $reward->reward_for_level;
+            $user->save();
+        }
+        $user->rewards()->updateExistingPivot($rewardId, ['level' => $reward->pivot->level + 1]);
+
+        $user->used_points += $currentLevelPoints;
+        $user->save();
+
+        return Redirect::route('profile.show')
+            ->with('status', 'reward-claimed');
+    }
 }

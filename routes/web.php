@@ -36,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile/songs', [ProfileController::class, 'songs'])->name('profile.songs');
     Route::patch('/profile/picture', [ProfileController::class, 'picture'])->name('profile.picture');
     Route::patch('/profile/theme', [ProfileController::class, 'patchTheme'])->name('profile.theme.update');
+    Route::post('/rewards/claim/{reward}', [ProfileController::class, 'claimReward'])->name('rewards.claim');
 
     // GAME
     Route::view('/game', 'game.index');
