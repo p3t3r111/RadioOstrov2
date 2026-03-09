@@ -15,7 +15,7 @@ export default {
                     "100%": { opacity: "1" },
                 },
                 customPulse: {
-                    "1%, 99%": { color: "#000000", scale: "1" },
+                    "0%, 100%": { scale: "1" },
                     "50%": { color: "#49FF00", scale: "1.1" },
                 },
             },
