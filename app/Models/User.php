@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Actions\CheckHolidays;
-use Carbon\Carbon;
+use App\Actions\isHolidays;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -108,7 +107,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function canVote()
     {
-        return $this->voted < $this->max_votes_per_day && ! CheckHolidays::execute() && Active_voting_song::count() > 0;
+        return $this->voted < $this->max_votes_per_day && ! isHolidays::execute(Voting_dates::activeVotingDate()) && Active_voting_song::count() > 0;
     }
 
     public function songs()
@@ -140,8 +139,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function activeVotedSongs()
     {
-        $votingDate = Voting_dates::activeVotingDate();
-        $votingDay = Carbon::parse($votingDate->to)->addDay()->format('Y-m-d');
+        $votingDay = Voting_dates::activeVotingDate();
 
         return $this->votes()
             ->where('datum', $votingDay)

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CheckHolidays;
+use App\Actions\isHolidays;
 use App\Models\Active_voting_song;
 use App\Models\Song;
 use App\Models\User;
@@ -20,21 +20,25 @@ class VoteController extends Controller
     public function index()
     {
         $activeVotingTo = Carbon::parse(
-            Voting_dates::activeVotingDate()->to
+            Voting_dates::activeVotingDate()
         )->setTime(config('app.voting_hours'), 0, 0);
 
-        $hlasy = Vote::distinct()->orderBy('datum', 'desc')->pluck('datum')->map(function ($date) use ($activeVotingTo) {
+        $hlasy = Vote::distinct()->orderBy('datum', 'desc')->pluck('datum')->map(function ($date) {
             $votingDate = Carbon::createFromFormat('Y-m-d', $date)->setTime(config('app.voting_hours'), 0, 0);
 
             return [
                 'datum' => $votingDate->format('d.m.Y'),
-                'active' => $activeVotingTo->lt($votingDate),
+                'active' => false,
             ];
         })->toArray();
 
-        $activeVotingDay = $activeVotingTo->addDay()->format('d.m.Y');
-        if (! in_array($activeVotingDay, array_column($hlasy, 'datum'))) {
-            array_unshift($hlasy, ['datum' => $activeVotingDay, 'active' => true]);
+        $activeVotingDay = $activeVotingTo->format('d.m.Y');
+        if (in_array($activeVotingDay, array_column($hlasy, 'datum'))) {
+            if (auth()->user()->canVote()) {
+                array_unshift($hlasy, ['datum' => $activeVotingDay, 'active' => true]);
+            } else {
+                unset($hlasy[array_search($activeVotingDay, array_column($hlasy, 'datum'))]);
+            }
         }
 
         $perPage = 10;
@@ -73,7 +77,8 @@ class VoteController extends Controller
 
     public function active()
     {
-        if (CheckHolidays::execute(now()->toDateString())) {
+        $activeVotingDate = Voting_dates::activeVotingDate();
+        if (isHolidays::execute(Voting_dates::activeVotingDate())) {
             return view('vote.noActiveVote');
         }
 
@@ -84,8 +89,8 @@ class VoteController extends Controller
 
         $activeVotingDate = Voting_dates::activeVotingDate();
         if ($activeVotingDate) {
-            $votingDate = Carbon::createFromFormat('Y-m-d', $activeVotingDate->to)
-                ->setTime(config('app.voting_hours'), 0, 0)->addDay();
+            $votingDate = Carbon::createFromFormat('Y-m-d', $activeVotingDate)
+                ->setTime(config('app.voting_hours'), 0, 0);
             $nazov_dna = Str::lower($votingDate->format('l'));
 
             $songsArray = [];

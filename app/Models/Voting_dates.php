@@ -15,7 +15,7 @@ class Voting_dates extends Model
         'to',
     ];
 
-    public static function activeVotingDate()
+    public static function activeVoting()
     {
         $dateIntervals = Voting_dates::all();
 
@@ -36,5 +36,12 @@ class Voting_dates extends Model
         }
 
         return null;
+    }
+
+    public static function activeVotingDate()
+    {
+        $activeVotingDate = self::activeVoting();
+
+        return Carbon::parse($activeVotingDate->to)->addDay()->toDateString();
     }
 }
