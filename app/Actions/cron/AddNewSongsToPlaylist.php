@@ -24,11 +24,10 @@ class AddNewSongsToPlaylist
         $api = Connect::execute();
 
         $datum = Carbon::now()->addDay()->format('Y-m-d');
-        $db_query = Song::withCount([
-            'votes as voteCount' => fn ($q) => $q->whereDate('datum', $datum),
-        ])
-            ->having('voteCount', '>', 0)
-            ->orderByDesc('voteCount')
+
+        $db_query = Song::withTotalWeightForDate($datum)
+            ->having('total_weight', '>', 0)
+            ->orderByTotalWeight()
             ->get();
 
         $db_query2 = Backup_song::where('weekly_played', 0)
