@@ -39,6 +39,7 @@ return [
     'reward_system' => [
         'title' => 'Reward to claim',
         'text' => 'By reaching certain levels in our reward system, you will earn special benefits. Don\'t forget to claim them!',
+        'max_level' => 'Max level',
         'card' => [
             'level' => 'Level :level',
             'max_level' => 'Max Level',

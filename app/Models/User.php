@@ -40,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'theme',
     ];
 
-    protected $guarded = ['referral_code'];
+    protected $guarded = ['referral_code', 'unused_points', 'reserved_points'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -89,6 +89,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
             $user->rewards()->attach($data);
         });
+    }
+
+    public function getUnusedPointsAttribute()
+    {
+        return $this->all_time_points - $this->used_points;
     }
 
     public function getReservedPointsAttribute()

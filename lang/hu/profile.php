@@ -39,6 +39,7 @@ return [
     'reward_system' => [
         'title' => 'Átvehető jutalmak',
         'text' => 'Bizonyos szintek elérésével a jutalmazási rendszerünkben különleges előnyöket kapsz. Ne felejtsd el átvenni őket!',
+        'max_level' => 'Maximális szint',
         'card' => [
             'level' => ':level. szint',
             'max_level' => 'Maximális szint',

@@ -39,6 +39,7 @@ return [
     'reward_system' => [
         'title' => 'Odmeny k vyzdvihnutiu',
         'text' => 'Za dosiahnutie určitých úrovní v našom odmeňovacom systéme získate špeciálne výhody. Nezabudnite si ich vyzdvihnúť!',
+        'max_level' => 'Maximálna úroveň',
         'card' => [
             'level' => 'Úroveň :level',
             'max_level' => 'Maximálna úroveň',
