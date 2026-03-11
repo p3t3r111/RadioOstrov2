@@ -15,7 +15,7 @@
             </div>
         </div>
         
-        <div id="personal-favorite-songs" class="p-4 sm:p-8 bg-gray-300 dark:bg-darkMode-background-800 shadow sm:rounded-lg">
+        <div id="theme-selection" class="p-4 sm:p-8 bg-gray-300 dark:bg-darkMode-background-800 shadow sm:rounded-lg">
             <div class="">
                 @include('profile.partials.theme-selection')
             </div>
