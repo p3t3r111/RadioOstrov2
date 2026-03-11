@@ -6,11 +6,12 @@
         </p>
     </div>
     <div class="relative w-full lg:max-w-[60%]">
-        <input disabled class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed shadow-sm dark:border-gray-700 dark:bg-darkMode-background-900 dark:text-darkMode-text sm:text-sm" type="text"
-            value="{{ url('/r/' . $user->referral_code) }}">
+        <input disabled
+            class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed shadow-sm dark:border-gray-700 dark:bg-darkMode-background-900 dark:text-darkMode-text sm:text-sm"
+            type="text" value="{{ url('/invite/' . $user->referral_code) }}">
         <button
             class="copy-btn absolute right-2 top-1/2 -translate-y-1/2 rounded bg-ostrov hover:bg-ostrovHover text-white px-2 py-1 text-sm font-semibold"
-            data-copy="{{ url('/r/' . $user->referral_code) }}">
+            data-copy="{{ url('/invite/' . $user->referral_code) }}">
             <p class="hidden md:block">{{ __('profile.invite_link.copy_link') }}</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-6 block md:hidden">

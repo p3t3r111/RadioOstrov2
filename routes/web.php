@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/ochrana-udajov', 'ochrana_udajov')->name('ochranaUdajov');
 
-Route::get('/r/{code}', [ReferralController::class, 'store'])
+Route::get('/invite/{code}', [ReferralController::class, 'store'])
     ->name('referral');
 
 Route::middleware(['auth', 'verified'])->group(function () {
