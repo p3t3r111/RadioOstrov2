@@ -2,7 +2,7 @@
     id="mainNav" role="navigation" aria-label="main navigation">
     @if ($updates->isNotEmpty())
         <div
-            class="update h-10 w-full flex justify-center items-center p-2 text-white text-sm font-semibold bg-gradient-to-r from-slate-800 via-slate-700 to-ostrov">
+            class="update h-fit min-h-10 w-full flex justify-center items-center p-2 text-white text-sm font-semibold bg-gradient-to-r from-slate-800 via-slate-700 to-ostrov">
 
             <a href={{ $updates[0]->action_url }} id="update-text"
                 class="text-center flex gap-2 items-center justify-center w-full transition-opacity duration-300 hover:underline"
