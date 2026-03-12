@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Actions\isHolidays;
-use App\Models\Voting_dates;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +16,7 @@ class CheckIfHolidays
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (isHolidays::execute(Voting_dates::activeVotingDate(), true)) {
+        if (isHolidays::execute(now(), true)) {
             abort(403, 'Dnes sú prázdniny');
         }
 
