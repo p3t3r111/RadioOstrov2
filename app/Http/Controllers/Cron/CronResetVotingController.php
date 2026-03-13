@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cron;
 use App\Actions\cron\AddNewSongsToPlaylist;
 use App\Actions\cron\GenerateNewVotingSongs;
 use App\Actions\cron\StoreVotingSongs;
+use App\Actions\isHolidays;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 
@@ -18,8 +19,11 @@ class CronResetVotingController extends Controller
             $user->voted = 0;
             $user->save();
         });
-        StoreVotingSongs::execute();
-        AddNewSongsToPlaylist::execute();
-        GenerateNewVotingSongs::execute();
+
+        if (! isHolidays::execute(now()->subDay())) {
+            StoreVotingSongs::execute();
+            AddNewSongsToPlaylist::execute();
+            GenerateNewVotingSongs::execute();
+        }
     }
 }

@@ -14,9 +14,9 @@ Route::middleware(app()->environment('production') ? 'cron' : null)->group(funct
         Artisan::call('queue:work', ['--stop-when-empty' => true, '--max-time' => 60]);
     });
     Route::get('cronDates', [CronJobVotingDatesController::class, 'index'])->name('cronJOBvotesDATES.index');
+    Route::get('cronResetVoting', [CronResetVotingController::class, 'index'])->name('cronJOBresetVoting.index');
 
     Route::middleware('isHoliday')->group(function () {
-        Route::get('cronResetVoting', [CronResetVotingController::class, 'index'])->name('cronJOBresetVoting.index');
         Route::get('cronPlaySongs', [CronJobPlaySongsController::class, 'index'])->name('cronJOBplaySongs.index');
         Route::get('cronPauseSongs', [CronJobPauseSongsController::class, 'index'])->name('cronJOBpauseSongs.index');
 
