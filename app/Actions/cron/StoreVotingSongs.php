@@ -13,7 +13,7 @@ class StoreVotingSongs
     {
         $song_query = Active_voting_song::all();
         $activeVotingDay = Voting_dates::activeVotingDate();
-        $votingDateNEW = Carbon::parse($activeVotingDay->to)
+        $votingDateNEW = Carbon::parse($activeVotingDay)
             ->addDay()
             ->format('Y-m-d');
 
