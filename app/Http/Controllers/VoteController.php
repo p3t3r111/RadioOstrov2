@@ -23,22 +23,18 @@ class VoteController extends Controller
             Voting_dates::activeVotingDate()
         )->setTime(config('app.voting_hours'), 0, 0);
 
-        $hlasy = Vote::distinct()->orderBy('datum', 'desc')->pluck('datum')->map(function ($date) {
+        $hlasy = Vote::distinct()->orderBy('datum', 'desc')->pluck('datum')->map(function ($date) use ($activeVotingTo) {
             $votingDate = Carbon::createFromFormat('Y-m-d', $date)->setTime(config('app.voting_hours'), 0, 0);
 
             return [
                 'datum' => $votingDate->format('d.m.Y'),
-                'active' => false,
+                'active' => $activeVotingTo->equalTo($votingDate),
             ];
         })->toArray();
 
         $activeVotingDay = $activeVotingTo->format('d.m.Y');
-        if (in_array($activeVotingDay, array_column($hlasy, 'datum'))) {
-            if (auth()->user()->canVote()) {
-                array_unshift($hlasy, ['datum' => $activeVotingDay, 'active' => true]);
-            } else {
-                unset($hlasy[array_search($activeVotingDay, array_column($hlasy, 'datum'))]);
-            }
+        if (! in_array($activeVotingDay, array_column($hlasy, 'datum'))) {
+            array_unshift($hlasy, ['datum' => $activeVotingDay, 'active' => true]);
         }
 
         $perPage = 10;
