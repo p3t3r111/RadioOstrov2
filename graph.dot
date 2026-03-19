@@ -1,0 +1,375 @@
+digraph G {
+	graph [bb="0,0,1929,2881",
+		bgcolor="#F7F7F7",
+		concentrate=1,
+		esep=1,
+		fontname="Helvetica Neue",
+		fontsize=12,
+		labelloc=t,
+		nodesep=1,
+		overlap="",
+		pad=0.5,
+		rankdir=LR,
+		ranksep=2,
+		splines=polyline,
+		style=filled
+	];
+	node [label="\N"];
+	appmodelsactivevotingsong	[fontname="Helvetica Neue",
+		height=2.8819,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Active_voting_song</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="song_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >song_id (bigint)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="89.375,518.5",
+		shape=rectangle,
+		width=2.4826];
+	appmodelssong	[fontname="Helvetica Neue",
+		height=8.0694,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Song</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="title" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >title (varchar)</font></td></tr>
+<tr width="100%"><td port="songId" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >songId (varchar)</font></td></tr>
+<tr width="100%"><td port="author" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >author (varchar)</font></td></tr>
+<tr width="100%"><td port="img_path" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >img_path (varchar)</font></td></tr>
+<tr width="100%"><td port="duration_ms" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >duration_ms (int)</font></td></tr>
+<tr width="100%"><td port="explicit" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >explicit (tinyint)</font></td></tr>
+<tr width="100%"><td port="length" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >length (int)</font></td></tr>
+<tr width="100%"><td port="weekly_played" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >weekly_played (int)</font></td></tr>
+<tr width="100%"><td port="confirmed" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >confirmed (tinyint)</font></td></tr>
+<tr width="100%"><td port="moderation_reason" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >moderation_reason (varchar)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="432,290.5",
+		shape=rectangle,
+		width=2.9306];
+	appmodelsactivevotingsong:song_id -> appmodelssong:id	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="252.62,528.38",
+		penwidth=1.8,
+		pos="s,178.75,518.5 e,326.5,518.75 189.38,518.52 218.89,518.57 301.03,518.71 321.72,518.74",
+		xlabel="BelongsTo
+song",
+		xlp="221.42,499.13"];
+	user_songs	[fontname="Helvetica Neue",
+		height=3.4583,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Pivot</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="user_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >user_id (bigint)</font></td></tr>
+<tr width="100%"><td port="song_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >song_id (bigint)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="774.62,780.5",
+		shape=rectangle,
+		width=2.4826];
+	appmodelssong:id -> user_songs:song_id	[color="#003049",
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="611.38,649",
+		penwidth=1.8,
+		pos="e,685.25,759.75 537.5,518.75 537.5,518.75 650.12,702.44 678.71,749.08",
+		xlabel="BelongsToMany
+users",
+		xlp="555.61,614.42"];
+	appmodelsvote	[fontname="Helvetica Neue",
+		height=5.1875,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Vote</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="datum" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >datum (date)</font></td></tr>
+<tr width="100%"><td port="user_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >user_id (bigint)</font></td></tr>
+<tr width="100%"><td port="song_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >song_id (bigint)</font></td></tr>
+<tr width="100%"><td port="vote_weight" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >vote_weight (decimal)</font></td></tr>
+<tr width="100%"><td port="vote_count" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >vote_count (int)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="1464.4,719.5",
+		shape=rectangle,
+		width=2.4826];
+	appmodelssong:id -> appmodelsvote:song_id	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="937.88,467.23",
+		penwidth=1.8,
+		pos="e,1375,719.5 537.5,518.75 537.5,518.75 1011.8,446.5 1011.8,446.5 1011.8,446.5 1227.2,446.5 1227.2,446.5 1227.2,446.5 1343.9,662.1 \
+1369.9,710.1",
+		xlabel="HasMany
+votes",
+		xlp="998.76,427"];
+	appmodelsreward	[fontname="Helvetica Neue",
+		height=5.1875,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Reward</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="name" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >name (varchar)</font></td></tr>
+<tr width="100%"><td port="db_column_to_update" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >db_column_to_update (varchar)</font></td></tr>
+<tr width="100%"><td port="max_level" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >max_level (int)</font></td></tr>
+<tr width="100%"><td port="points" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >points (json)</font></td></tr>
+<tr width="100%"><td port="reward" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >reward (json)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="1815.2,1248.5",
+		shape=rectangle,
+		width=3.1597];
+	rewards_users	[fontname="Helvetica Neue",
+		height=4.0347,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Pivot</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="user_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >user_id (bigint)</font></td></tr>
+<tr width="100%"><td port="reward_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >reward_id (bigint)</font></td></tr>
+<tr width="100%"><td port="level" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >level (int)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="1464.4,1373.5",
+		shape=rectangle,
+		width=2.4826];
+	appmodelsreward:id -> rewards_users:reward_id	[color="#003049",
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="1627.6,1324.8",
+		penwidth=1.8,
+		pos="e,1553.8,1373.5 1701.5,1373 1701.5,1373 1629.5,1315 1629.5,1315 1629.5,1315 1625.8,1315 1625.8,1315 1625.8,1315 1583.1,1349.6 1563.5,\
+1365.6",
+		xlabel="BelongsToMany
+users",
+		xlp="1685.3,1298.1"];
+	rewards_users:reward_id -> appmodelsreward:id	[color="#003049",
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="1627.6,1383",
+		penwidth=1.8,
+		pos="e,1701.5,1373 1553.8,1373.5 1553.8,1373.5 1653.2,1373.2 1688.9,1373",
+		xlabel="BelongsToMany
+rewards",
+		xlp="1673.8,1353.8"];
+	appmodelsuser	[fontname="Helvetica Neue",
+		height=13.833,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">User</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="name" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >name (varchar)</font></td></tr>
+<tr width="100%"><td port="usertype" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >usertype (varchar)</font></td></tr>
+<tr width="100%"><td port="email" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >email (varchar)</font></td></tr>
+<tr width="100%"><td port="email_verified_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >email_verified_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="password" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >password (varchar)</font></td></tr>
+<tr width="100%"><td port="referral_code" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >referral_code (varchar)</font></td></tr>
+<tr width="100%"><td port="voted" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >voted (tinyint)</font></td></tr>
+<tr width="100%"><td port="votes" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >votes (bigint)</font></td></tr>
+<tr width="100%"><td port="invited_people" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >invited_people (int)</font></td></tr>
+<tr width="100%"><td port="vote_weight" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >vote_weight (float)</font></td></tr>
+<tr width="100%"><td port="max_favorite_songs" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >max_favorite_songs (int)</font></td></tr>
+<tr width="100%"><td port="max_votes_per_day" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >max_votes_per_day (int)</font></td></tr>
+<tr width="100%"><td port="all_time_points" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >all_time_points (decimal)</font></td></tr>
+<tr width="100%"><td port="used_points" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >used_points (decimal)</font></td></tr>
+<tr width="100%"><td port="google_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >google_id (text)</font></td></tr>
+<tr width="100%"><td port="google_token" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >google_token (text)</font></td></tr>
+<tr width="100%"><td port="google_refresh_token" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >google_refresh_token (text)</font></td></tr>
+<tr width="100%"><td port="remember_token" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >remember_token (varchar)</font></td></tr>
+<tr width="100%"><td port="theme" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >theme (varchar)</font></td></tr>
+<tr width="100%"><td port="locale" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >locale (varchar)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="1119.5,980.5",
+		shape=rectangle,
+		width=2.9931];
+	rewards_users:user_id -> appmodelsuser:id	[color="#003049",
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="1301.1,1366.8",
+		penwidth=1.8,
+		pos="e,1227.2,1416.2 1375,1415 1375,1415 1303,1357 1303,1357 1303,1357 1299.2,1357 1299.2,1357 1299.2,1357 1256.6,1392.1 1237,1408.3",
+		xlabel="BelongsToMany
+users",
+		xlp="1253.6,1340"];
+	appmodelsuser:id -> rewards_users:user_id	[color="#003049",
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="1301.1,1425.4",
+		penwidth=1.8,
+		pos="e,1375,1415 1227.2,1416.2 1227.2,1416.2 1326.7,1415.4 1362.4,1415.1",
+		xlabel="BelongsToMany
+rewards",
+		xlp="1347.3,1396.2"];
+	appmodelsuser:id -> user_songs:user_id	[color="#003049",
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="937.88,1080.8",
+		penwidth=1.8,
+		pos="e,864,801.25 1011.8,1416.2 1011.8,1416.2 939.75,1071 939.75,1071 939.75,1071 882.01,865.39 867.35,813.19",
+		xlabel="BelongsToMany
+songs",
+		xlp="895.92,1132.1"];
+	appmodelsuser:id -> appmodelsvote:user_id	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="1301.1,1098.4",
+		penwidth=1.8,
+		pos="e,1375,761 1227.2,1416.2 1227.2,1416.2 1353.9,854.65 1372.7,771.29",
+		xlabel="HasMany
+votes",
+		xlp="1269.2,1113.3"];
+	user_songs:song_id -> appmodelssong:id	[color="#003049",
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="611.38,611.75",
+		penwidth=1.8,
+		pos="e,537.5,518.75 685.25,759.75 685.25,759.75 613.25,602 613.25,602 613.25,602 565.62,549.65 545.9,527.98",
+		xlabel="BelongsToMany
+songs",
+		xlp="680.97,615.85"];
+	user_songs:user_id -> appmodelsuser:id	[color="#003049",
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="937.88,1118.5",
+		penwidth=1.8,
+		pos="e,1011.8,1416.2 864,801.25 864,801.25 987.97,1317.3 1008.8,1404",
+		xlabel="BelongsToMany
+users",
+		xlp="883.9,1083.1"];
+	appmodelsvote:song_id -> appmodelssong:id	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="937.88,429.75",
+		penwidth=1.8,
+		pos="s,1375,719.5 e,537.5,518.75 1370.7,710.09 1355.2,676.08 1303,561.5 1303,561.5 1303,561.5 1227.2,428.5 1227.2,428.5 1227.2,428.5 \
+939.75,420 939.75,420 939.75,420 936,420 936,420 936,420 685.25,451.5 685.25,451.5 685.25,451.5 565.99,505.78 541.76,516.81",
+		xlabel="BelongsTo
+song",
+		xlp="1068.8,403.31"];
+	appmodelsvote:user_id -> appmodelsuser:id	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="1301.1,1060.8",
+		penwidth=1.8,
+		pos="s,1375,761 e,1227.2,1416.2 1372.3,771.32 1358.8,822.98 1299.2,1051 1299.2,1051 1299.2,1051 1236.8,1368 1228.2,1411.4",
+		xlabel="BelongsTo
+user",
+		xlp="1325.8,1069.9"];
+	appmodelsbackupsong	[fontname="Helvetica Neue",
+		height=6.3403,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Backup_song</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="songId" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >songId (varchar)</font></td></tr>
+<tr width="100%"><td port="imgPath" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >imgPath (varchar)</font></td></tr>
+<tr width="100%"><td port="author" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >author (varchar)</font></td></tr>
+<tr width="100%"><td port="title" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >title (varchar)</font></td></tr>
+<tr width="100%"><td port="user" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >user (varchar)</font></td></tr>
+<tr width="100%"><td port="duration_ms" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >duration_ms (int)</font></td></tr>
+<tr width="100%"><td port="weekly_played" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >weekly_played (tinyint)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="89.375,922.5",
+		shape=rectangle,
+		width=2.4826];
+	appmodelsholiday	[fontname="Helvetica Neue",
+		height=4.6111,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Holiday</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="name" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >name (varchar)</font></td></tr>
+<tr width="100%"><td port="start_date" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >start_date (date)</font></td></tr>
+<tr width="100%"><td port="end_date" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >end_date (date)</font></td></tr>
+<tr width="100%"><td port="type" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >type (varchar)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="89.375,1388.5",
+		shape=rectangle,
+		width=2.4826];
+	appmodelsreferedlog	[fontname="Helvetica Neue",
+		height=3.4583,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">ReferedLog</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="email" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >email (varchar)</font></td></tr>
+<tr width="100%"><td port="referrer_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >referrer_id (bigint)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="89.375,1751.5",
+		shape=rectangle,
+		width=2.4826];
+	appmodelsupdate	[fontname="Helvetica Neue",
+		height=4.0347,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Update</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="text" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >text (varchar)</font></td></tr>
+<tr width="100%"><td port="action" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >action (varchar)</font></td></tr>
+<tr width="100%"><td port="end_date" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >end_date (date)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="89.375,2093.5",
+		shape=rectangle,
+		width=2.4826];
+	appmodelsusersong	[fontname="Helvetica Neue",
+		height=3.4583,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">User_song</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="user_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >user_id (bigint)</font></td></tr>
+<tr width="100%"><td port="song_id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >song_id (bigint)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="89.375,2435.5",
+		shape=rectangle,
+		width=2.4826];
+	appmodelsvotingdates	[fontname="Helvetica Neue",
+		height=3.4583,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Voting_dates</font></td></tr>
+<tr width="100%"><td port="id" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >id (bigint)</font></td></tr>
+<tr width="100%"><td port="from" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >from (date)</font></td></tr>
+<tr width="100%"><td port="to" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >to (date)</font></td></tr>
+<tr width="100%"><td port="created_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >created_at (timestamp)</font></td></tr>
+<tr width="100%"><td port="updated_at" align="left" width="100%"  bgcolor="#ffffff"><font color="#333333" >updated_at (timestamp)</font></td></tr>
+</table>>,
+		margin=0,
+		pos="89.375,2756.5",
+		shape=rectangle,
+		width=2.4826];
+}
