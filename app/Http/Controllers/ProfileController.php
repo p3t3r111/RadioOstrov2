@@ -80,7 +80,7 @@ class ProfileController extends Controller
     public function songs(Request $request)
     {
         $songList = [];
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= $request->user()->max_favorite_songs; $i++) {
             $song = 'song'.$i;
             $songId = 'song'.$i.'Id';
             $songF = [

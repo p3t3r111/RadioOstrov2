@@ -4,8 +4,7 @@
             {{ __('profile.favorite_songs.title') }}
         </h2>
         <div class="flex flex-col mt-1 text-sm text-gray-600 dark:text-darkMode-text gap-2">
-            <span
-                class="font-bold">{{ __('profile.favorite_songs.text.main') }}</span>
+            <span class="font-bold">{{ __('profile.favorite_songs.text.main') }}</span>
 
             <div class="flex gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -45,7 +44,8 @@
             @endfor
         </div>
         <div class="flex items-center gap-4">
-            <input type="submit" value="{{ __('profile.favorite_songs.save_changes') }}" class="p-2 bg-ostrov hover:bg-ostrovHover text-white rounded-md cursor-pointer">
+            <input type="submit" value="{{ __('profile.favorite_songs.save_changes') }}"
+                class="p-2 bg-ostrov hover:bg-ostrovHover text-white rounded-md cursor-pointer">
             @if (session('status') === 'songs-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
                     class="text-sm text-gray-600 dark:text-gray-400">{{ __('Uložené.') }}</p>
