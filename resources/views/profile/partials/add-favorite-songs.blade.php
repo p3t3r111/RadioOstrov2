@@ -40,7 +40,7 @@
                 @php
                     $song = $songs[$i - 1];
                 @endphp
-                <x-profile-song-card :index="$i" :title="$song['title']" :songId="$song['songId']" :confirmed="$song['confirmed']" />
+                <x-profile-song-card :index="$i" :song="$song" />
             @endfor
         </div>
         <div class="flex items-center gap-4">
