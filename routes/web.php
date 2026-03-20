@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile/picture', [ProfileController::class, 'picture'])->name('profile.picture');
     Route::patch('/profile/theme', [ProfileController::class, 'patchTheme'])->name('profile.theme.update');
     Route::post('/rewards/claim/{reward}', [ProfileController::class, 'claimReward'])->name('rewards.claim');
+    Route::post('/profile/update-referallink', [ProfileController::class, 'updateReferalLink'])->name('profile.update.referallink');
 
     // GAME
     Route::view('/game', 'game.index');

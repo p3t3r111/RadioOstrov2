@@ -105,6 +105,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Reward::class, 'rewards_users')->withPivot('level')->withTimestamps();
     }
 
+    public function hasCustomReferralLink()
+    {
+        $reward = $this->rewards()->where('name', 'Custom Referral Link')->first();
+        if ($reward && $reward->pivot->level == $reward->max_level) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function canVote()
     {
         return $this->voted < $this->max_votes_per_day && ! isHolidays::execute(Voting_dates::activeVotingDate()) && Active_voting_song::count() > 0;

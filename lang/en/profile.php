@@ -34,6 +34,7 @@ return [
         'title' => 'Your invite link',
         'text' => 'Share this link with your friends to join Radio Ostrov. Each new user that registers using this link will provide you with extra benefits.',
         'copy_link' => 'Copy link',
+        'update_link' => 'Update link',
     ],
 
     'reward_system' => [

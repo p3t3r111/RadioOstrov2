@@ -205,4 +205,24 @@ class ProfileController extends Controller
         return Redirect::route('profile.show')
             ->with('status', 'reward-claimed');
     }
+
+    public function updateReferalLink(Request $request)
+    {
+        $user = $request->user();
+
+        if (! $user->hasCustomReferralLink()) {
+            return Redirect::route('profile.show')
+                ->with('status', 'reward-not-unlocked');
+        }
+
+        $request->validate([
+            'referral_code' => ['required', 'string', 'max:255', 'min:4', 'unique:users,referral_code,'.$user->id],
+        ]);
+
+        $user->referral_code = $request->referral_code;
+        $user->save();
+
+        return Redirect::back()
+            ->with('status', 'referral-link-updated');
+    }
 }
