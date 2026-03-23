@@ -4,7 +4,7 @@
     <div class="flex-1 w-full">
         <label class="flex justify-between px-2 font-medium text-sm" for="name">
             {{ $index }}. {{ __('profile.favorite_songs.song') }}
-            @if ($song && $song['id'])
+            @if (isset($song))
                 @if ($song['confirmed'] == 1)
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5 text-green-500">
@@ -16,7 +16,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5 text-red-500">
                         <title>
-                            @if ($song && $song['confirmed'] == -1)
+                            @if ($song['confirmed'] == -1)
                                 {{ $song['moderation_reason'] }}
                             @endif
                         </title>
@@ -34,14 +34,14 @@
             @endif
         </label>
         <input type="hidden" name="song{{ $index }}Id" class="songId"
-            @if ($song && $song['id']) value="{{ $song['id'] }}" @endif>
+            @if (isset($song) && $song['songId']) value="{{ $song['songId'] }}" @endif>
         <input
             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full dark:bg-darkMode-background-900 dark:border-slate-700 dark:text-darkMode-text"
             autocomplete="off" id="song{{ $index }}" name="song{{ $index }}" type="text"
-            @if ($song && $song['title']) value="{{ $song['title'] }}" @endif>
+            @if (isset($song) && $song['title']) value="{{ $song['title'] }}" @endif>
     </div>
 
-    @if ($song && $song['songId'])
+    @if (isset($song) && $song['songId'])
         <div class="flex flex-col">
             <iframe style="border-radius:12px"
                 src="https://open.spotify.com/embed/track/{{ $song['songId'] }}?utm_source=generator" height="152"
