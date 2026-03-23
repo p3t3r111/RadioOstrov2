@@ -18,6 +18,23 @@ class GenerateNewVotingSongs
             ->get();
 
         if ($songVotesList->count() < 12) {
+            Song::where('confirmed', 1)
+                ->update(['weekly_played' => 0]);
+
+            $remaining = 12 - $songVotesList->count();
+
+            $songVotesList2 = Song::where('confirmed', 1)
+                ->where('weekly_played', 0)
+                ->has('users')
+                ->inRandomOrder()
+                ->limit($remaining)
+                ->get();
+
+            $songVotesList = $songVotesList->merge($songVotesList2);
+
+        }
+
+        if ($songVotesList->count() < 12) {
             $songVotesList = Backup_song::where('weekly_played', 0)
                 ->inRandomOrder()
                 ->limit(12)
