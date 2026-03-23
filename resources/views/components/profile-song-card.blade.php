@@ -4,7 +4,7 @@
     <div class="flex-1 w-full">
         <label class="flex justify-between px-2 font-medium text-sm" for="name">
             {{ $index }}. {{ __('profile.favorite_songs.song') }}
-            @if (isset($song))
+            @if (isset($song) && $song['songId'])
                 @if ($song['confirmed'] == 1)
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5 text-green-500">
