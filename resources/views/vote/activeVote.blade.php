@@ -52,6 +52,8 @@
                 });
             };
 
+            updateIncrementButtons();
+
             voteCounters.forEach(counter => {
                 if (counter.getAttribute("data-count") <= 0) {
                     document.getElementById(`voteDecrement${counter.getAttribute("data-index")}`).disabled =
