@@ -38,10 +38,6 @@ class AddNewSongsToPlaylist
         $db_query = $db_query->merge($db_query2);
 
         foreach ($db_query as $song) {
-            if (self::countTime($playlist_length)->totalMinutes >= 24) {
-                break;
-            }
-
             $songLength = $song->duration_ms;
 
             if ($songLength == 0) {
@@ -53,6 +49,10 @@ class AddNewSongsToPlaylist
             $playlist_length += $song->duration_ms;
             $songs[] = $song;
             $song->save();
+
+            if (self::countTime($playlist_length)->totalMinutes >= 24) {
+                break;
+            }
         }
 
         AddSongsToPlaylist::execute($songs);
