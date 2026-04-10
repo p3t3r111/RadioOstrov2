@@ -35,6 +35,8 @@ return [
         'text' => 'Zdieľajte tento odkaz s priateľmi, aby sa mohli pripojiť k Rádio ostrov. Každý nový používateľ, ktorý sa zaregistruje pomocou tohto odkazu, vám poskytne extra výhody.',
         'copy_link' => 'Kopírovať odkaz',
         'update_link' => 'Aktualizovat odkaz',
+        'custom_link' => 'Váš vlastný odkaz',
+        'custom_link_text' => 'Vytvorte si vlastný pozývací odkaz, ktorý môžete zdieľať s priateľmi.',
     ],
 
     'reward_system' => [

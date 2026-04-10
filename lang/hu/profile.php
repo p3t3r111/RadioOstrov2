@@ -35,6 +35,8 @@ return [
         'text' => 'Oszd meg ezt a hivatkozást a barátaiddal, hogy csatlakozhassanak a Rádió Ostrovhoz. Minden új felhasználó, aki ezen a linken keresztül regisztrál, extra előnyöket biztosít neked.',
         'copy_link' => 'Hivatkozás másolása',
         'update_link' => 'Hivatkozás frissítése',
+        'custom_link' => 'Saját egyedi hivatkozás',
+        'custom_link_text' => 'Hozz létre egy saját egyedi hivatkozást, amelyet megoszthatsz a barátaiddal.',
     ],
 
     'reward_system' => [

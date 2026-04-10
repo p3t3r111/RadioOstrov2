@@ -1,12 +1,12 @@
-<div class="">
-    <div class="">
-        <h2 class="text-lg font-medium dark:text-white mb-4">{{ __('profile.invite_link.title') }}</h2>
-        <p class="mb-4 text-sm text-gray-600 dark:text-darkMode-text">
-            {{ __('profile.invite_link.text') }}
-        </p>
-    </div>
-    <div class="flex gap-4 flex-col lg:flex-row">
-        <div class="relative w-full lg:max-w-[60%] flex-2">
+<div class="flex flex-col lg:flex-row gap-8 items-stretch">
+    <div class="flex flex-col gap-4 flex-1">
+        <div class="">
+            <h2 class="text-lg font-medium dark:text-white">{{ __('profile.invite_link.title') }}</h2>
+            <p class="text-sm text-gray-600 dark:text-darkMode-text">
+                {{ __('profile.invite_link.text') }}
+            </p>
+        </div>
+        <div class="relative w-full flex-2">
             <input disabled
                 class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed shadow-sm dark:border-gray-700 dark:bg-darkMode-background-900 dark:text-darkMode-text sm:text-sm"
                 type="text" value="{{ url('/invite/' . $user->referral_code) }}">
@@ -25,9 +25,17 @@
                 </svg>
             </button>
         </div>
-        @if ($user->hasCustomReferralLink())
+    </div>
+    @if ($user->hasCustomReferralLink())
+        <div class="flex flex-col w-full flex-1 gap-4 lg:gap-0 lg:justify-between">
+            <div class="">
+                <h2 class="text-lg font-medium dark:text-white">{{ __('profile.invite_link.custom_link') }}</h2>
+                <p class="text-sm text-gray-600 dark:text-darkMode-text">
+                    {{ __('profile.invite_link.custom_link_text') }}
+                </p>
+            </div>
             <form method="post" action="{{ route('profile.update.referallink') }}"
-                class="relative w-full lg:max-w-[60%] flex-1">
+                class="relative w-full flex-1 max-h-fit">
                 @csrf
                 <input
                     class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm dark:border-gray-700 dark:bg-darkMode-background-900 dark:text-darkMode-text sm:text-sm"
@@ -44,9 +52,8 @@
                     </svg>
                 </button>
             </form>
-        @endif
-    </div>
-
+        </div>
+    @endif
 </div>
 
 <script>

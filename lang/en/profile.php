@@ -35,6 +35,8 @@ return [
         'text' => 'Share this link with your friends to join Radio Ostrov. Each new user that registers using this link will provide you with extra benefits.',
         'copy_link' => 'Copy link',
         'update_link' => 'Update link',
+        'custom_link' => 'Your custom referral link',
+        'custom_link_text' => 'Create your own custom referral link that you can share with your friends.',
     ],
 
     'reward_system' => [
