@@ -12,7 +12,7 @@ class DeletePlaylist
         $api = Connect::execute();
 
         $track_uris = [];
-        $tracks = $api->getPlaylistTracks($playlist_id);
+        $tracks = $api->getPlaylistItems($playlist_id);
         foreach ($tracks->items as $item) {
             if (isset($item->track) && isset($item->track->uri) && ! Str::contains($item->track->name, 'radioSpeech')) {
                 $track_uris[] = ['uri' => $item->track->uri];
@@ -23,7 +23,7 @@ class DeletePlaylist
             $request_body = [
                 'tracks' => $track_uris,
             ];
-            $api->deletePlaylistTracks($playlist_id, $request_body);
+            $api->deletePlaylistItems($playlist_id, $request_body);
         }
     }
 }

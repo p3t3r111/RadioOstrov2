@@ -24,7 +24,7 @@ class AddSongsToPlaylist
 
             $uri = 'spotify:track:'.$song->songId;
             try {
-                $api->addPlaylistTracks($playlist_id, [$uri], ['position' => $index + 1]);
+                $api->addPlaylistItems($playlist_id, [$uri], ['position' => $index + 1]);
             } catch (Exception $e) {
                 Log::error('SPOTIFY : Chyba při přidávání skladby do playlistu: '.$e->getMessage());
             }
