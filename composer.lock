@@ -4,91 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2e15f10e50bec0c8a3874ad4f42723a",
+    "content-hash": "b68a44910868e3423f7a683530aad2d5",
     "packages": [
-        {
-            "name": "aerni/laravel-spotify",
-            "version": "v2.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/aerni/laravel-spotify.git",
-                "reference": "bf9d90e179ffc888253e5679dce8a38ed19e3ed2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/aerni/laravel-spotify/zipball/bf9d90e179ffc888253e5679dce8a38ed19e3ed2",
-                "reference": "bf9d90e179ffc888253e5679dce8a38ed19e3ed2",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^7.0",
-                "illuminate/support": "^11.0 || ^12.0",
-                "php": "^8.2"
-            },
-            "require-dev": {
-                "nunomaduro/collision": "^8.1",
-                "orchestra/testbench": "^9.0 || ^10.0",
-                "phpunit/phpunit": "^10.0 || ^11.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "Spotify": "Aerni\\Spotify\\Facades\\SpotifyFacade",
-                        "SpotifySeed": "Aerni\\Spotify\\Facades\\SpotifySeedFacade",
-                        "SpotifyClient": "Aerni\\Spotify\\Facades\\SpotifyClientFacade"
-                    },
-                    "providers": [
-                        "Aerni\\Spotify\\Providers\\SpotifyClientServiceProvider",
-                        "Aerni\\Spotify\\Providers\\SpotifyServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Aerni\\Spotify\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Aerni",
-                    "email": "hello@michaelaerni.ch",
-                    "homepage": "https://www.michaelaerni.ch",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A Laravel wrapper for the Spotify Web API",
-            "homepage": "https://github.com/aerni/laravel-spotify",
-            "keywords": [
-                "Album",
-                "Artists",
-                "albums",
-                "api",
-                "artist",
-                "browse",
-                "laravel",
-                "music",
-                "playlist",
-                "playlists",
-                "search",
-                "songs",
-                "spotify",
-                "spotify-api",
-                "spotify-web-api",
-                "track",
-                "tracks",
-                "wrapper"
-            ],
-            "support": {
-                "issues": "https://github.com/aerni/laravel-spotify/issues",
-                "source": "https://github.com/aerni/laravel-spotify/tree/v2.4.0"
-            },
-            "time": "2025-03-13T20:01:57+00:00"
-        },
         {
             "name": "akashrchandran/spotify-lyrics-api",
             "version": "v2.2.1",
@@ -1654,27 +1571,27 @@
         },
         {
             "name": "jwilsson/spotify-web-api-php",
-            "version": "6.3.1",
+            "version": "7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jwilsson/spotify-web-api-php.git",
-                "reference": "5c9f04c5c4826c74ba5d695b899054efdb870ef3"
+                "reference": "ea5d0740b92164fd134698d16458771fdc774e95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jwilsson/spotify-web-api-php/zipball/5c9f04c5c4826c74ba5d695b899054efdb870ef3",
-                "reference": "5c9f04c5c4826c74ba5d695b899054efdb870ef3",
+                "url": "https://api.github.com/repos/jwilsson/spotify-web-api-php/zipball/ea5d0740b92164fd134698d16458771fdc774e95",
+                "reference": "ea5d0740b92164fd134698d16458771fdc774e95",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "php": "^8.1"
+                "php": "^8.3"
             },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.89",
                 "php-coveralls/php-coveralls": "^2.5",
                 "php-mock/php-mock-phpunit": "^2.7",
-                "phpunit/phpunit": "^10.2",
-                "squizlabs/php_codesniffer": "^3.0"
+                "phpunit/phpunit": "^12.0"
             },
             "type": "library",
             "autoload": {
@@ -1699,9 +1616,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jwilsson/spotify-web-api-php/issues",
-                "source": "https://github.com/jwilsson/spotify-web-api-php/tree/6.3.1"
+                "source": "https://github.com/jwilsson/spotify-web-api-php/tree/7.2.0"
             },
-            "time": "2025-12-06T07:07:13+00:00"
+            "time": "2026-07-25T10:06:09+00:00"
         },
         {
             "name": "laravel/framework",
