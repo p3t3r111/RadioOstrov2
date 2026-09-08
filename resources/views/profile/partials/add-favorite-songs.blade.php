@@ -111,7 +111,7 @@
                             `/spotify/search?q=${encodeURIComponent(query)}&limit=10`
                         );
                         const data = await response.json();
-                        showDropdownSongList(songDiv, data.tracks.items);
+                        showDropdownSongList(songDiv, data.items);
                     }, 300);
                 });
 

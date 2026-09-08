@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\spotify\Connect;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -80,27 +81,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth'])->get('/spotify/search', function () {
-    $token = cache()->remember('spotify_token', 3600, function () {
-        $response = Http::asForm()->post('https://accounts.spotify.com/api/token', [
-            'grant_type' => 'client_credentials',
-            'client_id' => config('spotify.auth.client_id'),
-            'client_secret' => config('spotify.auth.client_secret'),
-        ]);
-
-        return $response->json()['access_token'] ?? null;
-    });
-
     $query = request('q');
+    $api = Connect::execute();
     if (! $query) {
         return response()->json(['tracks' => []]);
     }
-    $response = Http::withToken($token)->get('https://api.spotify.com/v1/search', [
-        'q' => $query,
-        'type' => 'track',
-        'limit' => request('limit', 10),
-    ]);
+    $json = $api->search($query, ['track'], [
+        'limit' => 10,
+    ])['tracks'];
 
-    return $response->json();
+    return $json;
 });
 
 Route::get('email', function () {
