@@ -88,7 +88,7 @@ Route::middleware(['auth'])->get('/spotify/search', function () {
     }
     $json = $api->search($query, ['track'], [
         'limit' => 10,
-    ])['tracks'];
+    ])->tracks;
 
     return $json;
 });

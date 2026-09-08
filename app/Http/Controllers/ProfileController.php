@@ -102,16 +102,16 @@ class ProfileController extends Controller
             // 1. MáME  ID PESNIČKY
             if (! empty($song['songId'])) {
                 $json = $api->getTrack($song['songId']);
-                if (isset($json) && count($json) > 0) {
-                    $songToArr = [
-                        'songId' => $json['id'],
-                        'imgPath' => $json['album']['images'][1]['url'],
-                        'author' => $json['artists'][0]['name'],
-                        'title' => $json['name'],
-                        'explicit' => $json['explicit'],
-                        'duration_ms' => $json['duration_ms'],
+                if ($json) {
+                    $songArr = [
+                        'songId' => $json->id,
+                        'imgPath' => $json->album->images[1]->url,
+                        'author' => $json->artists[0]->name,
+                        'title' => $json->name,
+                        'explicit' => $json->explicit,
+                        'duration_ms' => $json->duration_ms,
                     ];
-                    array_push($songInfo, $songToArr);
+                    array_push($songInfo, $songArr);
                 } else {
                     array_push($songInfo, null);
                 }
@@ -123,17 +123,17 @@ class ProfileController extends Controller
             if (! empty($song['songName'])) {
                 $json = $api->search($song['songName'], ['track'], [
                     'limit' => 1,
-                ])['tracks']['items'][0];
-                if (isset($json['items']) && count($json['items']) > 0) {
-                    $song = [
-                        'songId' => $json['items'][0]['id'],
-                        'imgPath' => $json['items'][0]['album']['images'][1]['url'],
-                        'author' => $json['items'][0]['artists'][0]['name'],
-                        'title' => $json['items'][0]['name'],
-                        'explicit' => $json['items'][0]['explicit'],
-                        'duration_ms' => $json['items'][0]['duration_ms'],
+                ])->tracks->items[0];
+                if ($json) {
+                    $songArr = [
+                        'songId' => $json->id,
+                        'imgPath' => $json->album->images[1]->url,
+                        'author' => $json->artists[0]->name,
+                        'title' => $json->name,
+                        'explicit' => $json->explicit,
+                        'duration_ms' => $json->duration_ms,
                     ];
-                    array_push($songInfo, $song);
+                    array_push($songInfo, $songArr);
                 } else {
                     array_push($songInfo, null);
                 }
@@ -160,8 +160,10 @@ class ProfileController extends Controller
 
         // dd('Stop');
 
-        return Redirect::route('profile.show')
-            ->with('status', 'songs-updated');
+        return redirect()
+            ->route('profile.show')
+            ->with('status', 'songs-updated')
+            ->withFragment('personal-favorite-songs');
     }
 
     public function patchTheme(Request $request)
