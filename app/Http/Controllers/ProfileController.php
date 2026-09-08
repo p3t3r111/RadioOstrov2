@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\HandleSongStore;
+use App\Actions\spotify\Connect;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -10,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use Spotify;
 
 class ProfileController extends Controller
 {
@@ -79,6 +79,7 @@ class ProfileController extends Controller
 
     public function songs(Request $request)
     {
+        $api = Connect::execute();
         $songList = [];
         for ($i = 1; $i <= $request->user()->max_favorite_songs; $i++) {
             $song = 'song'.$i;
@@ -100,7 +101,7 @@ class ProfileController extends Controller
 
             // 1. MáME  ID PESNIČKY
             if (! empty($song['songId'])) {
-                $json = Spotify::track($song['songId'])->get();
+                $json = $api->getTrack($song['songId']);
                 if (isset($json) && count($json) > 0) {
                     $songToArr = [
                         'songId' => $json['id'],
@@ -120,7 +121,9 @@ class ProfileController extends Controller
 
             // 2. MÁME NAZOV PESNIČKY
             if (! empty($song['songName'])) {
-                $json = Spotify::searchTracks($song['songName'])->limit(1)->get('tracks');
+                $json = $api->search($song['songName'], ['track'], [
+                    'limit' => 1,
+                ])['tracks']['items'][0];
                 if (isset($json['items']) && count($json['items']) > 0) {
                     $song = [
                         'songId' => $json['items'][0]['id'],

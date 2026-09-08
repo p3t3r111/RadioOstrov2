@@ -16,7 +16,9 @@ class Connect
 
         $session->refreshAccessToken(config('spotify.refresh_token'));
         $accessToken = $session->getAccessToken();
-        $api = new SpotifyWebAPI;
+        $api = new SpotifyWebAPI([
+            'return_assoc' => true,
+        ]);
         $api->setAccessToken($accessToken);
 
         return $api;
