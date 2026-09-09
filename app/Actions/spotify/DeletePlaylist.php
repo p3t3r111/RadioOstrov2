@@ -14,16 +14,12 @@ class DeletePlaylist
         $track_uris = [];
         $tracks = $api->getPlaylistItems($playlist_id);
         foreach ($tracks->items as $item) {
-            if (isset($item->track) && isset($item->track->uri) && ! Str::contains($item->track->name, 'radioSpeech')) {
-                $track_uris[] = ['uri' => $item->track->uri];
+            if (isset($item->item) && isset($item->item->uri) && ! Str::contains($item->item->name, 'radioSpeech')) {
+                $track_uris[] = ['uri' => $item->item->uri];
             }
         }
         if (count($track_uris) > 0) {
-
-            $request_body = [
-                'tracks' => $track_uris,
-            ];
-            $api->deletePlaylistItems($playlist_id, $request_body);
+            $api->deletePlaylistItems($playlist_id, $track_uris);
         }
     }
 }
